@@ -45,6 +45,15 @@
             font-weight: bold;
             color: #22c55e;
         }
+        .tab-content {
+            animation: fadeIn 0.3s ease-in;
+        }
+        .tab-btn {
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover {
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="h-full bg-black">
@@ -58,87 +67,358 @@
                 <p class="text-gray-300 text-center mt-2">
                     Revenue Engine & Traffic Analytics Platform
                 </p>
+
+                <!-- Navigation Tabs -->
+                <nav class="mt-6">
+                    <div class="flex justify-center space-x-1">
+                        <button id="tab-dashboard" class="tab-btn active px-6 py-2 rounded-t-lg border border-gray-600 bg-gray-800 text-white">
+                            🏠 Dashboard
+                        </button>
+                        <button id="tab-experts" class="tab-btn px-6 py-2 rounded-t-lg border border-gray-600 bg-gray-700 text-gray-300 hover:bg-gray-600">
+                            👥 Expert Engine
+                        </button>
+                        <button id="tab-attribution" class="tab-btn px-6 py-2 rounded-t-lg border border-gray-600 bg-gray-700 text-gray-300 hover:bg-gray-600">
+                            💰 Attribution & Settlement
+                        </button>
+                        <button id="tab-api" class="tab-btn px-6 py-2 rounded-t-lg border border-gray-600 bg-gray-700 text-gray-300 hover:bg-gray-600">
+                            📚 API Specs
+                        </button>
+                    </div>
+                </nav>
             </div>
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 max-w-7xl mx-auto w-full p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Left Panel: Nostr Node Status -->
-            <div class="card p-6">
-                <h2 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
-                    🔗 Nostr Node Connection
-                </h2>
+        <main class="flex-1 max-w-7xl mx-auto w-full p-6">
 
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <span class="text-gray-300">Connection Status</span>
-                        <span id="connectionStatus" class="text-green-400">● Connected</span>
-                    </div>
-
-                    <div class="flex items-center justify-between">
-                        <span class="text-gray-300">Active Relays</span>
-                        <span id="relayCount" class="text-white">3</span>
-                    </div>
-
-                    <div class="flex items-center justify-between">
-                        <span class="text-gray-300">Social Sync Status</span>
-                        <span id="syncStatus" class="text-yellow-400">Paused</span>
-                    </div>
-
-                    <div class="mt-4 p-3 bg-gray-800 rounded border border-gray-600">
-                        <p class="text-gray-300 text-sm">
-                            Mastodon integration is not configured. Social media synchronization is currently paused.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Panel: AdNostr Value Assessor -->
-            <div class="card p-6">
-                <h2 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
-                    💰 AdNostr Value Assessor
-                </h2>
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-2 text-gray-300">Expert ID</label>
-                        <input id="expertId" type="number" value="1" placeholder="Enter expert ID"
-                               class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-500">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium mb-2 text-gray-300">Traffic Source</label>
-                        <select id="trafficSource" class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white">
-                            <option value="tiktok" selected>TikTok (Premium)</option>
-                            <option value="twitter">Twitter</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="instagram">Instagram</option>
-                            <option value="direct">Direct</option>
-                        </select>
-                    </div>
-
-                    <button id="testRewardBtn" class="w-full btn-success px-4 py-2 rounded hover:bg-green-600 transition-colors">
-                        Calculate Revenue
-                    </button>
-
-                    <div id="rewardResult" class="mt-4 p-4 bg-gray-800 rounded border border-gray-600">
-                        <div id="revenueDisplay" class="text-center hidden">
-                            <div class="revenue-display mb-2">+ <span id="satsAmount">0</span> Sats</div>
-                            <p class="text-gray-400 text-sm">Estimated revenue per click</p>
-                        </div>
-                        <div id="calculationDetails" class="hidden mt-4 pt-4 border-t border-gray-600">
-                            <button id="showDetailsBtn" class="text-sm text-blue-400 hover:text-blue-300">Show Details ▼</button>
-                            <div id="detailsContent" class="hidden mt-2">
-                                <pre id="rewardOutput" class="text-gray-400 text-xs whitespace-pre-wrap"></pre>
+            <!-- Dashboard Tab -->
+            <div id="content-dashboard" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Traffic Heatmap -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                            🌡️ Traffic Heatmap
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">TikTok</span>
+                                <div class="flex items-center">
+                                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                                        <div class="bg-pink-500 h-2 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                    <span class="text-pink-400 text-sm">247</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Instagram</span>
+                                <div class="flex items-center">
+                                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                                        <div class="bg-purple-500 h-2 rounded-full" style="width: 62%"></div>
+                                    </div>
+                                    <span class="text-purple-400 text-sm">156</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Twitter</span>
+                                <div class="flex items-center">
+                                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 43%"></div>
+                                    </div>
+                                    <span class="text-blue-400 text-sm">108</span>
+                                </div>
                             </div>
                         </div>
-                        <div id="initialMessage" class="text-center text-gray-500">
-                            Click "Calculate Revenue" to see estimated earnings...
+                        <p class="text-gray-400 text-xs mt-4">Real-time clicks to adnostr.org (last 24h)</p>
+                    </div>
+
+                    <!-- Sats Settlement Total -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                            ₿ Sats Settlement Total
+                        </h3>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-yellow-400 mb-2">47,891</div>
+                            <p class="text-gray-400 text-sm">Total Sats generated for 20 experts</p>
+                            <div class="mt-4 grid grid-cols-2 gap-4 text-center">
+                                <div>
+                                    <div class="text-lg font-semibold text-green-400">+2,156</div>
+                                    <p class="text-gray-500 text-xs">Today</p>
+                                </div>
+                                <div>
+                                    <div class="text-lg font-semibold text-blue-400">+15,432</div>
+                                    <p class="text-gray-500 text-xs">This Week</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nostr Relay Health -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                            🛰️ Nostr Relay Health
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Global Coverage</span>
+                                <span class="text-green-400">94.2%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Active Relays</span>
+                                <span class="text-white">1,247</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Avg Response</span>
+                                <span class="text-yellow-400">142ms</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Uptime (30d)</span>
+                                <span class="text-green-400">99.7%</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 94.2%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Attribution Window -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                        📊 Live Attribution Window
+                    </h3>
+                    <div id="liveAttribution" class="space-y-3">
+                        <div class="text-center text-gray-500 py-8">
+                            <p>Waiting for traffic attribution events...</p>
+                            <p class="text-sm mt-2">Share links on social media to see real-time data here</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Expert Engine Tab -->
+            <div id="content-experts" class="tab-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Expert List -->
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                            👥 Expert Directory
+                        </h3>
+                        <div class="space-y-2 max-h-96 overflow-y-auto">
+                            <div id="expertList" class="space-y-2">
+                                <!-- Experts will be loaded here -->
+                                <div class="text-center text-gray-500 py-4">
+                                    <p>Loading expert directory...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="loadExpertsBtn" class="w-full mt-4 btn-gray px-4 py-2 rounded">
+                            Load Expert Directory
+                        </button>
+                    </div>
+
+                    <!-- Expert Details -->
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                            👤 Expert Profile
+                        </h3>
+                        <div id="expertDetails" class="space-y-4">
+                            <div class="text-center text-gray-500 py-8">
+                                <p>Select an expert from the directory to view details</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parameter Adjustment -->
+                <div class="card p-6 mt-6">
+                    <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                        ⚙️ Dynamic Parameter Adjustment
+                    </h3>
+                    <div id="parameterAdjustment" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="text-center text-gray-500 py-4">
+                            <p>Select an expert to adjust revenue parameters</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attribution & Settlement Tab -->
+            <div id="content-attribution" class="tab-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <!-- Click Path Tracking -->
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                            🕵️ Click Path Tracking
+                        </h3>
+                        <div id="clickTracking" class="space-y-3 max-h-80 overflow-y-auto">
+                            <div class="text-center text-gray-500 py-4">
+                                <p>No recent click events</p>
+                                <p class="text-sm mt-2">Click tracking data will appear here</p>
+                            </div>
+                        </div>
+                        <button id="loadClicksBtn" class="w-full mt-4 btn-gray px-4 py-2 rounded">
+                            Refresh Click Data
+                        </button>
+                    </div>
+
+                    <!-- Lightning Network Status -->
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                            ⚡ Lightning Network Status
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Available Balance</span>
+                                <span class="text-yellow-400 font-semibold">12,456 Sats</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Pending Payments</span>
+                                <span class="text-blue-400">3,221 Sats</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Today's Settlements</span>
+                                <span class="text-green-400">847 Sats</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300">Network Fee Rate</span>
+                                <span class="text-gray-400">0.1%</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-3 bg-gray-800 rounded border border-gray-600">
+                            <p class="text-gray-300 text-sm">
+                                <span class="text-green-400">●</span> Lightning Network: Operational
+                            </p>
+                            <p class="text-gray-400 text-xs mt-1">
+                                Ready to process automated settlements
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Export -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+                        📄 Data Export & Auditing
+                    </h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="btn-primary px-6 py-2 rounded">
+                            📊 Generate PDF Report
+                        </button>
+                        <button class="btn-gray px-6 py-2 rounded">
+                            📈 Export CSV Data
+                        </button>
+                        <button class="btn-gray px-6 py-2 rounded">
+                            🔍 Audit Trail
+                        </button>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-4">
+                        Generate comprehensive reports for sponsors and stakeholders
+                    </p>
+                </div>
+            </div>
+
+            <!-- API Specs Tab -->
+            <div id="content-api" class="tab-content hidden">
+                <div class="card p-6">
+                    <h2 class="text-2xl font-semibold mb-6 text-white border-b border-gray-600 pb-4">
+                        📚 AdNostr API Specifications
+                    </h2>
+
+                    <div class="space-y-8">
+                        <!-- Core Endpoints -->
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4 text-blue-400">Core Endpoints</h3>
+                            <div class="space-y-4">
+                                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-green-400 font-mono">POST /api/v1/post_ad</span>
+                                        <span class="text-xs bg-green-600 px-2 py-1 rounded">Generate Ad</span>
+                                    </div>
+                                    <p class="text-gray-300 text-sm">Generate AI-powered advertisement and post to Mastodon</p>
+                                    <div class="mt-2 text-xs text-gray-500">
+                                        <strong>Payload:</strong> prompt, image_type, description, style, brand_elements
+                                    </div>
+                                </div>
+
+                                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-yellow-400 font-mono">POST /api/v1/click_track</span>
+                                        <span class="text-xs bg-yellow-600 px-2 py-1 rounded">Track Click</span>
+                                    </div>
+                                    <p class="text-gray-300 text-sm">Track advertisement clicks for revenue attribution</p>
+                                    <div class="mt-2 text-xs text-gray-500">
+                                        <strong>Payload:</strong> post_id, click_source, campaign_id
+                                    </div>
+                                </div>
+
+                                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-blue-400 font-mono">GET /api/v1/ad/stream</span>
+                                        <span class="text-xs bg-blue-600 px-2 py-1 rounded">Get Stream</span>
+                                    </div>
+                                    <p class="text-gray-300 text-sm">Get advertisement stream with expert data</p>
+                                    <div class="mt-2 text-xs text-gray-500">
+                                        <strong>Returns:</strong> Array of expert profiles with avatars/banners
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Integration Examples -->
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4 text-purple-400">Integration Examples</h3>
+                            <div class="bg-gray-900 p-4 rounded border border-gray-600">
+                                <h4 class="text-white mb-2">JavaScript Integration</h4>
+                                <pre class="text-gray-300 text-sm overflow-x-auto"><code>// Generate advertisement
+const response = await fetch('/api/v1/post_ad', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    prompt: "Beautiful sunset over mountains",
+    image_type: "beauty",
+    style: "photorealistic",
+    brand_elements: ["nature", "adventure"]
+  })
+});
+
+// Track clicks
+await fetch('/api/v1/click_track', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    post_id: "123456",
+    click_source: "tiktok",
+    campaign_id: "summer_campaign"
+  })
+});</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Ecosystem Expansion -->
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4 text-green-400">Ecosystem Expansion</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                                    <h4 class="text-white mb-2">🤝 Third-Party Clients</h4>
+                                    <p class="text-gray-300 text-sm">Any Nostr client can integrate AdNostr revenue attribution</p>
+                                </div>
+                                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                                    <h4 class="text-white mb-2">🌐 Cross-Platform</h4>
+                                    <p class="text-gray-300 text-sm">Works with TikTok, Instagram, Twitter, and any traffic source</p>
+                                </div>
+                                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                                    <h4 class="text-white mb-2">⚡ Lightning Integration</h4>
+                                    <p class="text-gray-300 text-sm">Automated micro-payments via Lightning Network</p>
+                                </div>
+                                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                                    <h4 class="text-white mb-2">🎯 Smart Attribution</h4>
+                                    <p class="text-gray-300 text-sm">AI-powered click attribution with fraud detection</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </main>
 
@@ -155,83 +435,317 @@
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize with demo data
-            const expertInput = document.getElementById('expertId');
-            const sourceSelect = document.getElementById('trafficSource');
-            expertInput.value = '1';
-            sourceSelect.value = 'tiktok';
+            // Tab switching functionality
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-gray-800', 'text-white');
+                        btn.classList.add('bg-gray-700', 'text-gray-300');
+                    });
+
+                    // Add active class to clicked tab
+                    this.classList.add('active', 'bg-gray-800', 'text-white');
+                    this.classList.remove('bg-gray-700', 'text-gray-300');
+
+                    // Hide all tab contents
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+
+                    // Show selected tab content
+                    const tabId = this.id.replace('tab-', 'content-');
+                    document.getElementById(tabId).classList.remove('hidden');
+                });
+            });
+
+            // Initialize dashboard with demo data
+            initializeDashboard();
+
+            // Revenue Calculation with Enhanced UI
+            document.getElementById('testRewardBtn').addEventListener('click', async function() {
+                const expertId = document.getElementById('expertId').value;
+                const source = document.getElementById('trafficSource').value;
+                const resultDiv = document.getElementById('rewardResult');
+                const revenueDisplay = document.getElementById('revenueDisplay');
+                const satsAmount = document.getElementById('satsAmount');
+                const calculationDetails = document.getElementById('calculationDetails');
+                const initialMessage = document.getElementById('initialMessage');
+                const rewardOutput = document.getElementById('rewardOutput');
+
+                if (!expertId) {
+                    alert('Please enter an Expert ID');
+                    return;
+                }
+
+                // Show loading state
+                this.textContent = 'Calculating...';
+                this.disabled = true;
+
+                try {
+                    const response = await fetch(`/api/v1/test/reward?eid=${expertId}&src=${source}`);
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Display the revenue prominently
+                        satsAmount.textContent = data.revenue_calculated.toLocaleString();
+                        revenueDisplay.classList.remove('hidden');
+                        calculationDetails.classList.remove('hidden');
+                        initialMessage.classList.add('hidden');
+
+                        // Store the full details for expandable section
+                        rewardOutput.textContent = JSON.stringify(data, null, 2);
+
+                        // Add some visual feedback
+                        revenueDisplay.style.animation = 'fadeIn 0.5s ease-in';
+                    } else {
+                        alert(`Error: ${data.detail || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    alert(`Network Error: ${error.message}`);
+                } finally {
+                    this.textContent = 'Calculate Revenue';
+                    this.disabled = false;
+                }
+            });
+
+            // Details toggle
+            document.getElementById('showDetailsBtn').addEventListener('click', function() {
+                const detailsContent = document.getElementById('detailsContent');
+                const isHidden = detailsContent.classList.contains('hidden');
+
+                if (isHidden) {
+                    detailsContent.classList.remove('hidden');
+                    this.textContent = 'Hide Details ▲';
+                } else {
+                    detailsContent.classList.add('hidden');
+                    this.textContent = 'Show Details ▼';
+                }
+            });
+
+            // Load Experts
+            document.getElementById('loadExpertsBtn').addEventListener('click', async function() {
+                const expertList = document.getElementById('expertList');
+                this.textContent = 'Loading...';
+                this.disabled = true;
+
+                try {
+                    const response = await fetch('/api/v1/ad/stream');
+                    const data = await response.json();
+
+                    if (response.ok && data.experts) {
+                        expertList.innerHTML = '';
+                        data.experts.slice(0, 20).forEach(expert => {
+                            const expertDiv = document.createElement('div');
+                            expertDiv.className = 'p-3 bg-gray-700 rounded border border-gray-600 cursor-pointer hover:bg-gray-600 transition-colors';
+                            expertDiv.innerHTML = `
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="${expert.avatar || '/static/images/default-avatar.png'}" alt="Avatar" class="w-8 h-8 rounded-full">
+                                        <div>
+                                            <div class="text-white font-medium">Expert #${expert.id}</div>
+                                            <div class="text-gray-400 text-sm">Click for details</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-green-400 text-sm">+1,249 sats</div>
+                                    </div>
+                                </div>
+                            `;
+                            expertDiv.addEventListener('click', () => loadExpertDetails(expert.id));
+                            expertList.appendChild(expertDiv);
+                        });
+                    } else {
+                        expertList.innerHTML = '<div class="text-center text-red-400 py-4">Failed to load expert directory</div>';
+                    }
+                } catch (error) {
+                    expertList.innerHTML = `<div class="text-center text-red-400 py-4">Error: ${error.message}</div>`;
+                } finally {
+                    this.textContent = 'Load Expert Directory';
+                    this.disabled = false;
+                }
+            });
+
+            // Load Click Tracking Data
+            document.getElementById('loadClicksBtn').addEventListener('click', async function() {
+                const clickTracking = document.getElementById('clickTracking');
+                this.textContent = 'Loading...';
+                this.disabled = true;
+
+                try {
+                    // Mock click tracking data for demo
+                    const mockClicks = [
+                        { id: 'abc123', source: 'tiktok', sats: 1249, timestamp: '2024-01-15 14:30:22', ip: '192.168.1.1' },
+                        { id: 'def456', source: 'instagram', sats: 998, timestamp: '2024-01-15 13:45:10', ip: '10.0.0.5' },
+                        { id: 'ghi789', source: 'twitter', sats: 756, timestamp: '2024-01-15 12:20:33', ip: '172.16.0.12' }
+                    ];
+
+                    clickTracking.innerHTML = '';
+                    mockClicks.forEach(click => {
+                        const clickDiv = document.createElement('div');
+                        clickDiv.className = 'p-3 bg-gray-700 rounded border border-gray-600';
+                        clickDiv.innerHTML = `
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <div class="text-white font-medium">${click.source.toUpperCase()} Click</div>
+                                    <div class="text-gray-400 text-sm">ID: ${click.id} | IP: ${click.ip}</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-green-400 font-semibold">+${click.sats} sats</div>
+                                    <div class="text-gray-500 text-xs">${click.timestamp}</div>
+                                </div>
+                            </div>
+                        `;
+                        clickTracking.appendChild(clickDiv);
+                    });
+                } catch (error) {
+                    clickTracking.innerHTML = `<div class="text-center text-red-400 py-4">Error loading click data</div>`;
+                } finally {
+                    this.textContent = 'Refresh Click Data';
+                    this.disabled = false;
+                }
+            });
+
+            // Add some basic animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .tab-btn.active {
+                    border-bottom-color: #ffffff;
+                    border-bottom-width: 2px;
+                }
+            `;
+            document.head.appendChild(style);
         });
 
-        // Revenue Calculation with Enhanced UI
-        document.getElementById('testRewardBtn').addEventListener('click', async function() {
-            const expertId = document.getElementById('expertId').value;
-            const source = document.getElementById('trafficSource').value;
-            const resultDiv = document.getElementById('rewardResult');
-            const revenueDisplay = document.getElementById('revenueDisplay');
-            const satsAmount = document.getElementById('satsAmount');
-            const calculationDetails = document.getElementById('calculationDetails');
-            const initialMessage = document.getElementById('initialMessage');
-            const rewardOutput = document.getElementById('rewardOutput');
+        function initializeDashboard() {
+            // Initialize with demo data for Value Assessor
+            const expertInput = document.getElementById('expertId');
+            const sourceSelect = document.getElementById('trafficSource');
+            if (expertInput) expertInput.value = '1';
+            if (sourceSelect) sourceSelect.value = 'tiktok';
 
-            if (!expertId) {
-                alert('Please enter an Expert ID');
-                return;
-            }
+            // Simulate live attribution updates
+            setInterval(() => {
+                updateLiveAttribution();
+            }, 5000);
+        }
 
-            // Show loading state
-            this.textContent = 'Calculating...';
-            this.disabled = true;
+        function updateLiveAttribution() {
+            const liveAttribution = document.getElementById('liveAttribution');
+            if (!liveAttribution) return;
+
+            // Mock live attribution data
+            const mockEvents = [
+                { platform: 'TikTok', expert: 'Expert #1', sats: 1249, time: new Date().toLocaleTimeString() },
+                { platform: 'Instagram', expert: 'Expert #3', sats: 998, time: new Date(Date.now() - 30000).toLocaleTimeString() },
+                { platform: 'Twitter', expert: 'Expert #7', sats: 756, time: new Date(Date.now() - 60000).toLocaleTimeString() }
+            ];
+
+            liveAttribution.innerHTML = mockEvents.map(event => `
+                <div class="p-3 bg-gray-700 rounded border border-gray-600">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="text-white font-medium">${event.platform} → ${event.expert}</div>
+                            <div class="text-gray-400 text-sm">${event.time}</div>
+                        </div>
+                        <div class="text-green-400 font-semibold">+${event.sats} sats</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadExpertDetails(expertId) {
+            const expertDetails = document.getElementById('expertDetails');
+            const parameterAdjustment = document.getElementById('parameterAdjustment');
+
+            expertDetails.innerHTML = '<div class="text-center text-gray-500 py-4">Loading expert details...</div>';
 
             try {
-                const response = await fetch(`/api/v1/test/reward?eid=${expertId}&src=${source}`);
+                const response = await fetch(`/api/v1/test/reward?eid=${expertId}&src=tiktok`);
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Display the revenue prominently
-                    satsAmount.textContent = data.revenue_calculated.toLocaleString();
-                    revenueDisplay.classList.remove('hidden');
-                    calculationDetails.classList.remove('hidden');
-                    initialMessage.classList.add('hidden');
+                    expertDetails.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="text-center">
+                                <img src="/static/images/default-avatar.png" alt="Expert Avatar" class="w-20 h-20 rounded-full mx-auto mb-4">
+                                <h4 class="text-xl font-semibold text-white">Expert #${expertId}</h4>
+                                <p class="text-gray-400">Professional Content Creator</p>
+                            </div>
 
-                    // Store the full details for expandable section
-                    rewardOutput.textContent = JSON.stringify(data, null, 2);
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-gray-700 p-3 rounded border border-gray-600">
+                                    <div class="text-gray-400 text-sm">TikTok Followers</div>
+                                    <div class="text-white font-semibold">247K</div>
+                                </div>
+                                <div class="bg-gray-700 p-3 rounded border border-gray-600">
+                                    <div class="text-gray-400 text-sm">Conversion Rate</div>
+                                    <div class="text-green-400 font-semibold">3.2%</div>
+                                </div>
+                            </div>
 
-                    // Add some visual feedback
-                    revenueDisplay.style.animation = 'fadeIn 0.5s ease-in';
+                            <div class="bg-gray-700 p-4 rounded border border-gray-600">
+                                <h5 class="text-white font-medium mb-2">Revenue Parameters</h5>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Base Revenue (C):</span>
+                                        <span class="text-white">${data.calculation_details?.constants?.C || '1.5'}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Decay Factor (k):</span>
+                                        <span class="text-white">${data.calculation_details?.constants?.k || '0.8'}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Current Rate:</span>
+                                        <span class="text-green-400">${data.revenue_calculated} sats/click</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Show parameter adjustment
+                    parameterAdjustment.innerHTML = `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-300">Revenue Constant (C)</label>
+                                <input id="paramC" type="number" step="0.1" value="${data.calculation_details?.constants?.C || '1.5'}"
+                                       class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-300">Decay Exponent (k)</label>
+                                <input id="paramK" type="number" step="0.1" value="${data.calculation_details?.constants?.k || '0.8'}"
+                                       class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white">
+                            </div>
+                            <button id="updateParamsBtn" class="w-full btn-primary px-4 py-2 rounded">
+                                Update Parameters
+                            </button>
+                            <p class="text-gray-400 text-xs">
+                                Changes affect revenue calculation: R = (C × ln(I + 1)) / D^k
+                            </p>
+                        </div>
+                    `;
+
+                    // Add parameter update handler
+                    document.getElementById('updateParamsBtn').addEventListener('click', function() {
+                        const newC = document.getElementById('paramC').value;
+                        const newK = document.getElementById('paramK').value;
+                        alert(`Parameters updated: C=${newC}, k=${newK}\n(This would update the database in production)`);
+                    });
                 } else {
-                    alert(`Error: ${data.detail || 'Unknown error'}`);
+                    expertDetails.innerHTML = '<div class="text-center text-red-400 py-4">Failed to load expert details</div>';
                 }
             } catch (error) {
-                alert(`Network Error: ${error.message}`);
-            } finally {
-                this.textContent = 'Calculate Revenue';
-                this.disabled = false;
+                expertDetails.innerHTML = `<div class="text-center text-red-400 py-4">Error: ${error.message}</div>`;
             }
-        });
-
-        // Details toggle
-        document.getElementById('showDetailsBtn').addEventListener('click', function() {
-            const detailsContent = document.getElementById('detailsContent');
-            const isHidden = detailsContent.classList.contains('hidden');
-
-            if (isHidden) {
-                detailsContent.classList.remove('hidden');
-                this.textContent = 'Hide Details ▲';
-            } else {
-                detailsContent.classList.add('hidden');
-                this.textContent = 'Show Details ▼';
-            }
-        });
-
-        // Add some basic animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-        `;
-        document.head.appendChild(style);
+        }
     </script>
 </body>
 </html>
