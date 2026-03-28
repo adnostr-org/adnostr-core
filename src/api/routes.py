@@ -44,6 +44,103 @@ from src.utils.data_bridge import DataBridge
 
 logger = structlog.get_logger()
 
+# Pydantic Models for API requests and responses
+
+class PostAdRequest(BaseModel):
+    """Request model for posting advertisements."""
+    prompt: str = Field(..., description="AI prompt for image generation")
+    image_type: str = Field(..., description="Type of image (beauty, product, etc.)")
+    description: Optional[str] = Field(None, description="Optional description text")
+    style: str = Field(..., description="Artistic style for generation")
+    brand_elements: List[str] = Field(default_factory=list, description="Brand elements to include")
+
+
+class ClickTrackRequest(BaseModel):
+    """Request model for tracking advertisement clicks."""
+    post_id: str = Field(..., description="Mastodon post ID")
+    click_source: str = Field(..., description="Source of the click (tiktok, twitter, etc.)")
+    campaign_id: Optional[str] = Field(None, description="Optional campaign identifier")
+    user_agent: Optional[str] = Field(None, description="User agent string")
+    referrer: Optional[str] = Field(None, description="Referrer URL")
+    ip_hash: Optional[str] = Field(None, description="Hashed IP address for privacy")
+
+
+class MastodonPostRequest(BaseModel):
+    """Request model for posting to Mastodon."""
+    content: str = Field(..., description="Content to post")
+    expert_id: int = Field(..., description="Expert ID for avatar lookup")
+
+
+class PostAdResponse(BaseModel):
+    """Response model for advertisement posting."""
+    success: bool
+    post_id: Optional[str]
+    post_url: Optional[str]
+    image_url: Optional[str]
+    revenue_estimate: float
+    processing_time: float
+    metadata: Dict[str, Any]
+
+
+class ClickTrackResponse(BaseModel):
+    """Response model for click tracking."""
+    success: bool
+    click_id: str
+    revenue_calculated: float
+    attribution_data: Dict[str, Any]
+
+
+class TootCheckResponse(BaseModel):
+    """Response model for Toot CLI authentication check."""
+    success: bool
+    output: str
+
+
+class MastodonPostResponse(BaseModel):
+    """Response model for Mastodon posting."""
+    success: bool
+    post_id: str
+    post_url: Optional[str]
+    expert_id: int
+    content: str
+    avatar_used: bool
+
+
+class RewardTestResponse(BaseModel):
+    """Response model for revenue calculation testing."""
+    success: bool
+    expert_id: int
+    click_source: str
+    revenue_calculated: float
+    calculation_details: Dict[str, Any]
+    timestamp: str
+
+
+class ExpertData(BaseModel):
+    """Model for expert advertisement data."""
+    id: int
+    avatar: Optional[str]
+    banner: Optional[str]
+    created_at: str
+    updated_at: str
+
+
+class AdStreamResponse(BaseModel):
+    """Response model for advertisement stream."""
+    experts: List[ExpertData]
+    total_count: int
+    timestamp: str
+
+
+class ClickResponse(BaseModel):
+    """Response model for expert click tracking."""
+    success: bool
+    expert_id: int
+    click_source: str
+    revenue_calculated: float
+    timestamp: str
+
+
 # Create API router
 router = APIRouter()
 
@@ -54,6 +151,12 @@ mastodon_client = MastodonClient()
 # Initialize Mastodon.py client and DataBridge
 mastodon_py_client: Optional[Mastodon] = None
 data_bridge_instance: Optional[DataBridge] = None
+
+# Global storage for in-memory data (should be replaced with proper database in production)
+post_storage: Dict[str, Dict[str, Any]] = {}
+click_storage: Dict[str, Dict[str, Any]] = {}
+adnostr_db_conn: Optional[sqlite3.Connection] = None
+adnostr_db_path = "adnostr.db"
 
 
 def get_mastodon_client() -> Mastodon:
