@@ -4,136 +4,136 @@
 
 {% block content %}
 <div class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-2">{{ t.dashboard.title }}</h2>
-    <p class="text-gray-300">{{ t.dashboard.subtitle }}</p>
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">{{ t.dashboard.title }}</h2>
+    <p class="text-gray-600">{{ t.dashboard.subtitle }}</p>
+</div>
+
+<!-- AI Chat Assistant -->
+<div class="card p-6 mb-8">
+    <h3 class="text-xl font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
+        🤖 AI Advertising Assistant
+    </h3>
+    <div class="mb-4">
+        <p class="text-gray-600 text-sm mb-4">
+            Ask me anything about optimizing your cross-border advertising strategy!
+        </p>
+        <div id="chatMessages" class="bg-white p-4 rounded border border-gray-200 h-64 overflow-y-auto mb-4">
+            <div class="text-gray-500 text-center py-8">
+                👋 Hi! I'm your AI advertising consultant.<br>
+                Ask me: "How much can I save switching from Google Ads to AdNostr P2P?"
+            </div>
+        </div>
+                <div class="flex gap-2">
+                    <input id="chatInput" type="text" placeholder="Ask about advertising optimization..."
+                           class="flex-1 bg-white border border-gray-300 rounded px-3 py-2 text-gray-900 placeholder-gray-500">
+                    <button id="sendChatBtn" class="btn-primary">
+                        Send
+                    </button>
+                </div>
+    </div>
 </div>
 
 <!-- KPI Cards Row -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
     <!-- Traffic Heatmap -->
-    <div class="card p-6">
-        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
             🌡️ {{ t.dashboard.traffic_heatmap }}
         </h3>
         <div class="space-y-3">
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">TikTok</span>
+                <span class="text-gray-700">TikTok</span>
                 <div class="flex items-center">
-                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                    <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                         <div class="bg-pink-500 h-2 rounded-full" style="width: 85%"></div>
                     </div>
-                    <span class="text-pink-400 text-sm">247</span>
+                    <span class="text-pink-600 text-sm font-medium">247</span>
                 </div>
             </div>
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Instagram</span>
+                <span class="text-gray-700">Instagram</span>
                 <div class="flex items-center">
-                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                    <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                         <div class="bg-purple-500 h-2 rounded-full" style="width: 62%"></div>
                     </div>
-                    <span class="text-purple-400 text-sm">156</span>
+                    <span class="text-purple-600 text-sm font-medium">156</span>
                 </div>
             </div>
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Twitter</span>
+                <span class="text-gray-700">Twitter</span>
                 <div class="flex items-center">
-                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                    <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                         <div class="bg-blue-500 h-2 rounded-full" style="width: 43%"></div>
                     </div>
-                    <span class="text-blue-400 text-sm">108</span>
+                    <span class="text-blue-600 text-sm font-medium">108</span>
                 </div>
             </div>
         </div>
-        <p class="text-gray-400 text-xs mt-4">Real-time clicks to adnostr.org (last 24h)</p>
+        <p class="text-gray-500 text-xs mt-4">Real-time clicks to adnostr.org (last 24h)</p>
     </div>
 
     <!-- Sats Settlement Total -->
-    <div class="card p-6">
-        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
             ₿ {{ t.dashboard.sats_total }}
         </h3>
         <div class="text-center">
-            <div class="text-4xl font-bold text-yellow-400 mb-2">47,891</div>
-            <p class="text-gray-400 text-sm">Total Sats generated for 20 experts</p>
+            <div class="metric-value text-yellow-600 mb-2">47,891</div>
+            <div class="metric-label">Total Sats generated for 20 experts</div>
             <div class="mt-4 grid grid-cols-2 gap-4 text-center">
                 <div>
-                    <div class="text-lg font-semibold text-green-400">+2,156</div>
-                    <p class="text-gray-500 text-xs">Today</p>
+                    <div class="text-lg font-semibold text-green-600">+2,156</div>
+                    <div class="metric-label">Today</div>
                 </div>
                 <div>
-                    <div class="text-lg font-semibold text-blue-400">+15,432</div>
-                    <p class="text-gray-500 text-xs">This Week</p>
+                    <div class="text-lg font-semibold text-blue-600">+15,432</div>
+                    <div class="metric-label">This Week</div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Nostr Relay Health -->
-    <div class="card p-6">
-        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
             🛰️ {{ t.dashboard.relay_health }}
         </h3>
         <div class="space-y-3">
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Global Coverage</span>
-                <span class="text-green-400">94.2%</span>
+                <span class="text-gray-700">Global Coverage</span>
+                <span class="text-green-600 font-medium">94.2%</span>
             </div>
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Active Relays</span>
-                <span class="text-white">1,247</span>
+                <span class="text-gray-700">Active Relays</span>
+                <span class="text-gray-900 font-medium">1,247</span>
             </div>
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Avg Response</span>
-                <span class="text-yellow-400">142ms</span>
+                <span class="text-gray-700">Avg Response</span>
+                <span class="text-yellow-600 font-medium">142ms</span>
             </div>
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Uptime (30d)</span>
-                <span class="text-green-400">99.7%</span>
+                <span class="text-gray-700">Uptime (30d)</span>
+                <span class="text-green-600 font-medium">99.7%</span>
             </div>
         </div>
-        <div class="mt-4 w-full bg-gray-700 rounded-full h-2">
+        <div class="mt-4 w-full bg-gray-200 rounded-full h-2">
             <div class="bg-green-500 h-2 rounded-full" style="width: 94.2%"></div>
         </div>
     </div>
 </div>
 
-        <!-- AI Chat Assistant -->
-        <div class="card p-6 mb-6">
-            <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
-                🤖 AI Advertising Assistant
-            </h3>
-            <div class="mb-4">
-                <p class="text-gray-300 text-sm mb-4">
-                    Ask me anything about optimizing your cross-border advertising strategy!
-                </p>
-                <div id="chatMessages" class="bg-gray-900 p-4 rounded border border-gray-600 h-64 overflow-y-auto mb-4">
-                    <div class="text-gray-500 text-center py-8">
-                        👋 Hi! I'm your AI advertising consultant.<br>
-                        Ask me: "How much can I save switching from Google Ads to AdNostr P2P?"
-                    </div>
-                </div>
-                <div class="flex gap-2">
-                    <input id="chatInput" type="text" placeholder="Ask about advertising optimization..."
-                           class="flex-1 bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-500">
-                    <button id="sendChatBtn" class="btn-primary px-4 py-2 rounded">
-                        Send
-                    </button>
-                </div>
-            </div>
+<!-- Live Attribution Window -->
+<div class="card p-6">
+    <h3 class="text-xl font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
+        📊 {{ t.dashboard.live_attribution }}
+    </h3>
+    <div id="liveAttribution" class="space-y-3">
+        <div class="text-center text-gray-500 py-8">
+            <p>Waiting for traffic attribution events...</p>
+            <p class="text-sm mt-2">Share links on social media to see real-time data here</p>
         </div>
-
-        <!-- Live Attribution Window -->
-        <div class="card p-6">
-            <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
-                📊 {{ t.dashboard.live_attribution }}
-            </h3>
-            <div id="liveAttribution" class="space-y-3">
-                <div class="text-center text-gray-500 py-8">
-                    <p>Waiting for traffic attribution events...</p>
-                    <p class="text-sm mt-2">Share links on social media to see real-time data here</p>
-                </div>
-            </div>
-        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -245,7 +245,7 @@ function addChatMessage(sender, content, isTyping = false) {
     } else {
         messageDiv.className = 'mb-4';
         messageDiv.innerHTML = `
-            <div class="inline-block bg-gray-700 text-gray-200 px-3 py-2 rounded-lg max-w-2xl ${isTyping ? 'animate-pulse' : ''}">
+            <div class="inline-block bg-white text-gray-800 px-3 py-2 rounded-lg max-w-2xl border border-gray-200 ${isTyping ? 'animate-pulse' : ''}">
                 ${isTyping ? content : content}
             </div>
         `;

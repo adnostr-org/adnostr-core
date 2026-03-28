@@ -6,38 +6,38 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <!-- Expert List -->
     <div class="card p-6">
-        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+        <h3 class="text-xl font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
             👥 {{ t.expert_engine.title }}
         </h3>
         <div class="space-y-2 max-h-96 overflow-y-auto">
             <div id="expertList" class="space-y-2">
                 <!-- Experts will be loaded dynamically -->
                 {% for expert in experts %}
-                <div class="p-3 bg-gray-700 rounded border border-gray-600 cursor-pointer hover:bg-gray-600 transition-colors expert-item" data-expert-id="{{ expert.id }}">
+                <div class="p-3 bg-gray-50 rounded border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors expert-item" data-expert-id="{{ expert.id }}">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
                             <img src="{{ expert.avatar or '/static/images/default-avatar.png' }}" alt="Avatar" class="w-8 h-8 rounded-full">
                             <div>
-                                <div class="text-white font-medium">Expert #{{ expert.id }}</div>
-                                <div class="text-gray-400 text-sm">Click for details</div>
+                                <div class="text-gray-900 font-medium">Expert #{{ expert.id }}</div>
+                                <div class="text-gray-600 text-sm">Click for details</div>
                             </div>
                         </div>
                         <div class="text-right">
-                            <div class="text-green-400 text-sm">+1,249 sats</div>
+                            <div class="text-green-600 text-sm">+1,249 sats</div>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
-        <button id="loadExpertsBtn" class="w-full mt-4 btn-gray px-4 py-2 rounded">
+        <button id="loadExpertsBtn" class="w-full mt-4 btn-secondary">
             {{ t.expert_engine.load_directory }}
         </button>
     </div>
 
     <!-- Expert Details -->
     <div class="card p-6">
-        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+        <h3 class="text-xl font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
             👤 {{ t.expert_engine.profile }}
         </h3>
         <div id="expertDetails" class="space-y-4">
@@ -50,12 +50,24 @@
 
 <!-- Parameter Adjustment -->
 <div class="card p-6 mt-6">
-    <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+    <h3 class="text-xl font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
         ⚙️ {{ t.expert_engine.dynamic_params }}
     </h3>
     <div id="parameterAdjustment" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="text-center text-gray-500 py-4">
             <p>Select an expert to adjust revenue parameters</p>
+        </div>
+    </div>
+</div>
+
+<!-- AI Content Generator -->
+<div class="card p-6 mt-6">
+    <h3 class="text-xl font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
+        🎨 AI Content Generator
+    </h3>
+    <div id="aiContentSection" class="space-y-4">
+        <div class="text-center text-gray-500 py-4">
+            <p>Select an expert and choose a style to generate AI content</p>
         </div>
     </div>
 </div>
@@ -85,19 +97,19 @@ document.addEventListener('DOMContentLoaded', function() {
             expertList.innerHTML = '';
             mockExperts.forEach(expert => {
                 const expertDiv = document.createElement('div');
-                expertDiv.className = 'p-3 bg-gray-700 rounded border border-gray-600 cursor-pointer hover:bg-gray-600 transition-colors expert-item';
+                expertDiv.className = 'p-3 bg-gray-50 rounded border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors expert-item';
                 expertDiv.setAttribute('data-expert-id', expert.id);
                 expertDiv.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
                             <img src="${expert.avatar}" alt="Avatar" class="w-8 h-8 rounded-full">
                             <div>
-                                <div class="text-white font-medium">Expert #${expert.id}</div>
-                                <div class="text-gray-400 text-sm">${expert.followers.toLocaleString()} followers • ${expert.conversion_rate}% conversion</div>
+                                <div class="text-gray-900 font-medium">Expert #${expert.id}</div>
+                                <div class="text-gray-600 text-sm">${expert.followers.toLocaleString()} followers • ${expert.conversion_rate}% conversion</div>
                             </div>
                         </div>
                         <div class="text-right">
-                            <div class="text-green-400 text-sm">+${Math.floor(Math.random() * 500 + 1000)} sats</div>
+                            <div class="text-green-600 text-sm">+${Math.floor(Math.random() * 500 + 1000)} sats</div>
                         </div>
                     </div>
                 `;
@@ -154,20 +166,20 @@ async function loadExpertDetails(expertId) {
                         </div>
                     </div>
 
-                    <div class="bg-gray-700 p-4 rounded border border-gray-600">
-                        <h5 class="text-white font-medium mb-2">Revenue Parameters</h5>
+                    <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                        <h5 class="text-gray-900 font-medium mb-2">Revenue Parameters</h5>
                         <div class="space-y-2 text-sm">
                             <div class="flex justify-between">
-                                <span class="text-gray-400">Base Revenue (C):</span>
-                                <span class="text-white">${data.calculation_details?.constants?.C || '1.5'}</span>
+                                <span class="text-gray-600">Base Revenue (C):</span>
+                                <span class="text-gray-900">${data.calculation_details?.constants?.C || '1.5'}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-400">Decay Factor (k):</span>
-                                <span class="text-white">${data.calculation_details?.constants?.k || '0.8'}</span>
+                                <span class="text-gray-600">Decay Factor (k):</span>
+                                <span class="text-gray-900">${data.calculation_details?.constants?.k || '0.8'}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-400">Current Rate:</span>
-                                <span class="text-green-400">${data.revenue_calculated} sats/click</span>
+                                <span class="text-gray-600">Current Rate:</span>
+                                <span class="text-green-600">${data.revenue_calculated} sats/click</span>
                             </div>
                         </div>
                     </div>
@@ -178,7 +190,7 @@ async function loadExpertDetails(expertId) {
                         <div class="space-y-3">
                             <div>
                                 <label class="block text-sm font-medium mb-1 text-gray-300">Ad Style</label>
-                                <select id="adStyle" class="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-sm">
+                                <select id="adStyle" class="w-full bg-white border border-gray-300 rounded px-2 py-1 text-gray-900 text-sm">
                                     <option value="beauty">Beauty & Fashion</option>
                                     <option value="tech">Tech Gadgets</option>
                                     <option value="lifestyle">Lifestyle</option>
@@ -206,13 +218,13 @@ async function loadExpertDetails(expertId) {
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium mb-2 text-gray-300">Revenue Constant (C)</label>
-                        <input id="paramC" type="number" step="0.1" value="${data.calculation_details?.constants?.C || '1.5'}"
-                               class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2 text-gray-300">Decay Exponent (k)</label>
-                        <input id="paramK" type="number" step="0.1" value="${data.calculation_details?.constants?.k || '0.8'}"
-                               class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white">
+                                <input id="paramC" type="number" step="0.1" value="${data.calculation_details?.constants?.C || '1.5'}"
+                                       class="w-full bg-white border border-gray-300 rounded px-3 py-2 text-gray-900">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-700">Decay Exponent (k)</label>
+                                <input id="paramK" type="number" step="0.1" value="${data.calculation_details?.constants?.k || '0.8'}"
+                                       class="w-full bg-white border border-gray-300 rounded px-3 py-2 text-gray-900">
                     </div>
                     <button id="updateParamsBtn" class="w-full btn-primary px-4 py-2 rounded">
                         Update Parameters

@@ -3,17 +3,113 @@
 {% block title %}{{ t.merchant_center.title }}{% endblock %}
 
 {% block content %}
-                <div class="mb-8">
-                    <h2 class="text-2xl font-bold text-white mb-2">{{ t.merchant_center.title }}</h2>
-                    <p class="text-gray-300">{{ t.merchant_center.subtitle }}</p>
+<div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">{{ t.merchant_center.title }}</h2>
+    <p class="text-gray-600">{{ t.merchant_center.subtitle }}</p>
 
-                    <!-- AI Insights Panel -->
-                    <div class="mt-4 p-4 bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg border border-blue-500">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-lg font-semibold text-white mb-1">🤖 AI-Powered Insights</h3>
-                                <p class="text-blue-200 text-sm">Real-time analysis of your P2P advertising performance</p>
-                            </div>
+    <!-- AI Insights Panel -->
+    <div class="mt-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+        <div class="flex items-center justify-between">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">🤖 AI-Powered Insights</h3>
+                <p class="text-blue-700 text-sm">Real-time analysis of your P2P advertising performance</p>
+            </div>
+            <div class="text-right">
+                <div class="text-2xl font-bold text-green-600">${{ "%.2f"|format(data.total_savings) }}</div>
+                <div class="text-xs text-gray-600">Total Savings This Month</div>
+            </div>
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+            <div class="bg-white p-3 rounded border border-gray-200">
+                <div class="text-lg font-bold text-blue-600">{{ data.matching_rate }}%</div>
+                <div class="text-xs text-gray-600">AI Matching Rate</div>
+            </div>
+            <div class="bg-white p-3 rounded border border-gray-200">
+                <div class="text-lg font-bold text-green-600">+{{ data.capital_velocity }}%</div>
+                <div class="text-xs text-gray-600">Capital Velocity</div>
+            </div>
+            <div class="bg-white p-3 rounded border border-gray-200">
+                <div class="text-lg font-bold text-yellow-600">{{ data.roi_7day }}%</div>
+                <div class="text-xs text-gray-600">Avg ROI</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- KPI Cards Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Ad Cost Comparison -->
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
+            📉 {{ t.merchant_center.ad_comparison }}
+        </h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">Market Avg (Google/FB)</span>
+                <span class="text-red-600 font-semibold">$1.5 - $3.0 / Click</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">AdNostr P2P Cost</span>
+                <span class="text-green-600 font-semibold">$0.15 - $0.30 / Click</span>
+            </div>
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Total Savings</span>
+                    <span class="text-yellow-600 font-bold text-xl">${{ "%.2f"|format(data.total_savings) }}</span>
+                </div>
+                <div class="metric-label">90% cost reduction achieved</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settlement Speed -->
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
+            ⚡ {{ t.merchant_center.settlement_speed }}
+        </h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">Traditional Cycle</span>
+                <span class="text-red-600 font-semibold">14 - 28 Days</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">AdNostr Settlement</span>
+                <span class="text-green-600 font-semibold">Real-time (Lightning)</span>
+            </div>
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Capital Velocity</span>
+                    <span class="text-blue-600 font-bold text-xl">+{{ data.capital_velocity }}%</span>
+                </div>
+                <div class="metric-label">Funds available instantly vs 2-4 weeks</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- P2P Traffic Matching -->
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
+            🤝 {{ t.merchant_center.p2p_matching }}
+        </h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">Active Experts</span>
+                <span class="text-green-600 font-semibold">{{ data.active_experts }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">Avg Expert Score</span>
+                <span class="text-yellow-600 font-semibold">8.7/10</span>
+            </div>
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Matching Rate</span>
+                    <span class="text-purple-600 font-bold text-xl">{{ data.matching_rate }}%</span>
+                </div>
+                <div class="metric-label">AI-powered traffic-to-product matching</div>
+            </div>
+        </div>
+    </div>
+</div>
                             <div class="text-right">
                                 <div class="text-2xl font-bold text-green-400">$12,847.50</div>
                                 <div class="text-xs text-gray-300">Total Savings This Month</div>
@@ -39,15 +135,28 @@
 <!-- KPI Cards Row -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
     <!-- Ad Cost Comparison -->
-    <div class="card p-6">
-        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
             📉 {{ t.merchant_center.ad_comparison }}
         </h3>
         <div class="space-y-4">
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Market Avg (Google/FB)</span>
-                <span class="text-red-400 font-semibold">$1.5 - $3.0 / Click</span>
+                <span class="text-gray-700">Market Avg (Google/FB)</span>
+                <span class="text-red-600 font-semibold">$1.5 - $3.0 / Click</span>
             </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">AdNostr P2P Cost</span>
+                <span class="text-green-600 font-semibold">$0.15 - $0.30 / Click</span>
+            </div>
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Total Savings</span>
+                    <span class="text-yellow-600 font-bold text-xl">${{ "%.2f"|format(data.total_savings) }}</span>
+                </div>
+                <div class="metric-label">90% cost reduction achieved</div>
+            </div>
+        </div>
+    </div>
             <div class="flex justify-between items-center">
                 <span class="text-gray-300">AdNostr P2P Cost</span>
                 <span class="text-green-400 font-semibold">$0.15 - $0.30 / Click</span>
@@ -63,15 +172,28 @@
     </div>
 
     <!-- Settlement Speed -->
-    <div class="card p-6">
-        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
             ⚡ {{ t.merchant_center.settlement_speed }}
         </h3>
         <div class="space-y-4">
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Traditional Cycle</span>
-                <span class="text-red-400 font-semibold">14 - 28 Days</span>
+                <span class="text-gray-700">Traditional Cycle</span>
+                <span class="text-red-600 font-semibold">14 - 28 Days</span>
             </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">AdNostr Settlement</span>
+                <span class="text-green-600 font-semibold">Real-time (Lightning)</span>
+            </div>
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Capital Velocity</span>
+                    <span class="text-blue-600 font-bold text-xl">+{{ data.capital_velocity }}%</span>
+                </div>
+                <div class="metric-label">Funds available instantly vs 2-4 weeks</div>
+            </div>
+        </div>
+    </div>
             <div class="flex justify-between items-center">
                 <span class="text-gray-300">AdNostr Settlement</span>
                 <span class="text-green-400 font-semibold">Real-time (Lightning)</span>
@@ -87,15 +209,28 @@
     </div>
 
     <!-- P2P Traffic Matching -->
-    <div class="card p-6">
-        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+    <div class="metric-card">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
             🤝 {{ t.merchant_center.p2p_matching }}
         </h3>
         <div class="space-y-4">
             <div class="flex justify-between items-center">
-                <span class="text-gray-300">Active Experts</span>
-                <span class="text-green-400 font-semibold">{{ data.active_experts }}</span>
+                <span class="text-gray-700">Active Experts</span>
+                <span class="text-green-600 font-semibold">{{ data.active_experts }}</span>
             </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-700">Avg Expert Score</span>
+                <span class="text-yellow-600 font-semibold">8.7/10</span>
+            </div>
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Matching Rate</span>
+                    <span class="text-purple-600 font-bold text-xl">{{ data.matching_rate }}%</span>
+                </div>
+                <div class="metric-label">AI-powered traffic-to-product matching</div>
+            </div>
+        </div>
+    </div>
             <div class="flex justify-between items-center">
                 <span class="text-gray-300">Avg Expert Score</span>
                 <span class="text-yellow-400 font-semibold">8.7/10</span>
