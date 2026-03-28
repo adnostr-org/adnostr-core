@@ -23,9 +23,13 @@ License: MIT
 import asyncio
 import hashlib
 import json
+import math
+import os
+import sqlite3
 import time
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from fastapi.responses import JSONResponse
@@ -34,6 +38,7 @@ import structlog
 
 from src.engine.ad_generator import AdGenerator, ImageType, GenerationRequest
 from src.utils.mastodon_client import MastodonClient
+from src.utils.data_bridge import DataBridge
 
 logger = structlog.get_logger()
 
@@ -93,9 +98,79 @@ class ClickTrackResponse(BaseModel):
     attribution_data: Dict[str, Any] = {}
 
 
+class ClickRequest(BaseModel):
+    """Request model for expert click tracking."""
+    eid: int = Field(..., description="Expert ID")
+    src: str = Field(..., description="Click source (e.g., 'tiktok', 'twitter')")
+
+
+class ClickResponse(BaseModel):
+    """Response model for expert click tracking."""
+    success: bool
+    expert_id: int
+    click_source: str
+    revenue_calculated: float
+    timestamp: str
+
+
+class AdStreamResponse(BaseModel):
+    """Response model for advertisement stream."""
+    experts: List[Dict[str, Any]]
+    total_count: int
+    timestamp: str
+
+
 # In-memory storage for demonstration (use database in production)
 click_storage: Dict[str, Dict[str, Any]] = {}
 post_storage: Dict[str, Dict[str, Any]] = {}
+
+# Database connection for AdNostr data
+adnostr_db_path = os.getenv("ADNOSTR_DATA_DB", "adnostr_data.db")
+adnostr_db_conn: Optional[sqlite3.Connection] = None
+
+# Data bridge for TickleBell integration
+data_bridge: Optional[DataBridge] = None
+
+
+def get_adnostr_db() -> sqlite3.Connection:
+    """Get or create AdNostr database connection."""
+    global adnostr_db_conn
+    if adnostr_db_conn is None:
+        adnostr_db_conn = sqlite3.connect(adnostr_db_path)
+        adnostr_db_conn.row_factory = sqlite3.Row
+        # Ensure tables exist
+        adnostr_db_conn.execute("""
+            CREATE TABLE IF NOT EXISTS experts (
+                expert_id INTEGER PRIMARY KEY,
+                avatar_url TEXT,
+                banner_url TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        adnostr_db_conn.execute("""
+            CREATE TABLE IF NOT EXISTS ad_clicks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                expert_id INTEGER,
+                click_source TEXT,
+                revenue_calculated REAL,
+                clicked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                ip_hash TEXT,
+                campaign_id TEXT,
+                FOREIGN KEY (expert_id) REFERENCES experts (expert_id)
+            )
+        """)
+        adnostr_db_conn.commit()
+    return adnostr_db_conn
+
+
+def get_data_bridge() -> DataBridge:
+    """Get or create DataBridge instance."""
+    global data_bridge
+    if data_bridge is None:
+        data_bridge = DataBridge()
+    return data_bridge
 
 
 @router.post("/post_ad", response_model=PostAdResponse)
@@ -404,3 +479,238 @@ async def list_clicks() -> Dict[str, Any]:
         "clicks": list(click_storage.keys()),
         "total": len(click_storage)
     }
+
+
+@router.get("/ad/stream", response_model=AdStreamResponse)
+async def get_advertisement_stream() -> AdStreamResponse:
+    """
+    Get advertisement stream with 1000 experts data.
+
+    This endpoint returns a JSON feed of expert advertisements for
+    the waterfall display, including avatars and banners.
+
+    Returns:
+        Stream of expert advertisement data
+
+    Raises:
+        HTTPException: If database access fails
+    """
+    try:
+        db = get_adnostr_db()
+        cursor = db.cursor()
+
+        # Get up to 1000 experts with their creative assets
+        cursor.execute("""
+            SELECT expert_id, avatar_url, banner_url, created_at, updated_at
+            FROM experts
+            ORDER BY last_sync DESC
+            LIMIT 1000
+        """)
+
+        experts = []
+        for row in cursor.fetchall():
+            expert_data = {
+                "id": row["expert_id"],
+                "avatar": row["avatar_url"],
+                "banner": row["banner_url"],
+                "created_at": row["created_at"],
+                "updated_at": row["updated_at"]
+            }
+            experts.append(expert_data)
+
+        logger.info("Advertisement stream requested",
+                   expert_count=len(experts),
+                   total_available=cursor.rowcount)
+
+        return AdStreamResponse(
+            experts=experts,
+            total_count=len(experts),
+            timestamp=datetime.utcnow().isoformat()
+        )
+
+    except sqlite3.Error as e:
+        logger.error("Database error in ad stream", error=str(e))
+        raise HTTPException(status_code=500, detail="Database access failed")
+    except Exception as e:
+        logger.error("Failed to get advertisement stream", error=str(e))
+        raise HTTPException(status_code=500, detail=f"Stream generation failed: {str(e)}")
+
+
+@router.get("/click", response_model=ClickResponse)
+async def track_expert_click(
+    eid: int,
+    src: str,
+    request: Request
+) -> ClickResponse:
+    """
+    Track clicks on expert advertisements for revenue calculation.
+
+    This endpoint:
+    1. Receives expert ID and click source
+    2. Calculates revenue using the formula R = (C × ln(I + 1)) / D^k
+    3. Stores click data in local AdNostr database
+    4. Returns calculation results
+
+    Args:
+        eid: Expert ID that was clicked
+        src: Click source (tiktok, twitter, etc.)
+        request: FastAPI request for additional metadata
+
+    Returns:
+        Click tracking response with revenue calculation
+
+    Raises:
+        HTTPException: If expert not found or calculation fails
+    """
+    try:
+        logger.info("Processing expert click tracking",
+                   expert_id=eid,
+                   click_source=src)
+
+        # Validate expert exists
+        db = get_adnostr_db()
+        cursor = db.cursor()
+        cursor.execute("SELECT expert_id FROM experts WHERE expert_id = ?", (eid,))
+        expert = cursor.fetchone()
+
+        if not expert:
+            raise HTTPException(status_code=404, detail=f"Expert {eid} not found")
+
+        # Calculate revenue using the formula R = (C × ln(I + 1)) / D^k
+        revenue_calculated = await _calculate_expert_revenue(eid, src)
+
+        # Store click data
+        cursor.execute("""
+            INSERT INTO ad_clicks (expert_id, click_source, revenue_calculated, ip_hash, campaign_id)
+            VALUES (?, ?, ?, ?, ?)
+        """, (
+            eid,
+            src,
+            revenue_calculated,
+            _hash_ip(request.client.host) if request.client else None,
+            None  # campaign_id can be added later
+        ))
+        db.commit()
+
+        timestamp = datetime.utcnow().isoformat()
+
+        logger.info("Expert click tracked successfully",
+                   expert_id=eid,
+                   click_source=src,
+                   revenue_calculated=revenue_calculated)
+
+        return ClickResponse(
+            success=True,
+            expert_id=eid,
+            click_source=src,
+            revenue_calculated=round(revenue_calculated, 4),
+            timestamp=timestamp
+        )
+
+    except HTTPException:
+        raise
+    except sqlite3.Error as e:
+        logger.error("Database error in click tracking", error=str(e))
+        raise HTTPException(status_code=500, detail="Database access failed")
+    except Exception as e:
+        logger.error("Expert click tracking failed", error=str(e))
+        raise HTTPException(status_code=500, detail=f"Click tracking failed: {str(e)}")
+
+
+async def _calculate_expert_revenue(expert_id: int, click_source: str) -> float:
+    """
+    Calculate revenue for expert click using the formula R = (C × ln(I + 1)) / D^k.
+
+    Where:
+    - R: Revenue estimate
+    - C: Constant factor (from config, default 1.5)
+    - I: Image complexity factor (based on expert data availability)
+    - D: Difficulty factor (based on time since last sync)
+    - k: Exponent factor (from config, default 0.8)
+
+    Args:
+        expert_id: The expert ID
+        click_source: Source of the click
+
+    Returns:
+        Calculated revenue as float
+    """
+    try:
+        # Get configuration parameters
+        C = float(os.getenv("REVENUE_CONSTANT_C", "1.5"))
+        k = float(os.getenv("REVENUE_EXPONENT_K", "0.8"))
+
+        # Get expert data for complexity calculation
+        db = get_adnostr_db()
+        cursor = db.cursor()
+        cursor.execute("""
+            SELECT avatar_url, banner_url, created_at, last_sync
+            FROM experts
+            WHERE expert_id = ?
+        """, (expert_id,))
+        expert = cursor.fetchone()
+
+        if not expert:
+            raise ValueError(f"Expert {expert_id} not found")
+
+        # Calculate Image complexity factor (I)
+        # Higher if expert has both avatar and banner
+        has_avatar = bool(expert["avatar_url"])
+        has_banner = bool(expert["banner_url"])
+        base_complexity = 1.0
+        if has_avatar:
+            base_complexity += 1.0
+        if has_banner:
+            base_complexity += 1.0
+
+        # Apply click source multiplier
+        source_multiplier = _calculate_click_multiplier(click_source)
+        I = base_complexity * source_multiplier
+
+        # Calculate Difficulty factor (D)
+        # Based on how recent the data is (hours since last sync)
+        try:
+            last_sync = datetime.fromisoformat(expert["last_sync"])
+            hours_since_sync = (datetime.utcnow() - last_sync).total_seconds() / 3600
+            D = max(1.0, hours_since_sync / 24)  # At least 1.0, increases with staleness
+        except (ValueError, TypeError):
+            D = 1.0  # Default if date parsing fails
+
+        # Apply the revenue formula
+        revenue = (C * math.log(I + 1)) / (D ** k)
+
+        # Ensure positive minimum revenue
+        revenue = max(revenue, 0.01)
+
+        logger.debug("Expert revenue calculated",
+                    formula=f"({C} * ln({I} + 1)) / ({D}^{k})",
+                    expert_id=expert_id,
+                    click_source=click_source,
+                    result=revenue)
+
+        return revenue
+
+    except Exception as e:
+        logger.warning("Revenue calculation failed, using default",
+                      error=str(e),
+                      expert_id=expert_id)
+        return 1.0  # Default fallback value
+
+
+def _hash_ip(ip: Optional[str]) -> Optional[str]:
+    """
+    Hash IP address for privacy-preserving storage.
+
+    Args:
+        ip: IP address string
+
+    Returns:
+        SHA256 hash of IP address, or None if IP is invalid
+    """
+    if not ip:
+        return None
+
+    try:
+        return hashlib.sha256(ip.encode()).hexdigest()
+    except Exception:
+        return None

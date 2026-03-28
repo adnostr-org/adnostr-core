@@ -12,6 +12,9 @@ python-dotenv==1.0.0
 # HTTP Client
 requests==2.31.0
 
+# Additional dependencies for new features
+aiofiles==23.2.1
+
 # Image Processing (for AI-generated images)
 Pillow==10.1.0
 
