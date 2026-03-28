@@ -55,6 +55,87 @@ class DataBridge:
 
         logger.info("DataBridge initialized", db_path=str(self.db_path))
 
+        # Initialize AI content table
+        self._init_ai_content_table()
+
+    def _init_ai_content_table(self):
+        """Initialize AI content table for storing generated content."""
+        try:
+            conn = self.connect()
+            cursor = conn.cursor()
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS ai_generated_content (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    expert_id INTEGER,
+                    content_type TEXT,
+                    ad_copy TEXT,
+                    image_prompt TEXT,
+                    generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    style TEXT,
+                    FOREIGN KEY (expert_id) REFERENCES experts(expert_id)
+                )
+            """)
+
+            # Add merchant data table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS merchant_data (
+                    merchant_id TEXT PRIMARY KEY,
+                    ad_budget_sats REAL DEFAULT 0,
+                    settlement_status TEXT DEFAULT 'pending',
+                    p2p_matching_rate REAL DEFAULT 0.0,
+                    revenue_saved_usd REAL DEFAULT 0.0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
+            conn.commit()
+            logger.info("AI content and merchant data tables initialized")
+
+        except Exception as e:
+            logger.warning("Failed to initialize AI content tables", error=str(e))
+
+    def save_ai_generated_content(self, expert_id: int, content_type: str,
+                                ad_copy: str, image_prompt: str, style: str) -> bool:
+        """Save AI generated content to database."""
+        try:
+            conn = self.connect()
+            cursor = conn.cursor()
+
+            cursor.execute("""
+                INSERT INTO ai_generated_content
+                (expert_id, content_type, ad_copy, image_prompt, style)
+                VALUES (?, ?, ?, ?, ?)
+            """, (expert_id, content_type, ad_copy, image_prompt, style))
+
+            conn.commit()
+            logger.info("AI generated content saved", expert_id=expert_id, content_type=content_type)
+            return True
+
+        except Exception as e:
+            logger.error("Failed to save AI content", error=str(e))
+            return False
+
+    def get_merchant_data(self, merchant_id: str) -> Optional[Dict[str, Any]]:
+        """Get merchant data from database."""
+        try:
+            conn = self.connect()
+            cursor = conn.cursor()
+
+            cursor.execute("""
+                SELECT * FROM merchant_data WHERE merchant_id = ?
+            """, (merchant_id,))
+
+            row = cursor.fetchone()
+            if row:
+                return dict(row)
+            return None
+
+        except Exception as e:
+            logger.error("Failed to get merchant data", error=str(e))
+            return None
+
     def connect(self) -> sqlite3.Connection:
         """
         Establish database connection.

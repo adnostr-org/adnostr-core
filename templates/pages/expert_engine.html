@@ -171,6 +171,33 @@ async function loadExpertDetails(expertId) {
                             </div>
                         </div>
                     </div>
+
+                    <!-- AI Content Generator -->
+                    <div class="bg-gray-700 p-4 rounded border border-gray-600 mt-4">
+                        <h5 class="text-white font-medium mb-2">🎨 AI Content Generator</h5>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium mb-1 text-gray-300">Ad Style</label>
+                                <select id="adStyle" class="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-sm">
+                                    <option value="beauty">Beauty & Fashion</option>
+                                    <option value="tech">Tech Gadgets</option>
+                                    <option value="lifestyle">Lifestyle</option>
+                                    <option value="business">Business</option>
+                                </select>
+                            </div>
+                            <button id="generateContentBtn" class="w-full btn-success px-3 py-2 rounded text-sm">
+                                🎨 Generate Ad Content
+                            </button>
+                            <div id="generatedContent" class="mt-3 space-y-2 hidden">
+                                <div class="text-xs text-gray-400">Generated Ad Copy:</div>
+                                <div id="adCopy" class="text-white text-sm bg-gray-800 p-2 rounded border border-gray-600"></div>
+                                <div class="text-xs text-gray-400">Suggested Image:</div>
+                                <div id="adImage" class="bg-gray-800 p-2 rounded border border-gray-600 text-center text-gray-500 text-sm">
+                                    [AI Generated Image Preview]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             `;
 
@@ -201,6 +228,98 @@ async function loadExpertDetails(expertId) {
                 const newC = document.getElementById('paramC').value;
                 const newK = document.getElementById('paramK').value;
                 alert(`Parameters updated: C=${newC}, k=${newK}\n(This would update the database in production)`);
+            });
+
+            // AI Content Generation
+            document.getElementById('generateContentBtn').addEventListener('click', async function() {
+                const style = document.getElementById('adStyle').value;
+                const expertId = document.querySelector('.expert-item.selected')?.getAttribute('data-expert-id') || '1';
+                const generatedContent = document.getElementById('generatedContent');
+                const adCopy = document.getElementById('adCopy');
+                const adImage = document.getElementById('adImage');
+
+                this.textContent = 'Generating...';
+                this.disabled = true;
+
+                try {
+                    // Mock AI content generation based on style
+                    let copy = '';
+                    let imageDesc = '';
+
+                    switch(style) {
+                        case 'beauty':
+                            copy = `✨ Transform your look with our premium beauty collection! 🌟\n\n` +
+                                  `Discover luxurious skincare and makeup that enhances your natural beauty.\n` +
+                                  `Expert-recommended formulas for radiant, glowing skin.\n\n` +
+                                  `#BeautyGoals #SkincareRoutine #GlowUp`;
+                            imageDesc = 'Gorgeous model with flawless skin, professional makeup, elegant lighting';
+                            break;
+                        case 'tech':
+                            copy = `🚀 Next-gen technology meets everyday innovation! ⚡\n\n` +
+                                  `Experience cutting-edge gadgets that simplify your life.\n` +
+                                  `Smart features, premium build quality, unbeatable performance.\n\n` +
+                                  `#TechInnovation #SmartDevices #FutureTech`;
+                            imageDesc = 'Sleek tech gadget with blue LED lights, modern design, clean background';
+                            break;
+                        case 'lifestyle':
+                            copy = `🌿 Elevate your lifestyle with premium experiences! ✨\n\n` +
+                                  `Curated products for the modern, sophisticated individual.\n` +
+                                  `Quality craftsmanship meets contemporary design.\n\n` +
+                                  `#Lifestyle #Premium #Sophisticated`;
+                            imageDesc = 'Luxury lifestyle product, elegant composition, warm lighting';
+                            break;
+                        case 'business':
+                            copy = `💼 Power your business with professional solutions! 🎯\n\n` +
+                                  `Enterprise-grade tools for modern businesses.\n` +
+                                  `Boost productivity, streamline operations, achieve more.\n\n` +
+                                  `#BusinessGrowth #ProfessionalTools #Success`;
+                            imageDesc = 'Professional business tools, clean workspace, corporate setting';
+                            break;
+                    }
+
+                    adCopy.textContent = copy;
+                    adImage.innerHTML = `
+                        <div class="text-gray-400 mb-2">${imageDesc}</div>
+                        <div class="w-full h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded flex items-center justify-center text-white font-semibold">
+                            AI Generated Image
+                        </div>
+                        <div class="text-xs text-gray-500 mt-2">Ready to save to expert profile</div>
+                    `;
+
+                    generatedContent.classList.remove('hidden');
+
+                    // Show save option
+                    setTimeout(() => {
+                        alert(`AI content generated for Expert #${expertId}!\n\n` +
+                              `This would be saved to test_experts.db with fields:\n` +
+                              `- ad_copy: "${copy.substring(0, 50)}..."\n` +
+                              `- image_prompt: "${imageDesc}"\n` +
+                              `- generated_at: "${new Date().toISOString()}"`);
+                    }, 1000);
+
+                } catch (error) {
+                    alert('Failed to generate content. Please try again.');
+                } finally {
+                    this.textContent = '🎨 Generate Ad Content';
+                    this.disabled = false;
+                }
+            });
+
+            // Expert selection highlighting
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.expert-item')) {
+                    // Remove previous selection
+                    document.querySelectorAll('.expert-item').forEach(item => {
+                        item.classList.remove('selected', 'ring-2', 'ring-blue-500');
+                    });
+
+                    // Add selection to clicked item
+                    const clickedItem = e.target.closest('.expert-item');
+                    clickedItem.classList.add('selected', 'ring-2', 'ring-blue-500');
+
+                    // Hide generated content when switching experts
+                    document.getElementById('generatedContent').classList.add('hidden');
+                }
             });
         } else {
             expertDetails.innerHTML = '<div class="text-center text-red-400 py-4">Failed to load expert details</div>';

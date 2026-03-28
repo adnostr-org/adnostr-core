@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "dashboard": "대시보드",
+    "expert_engine": "전문가 엔진",
+    "merchant_center": "판매자 센터",
+    "attribution": "속성 및 결제",
+    "api_specs": "API 사양",
+    "language": "EN"
+  },
+  "dashboard": {
+    "title": "AdNostr-Core 관리 대시보드",
+    "subtitle": "수익 엔진 및 트래픽 분석 플랫폼",
+    "traffic_heatmap": "트래픽 히트맵",
+    "sats_total": "Sats 결제 합계",
+    "relay_health": "Nostr 릴레이 건강도",
+    "live_attribution": "실시간 속성 창"
+  },
+  "expert_engine": {
+    "title": "전문가 디렉토리",
+    "profile": "전문가 프로필",
+    "dynamic_params": "동적 파라미터 조정",
+    "load_directory": "디렉토리 로드"
+  },
+  "merchant_center": {
+    "title": "판매자 센터 - Web 2.5 수익 엔진",
+    "subtitle": "국경 간 판매자의 P2P 광고 혁명: 90% 비용 절감, 결제 즉시화, 중소 판매자를 트래픽 주재자로",
+    "ad_comparison": "광고 비용 비교",
+    "settlement_speed": "결제 속도",
+    "p2p_matching": "P2P 트래픽 매칭",
+    "budget_management": "예산 관리",
+    "active_campaigns": "활성 캠페인",
+    "transactions": "최근 국경 간 거래",
+    "top_up": "예산 추가",
+    "new_campaign": "새 캠페인",
+    "export_report": "전체 보고서 내보내기"
+  },
+  "attribution": {
+    "click_tracking": "클릭 경로 추적",
+    "lightning_status": "라이트닝 네트워크 상태",
+    "data_export": "데이터 내보내기 및 감사",
+    "load_clicks": "클릭 데이터 새로고침"
+  },
+  "api": {
+    "title": "AdNostr API 사양 설명",
+    "core_endpoints": "코어 엔드포인트",
+    "integration": "통합 예제",
+    "expansion": "생태계 확장"
+  }
+}

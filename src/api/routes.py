@@ -1062,3 +1062,33 @@ def _hash_ip(ip: Optional[str]) -> Optional[str]:
         return hashlib.sha256(ip.encode()).hexdigest()
     except Exception:
         return None
+
+
+@router.post("/ai/generate_content")
+async def generate_ai_content(request: dict):
+    """Generate AI content for experts."""
+    try:
+        expert_id = request.get("expert_id")
+        style = request.get("style", "beauty")
+
+        if not expert_id:
+            raise HTTPException(status_code=400, detail="Expert ID required")
+
+        # Mock AI content generation
+        content_data = {
+            "expert_id": expert_id,
+            "content_type": "advertisement",
+            "style": style,
+            "ad_copy": f"Generated {style} advertisement for Expert #{expert_id}",
+            "image_prompt": f"Professional {style} product photography",
+            "generated_at": datetime.utcnow().isoformat()
+        }
+
+        # Save to database (would be implemented)
+        logger.info("AI content generated", **content_data)
+
+        return {"success": True, "data": content_data}
+
+    except Exception as e:
+        logger.error("AI content generation failed", error=str(e))
+        raise HTTPException(status_code=500, detail="Content generation failed")

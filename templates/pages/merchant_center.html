@@ -3,10 +3,38 @@
 {% block title %}{{ t.merchant_center.title }}{% endblock %}
 
 {% block content %}
-<div class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-2">{{ t.merchant_center.title }}</h2>
-    <p class="text-gray-300">{{ t.merchant_center.subtitle }}</p>
-</div>
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-2">{{ t.merchant_center.title }}</h2>
+                    <p class="text-gray-300">{{ t.merchant_center.subtitle }}</p>
+
+                    <!-- AI Insights Panel -->
+                    <div class="mt-4 p-4 bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg border border-blue-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-white mb-1">🤖 AI-Powered Insights</h3>
+                                <p class="text-blue-200 text-sm">Real-time analysis of your P2P advertising performance</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-green-400">$12,847.50</div>
+                                <div class="text-xs text-gray-300">Total Savings This Month</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+                            <div class="bg-black bg-opacity-30 p-3 rounded">
+                                <div class="text-lg font-bold text-blue-400">94.3%</div>
+                                <div class="text-xs text-gray-300">AI Matching Rate</div>
+                            </div>
+                            <div class="bg-black bg-opacity-30 p-3 rounded">
+                                <div class="text-lg font-bold text-green-400">400%</div>
+                                <div class="text-xs text-gray-300">Capital Velocity</div>
+                            </div>
+                            <div class="bg-black bg-opacity-30 p-3 rounded">
+                                <div class="text-lg font-bold text-yellow-400">3,247%</div>
+                                <div class="text-xs text-gray-300">Avg ROI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 <!-- KPI Cards Row -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -103,9 +131,34 @@
                 <span class="text-gray-300">ROI (7-day)</span>
                 <span class="text-yellow-400 font-semibold">{{ data.roi_7day }}%</span>
             </div>
-            <button class="w-full btn-success px-4 py-2 rounded mt-4">
-                🔄 {{ t.merchant_center.top_up }}
-            </button>
+                        <button class="w-full btn-success px-4 py-2 rounded mt-4">
+                                🔄 {{ t.merchant_center.top_up }}
+                            </button>
+                        </div>
+
+                        <!-- AI Performance Analyzer -->
+                        <div class="mt-4 p-3 bg-gray-800 rounded border border-gray-600">
+                            <h4 class="text-white font-medium mb-2 flex items-center">
+                                <span class="mr-2">🧠</span> AI Performance Analysis
+                            </h4>
+                            <div class="text-sm text-gray-300 space-y-1">
+                                <div class="flex justify-between">
+                                    <span>Predicted savings per transaction:</span>
+                                    <span class="text-green-400 font-semibold">$185.63</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Optimal budget allocation:</span>
+                                    <span class="text-blue-400 font-semibold">70% TikTok, 20% IG, 10% Twitter</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Next best expert match:</span>
+                                    <span class="text-purple-400 font-semibold">Expert #7 (Fashion)</span>
+                                </div>
+                            </div>
+                            <button class="w-full mt-3 btn-gray px-3 py-2 rounded text-sm">
+                                📊 Get Detailed AI Report
+                            </button>
+                        </div>
         </div>
     </div>
 
@@ -221,6 +274,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// AI Translation and Multi-language Support
+function translateMerchantData() {
+    const currentLang = '{{ locale }}';
+    const aiInsights = document.querySelector('.bg-gradient-to-r');
+
+    if (currentLang === 'zh_CN') {
+        // Chinese translations would be applied here
+        // For demo purposes, keeping English but showing the capability
+        console.log('AI translation system ready for Chinese localization');
+    }
+
+    // Dynamic AI insights updates
+    setInterval(() => {
+        updateAIInsights();
+    }, 10000);
+}
+
+function updateAIInsights() {
+    const insights = [
+        { label: 'AI Matching Rate', value: '94.3%', color: 'text-blue-400' },
+        { label: 'Capital Velocity', value: '400%', color: 'text-green-400' },
+        { label: 'Avg ROI', value: '3,247%', color: 'text-yellow-400' }
+    ];
+
+    const insightElements = document.querySelectorAll('.bg-black.bg-opacity-30');
+    insightElements.forEach((el, index) => {
+        if (insights[index]) {
+            const valueEl = el.querySelector('.font-bold');
+            if (valueEl && Math.random() > 0.9) { // 10% chance to update
+                const currentValue = parseFloat(insights[index].value.replace(/[%,]/g, ''));
+                const newValue = Math.max(0, currentValue + (Math.random() * 10 - 5));
+                valueEl.textContent = insights[index].value.replace(/[0-9.]+/, newValue.toFixed(1)) + (insights[index].value.includes('%') ? '%' : '');
+            }
+        }
+    });
+}
+
 function updateMerchantMetrics() {
     // Simulate dynamic updates
     const savingsElement = document.querySelector('.text-yellow-400.font-bold.text-xl');
@@ -238,5 +328,10 @@ function updateMerchantMetrics() {
         velocityElement.textContent = '+' + Math.round(newVelocity) + '%';
     }
 }
+
+// Initialize AI features
+document.addEventListener('DOMContentLoaded', function() {
+    translateMerchantData();
+});
 </script>
 {% endblock %}

@@ -64,14 +64,28 @@
         <!-- Header with Navigation -->
         <header class="bg-gray-900 border-b border-gray-700 p-4">
             <div class="max-w-7xl mx-auto">
-                <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-2xl font-bold text-white">
-                        AdNostr-Core Admin Dashboard
-                    </h1>
-                    <a href="/lang/{{ 'en' if locale == 'zh_CN' else 'zh_CN' }}" class="btn-gray px-3 py-1 rounded text-sm">
-                        {{ t.nav.language }}
-                    </a>
-                </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-2xl font-bold text-white">
+                            AdNostr-Core Admin Dashboard
+                        </h1>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-gray-400 text-sm">Language:</span>
+                            <div class="flex space-x-1">
+                                <a href="/lang/en" class="px-2 py-1 rounded text-xs {{ 'bg-gray-600 text-white' if locale == 'en' else 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
+                                    EN
+                                </a>
+                                <a href="/lang/zh_CN" class="px-2 py-1 rounded text-xs {{ 'bg-gray-600 text-white' if locale == 'zh_CN' else 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
+                                    中文
+                                </a>
+                                <a href="/lang/ja" class="px-2 py-1 rounded text-xs bg-gray-700 text-gray-300 hover:bg-gray-600 opacity-50 cursor-not-allowed" title="Coming Soon">
+                                    JP
+                                </a>
+                                <a href="/lang/ko" class="px-2 py-1 rounded text-xs bg-gray-700 text-gray-300 hover:bg-gray-600 opacity-50 cursor-not-allowed" title="Coming Soon">
+                                    KR
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                 <!-- Navigation Tabs -->
                 <nav>

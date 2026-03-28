@@ -29,3 +29,16 @@ aiofiles==23.2.1
 
 # Logging
 structlog==23.2.0
+
+# AI/ML Dependencies (for content generation)
+transformers==4.35.0
+torch==2.1.0
+diffusers==0.24.0
+accelerate==0.24.0
+
+# Natural Language Processing
+openai==1.3.0
+anthropic==0.7.0
+
+# Image Generation
+replicate==0.22.0

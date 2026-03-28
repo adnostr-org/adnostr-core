@@ -192,7 +192,8 @@ def create_application() -> FastAPI:
     @app.get("/lang/{locale}")
     async def switch_language(locale: str, request: Request):
         """Switch language and redirect back to current page."""
-        if locale not in locales:
+        supported_locales = ['en', 'zh_CN', 'ja', 'ko']
+        if locale not in supported_locales:
             locale = 'en'
         # Redirect back to the page without lang parameter
         current_path = str(request.url).split('?')[0].replace(request.base_url, '')

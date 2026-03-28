@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "expert_engine": "エキスパートエンジン",
+    "merchant_center": "マーチャントセンター",
+    "attribution": "アトリビューション＆決済",
+    "api_specs": "API仕様",
+    "language": "EN"
+  },
+  "dashboard": {
+    "title": "AdNostr-Core 管理ダッシュボード",
+    "subtitle": "収益エンジン＆トラフィック分析プラットフォーム",
+    "traffic_heatmap": "トラフィックヒートマップ",
+    "sats_total": "Sats決済合計",
+    "relay_health": "Nostrリレー健康度",
+    "live_attribution": "ライブアトリビューションウィンドウ"
+  },
+  "expert_engine": {
+    "title": "エキスパートディレクトリ",
+    "profile": "エキスパートプロフィール",
+    "dynamic_params": "動的パラメータ調整",
+    "load_directory": "ディレクトリをロード"
+  },
+  "merchant_center": {
+    "title": "マーチャントセンター - Web 2.5 収益エンジン",
+    "subtitle": "越境販売者のP2P広告革命：90%コスト削減、決済即時化、中小販売者をトラフィック主宰者に",
+    "ad_comparison": "広告コスト比較",
+    "settlement_speed": "決済速度",
+    "p2p_matching": "P2Pトラフィックマッチング",
+    "budget_management": "予算管理",
+    "active_campaigns": "アクティブキャンペーン",
+    "transactions": "最近の越境取引",
+    "top_up": "予算を追加",
+    "new_campaign": "新規キャンペーン",
+    "export_report": "完全レポートをエクスポート"
+  },
+  "attribution": {
+    "click_tracking": "クリックパス追跡",
+    "lightning_status": "ライトニングネットワークステータス",
+    "data_export": "データエクスポート＆監査",
+    "load_clicks": "クリックデータをリフレッシュ"
+  },
+  "api": {
+    "title": "AdNostr API 仕様説明",
+    "core_endpoints": "コアエンドポイント",
+    "integration": "統合例",
+    "expansion": "エコシステム拡張"
+  }
+}
