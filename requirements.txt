@@ -1,0 +1,26 @@
+# AdNostr-Core Dependencies
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Mastodon Integration
+Mastodon.py==1.8.1
+
+# Environment Management
+python-dotenv==1.0.0
+
+# HTTP Client
+requests==2.31.0
+
+# Image Processing (for AI-generated images)
+Pillow==10.1.0
+
+# Math Libraries (for revenue calculation)
+numpy==1.26.0
+
+# Async Support
+asyncio==3.4.3
+aiofiles==23.2.1
+
+# Logging
+structlog==23.2.0
