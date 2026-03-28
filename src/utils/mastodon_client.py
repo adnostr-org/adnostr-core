@@ -91,6 +91,7 @@ class MastodonClient:
 
         # Connection state
         self._initialized = False
+        self.ready = True  # Default to ready, will be set to False if credentials are invalid
 
         logger.info("MastodonClient initialized",
                    base_url=self.base_url,
@@ -102,14 +103,19 @@ class MastodonClient:
         Initialize the Mastodon client connection.
 
         This method sets up the Mastodon.py client with proper authentication
-        and validates the connection.
+        and validates the connection. If credentials are invalid, sets ready=False
+        but does not raise exceptions.
 
-        Raises:
-            AuthenticationError: If authentication fails
-            MastodonClientError: If initialization fails for other reasons
+        Note: This function always completes successfully to avoid crashing the app.
         """
         if self._initialized:
             logger.debug("MastodonClient already initialized")
+            return
+
+        # Check if we have valid credentials
+        if not self.access_token:
+            logger.warning("MASTODON_ACCESS_TOKEN not configured, client will not be ready for posting")
+            self.ready = False
             return
 
         try:
@@ -122,16 +128,24 @@ class MastodonClient:
             )
 
             # Test connection by getting instance information
-            instance_info = self.mastodon.instance()
-            logger.info("Connected to Mastodon instance",
-                       instance=instance_info.get('title'),
-                       version=instance_info.get('version'))
+            try:
+                instance_info = self.mastodon.instance()
+                logger.info("Connected to Mastodon instance",
+                           instance=instance_info.get('title'),
+                           version=instance_info.get('version'))
+            except Exception as instance_error:
+                logger.warning("Failed to get instance information, but continuing",
+                              error=str(instance_error))
+                # Do not raise, just warn and continue
 
             self._initialized = True
+            self.ready = True
 
         except Exception as e:
-            logger.error("Failed to initialize Mastodon client", error=str(e))
-            raise MastodonClientError(f"Initialization failed: {str(e)}") from e
+            logger.warning("Failed to initialize Mastodon client, setting ready=False",
+                          error=str(e))
+            self.ready = False
+            # Do not raise exception, just set ready=False
 
     async def cleanup(self) -> None:
         """Clean up client resources and close connections."""
@@ -154,8 +168,8 @@ class MastodonClient:
         Raises:
             PostingError: If the status posting fails
         """
-        if not self._initialized or not self.mastodon:
-            raise MastodonClientError("Client not initialized")
+        if not self._initialized or not self.mastodon or not self.ready:
+            raise MastodonClientError("Client not ready or not initialized")
 
         try:
             # Post the status
@@ -169,7 +183,7 @@ class MastodonClient:
 
         except Exception as e:
             logger.error("Failed to post status", error=str(e), status_preview=status[:100])
-            raise PostingError(f"Status posting failed: {str(e)}") from e
+            raise PostingError(f"Status posting failed: {str(e)}")
 
     async def upload_media(self, media_data: bytes, media_type: str,
                           description: Optional[str] = None) -> Dict[str, Any]:
@@ -187,8 +201,8 @@ class MastodonClient:
         Raises:
             UploadError: If the media upload fails
         """
-        if not self._initialized or not self.mastodon:
-            raise MastodonClientError("Client not initialized")
+        if not self._initialized or not self.mastodon or not self.ready:
+            raise MastodonClientError("Client not ready or not initialized")
 
         try:
             # Create a temporary file for upload
@@ -217,7 +231,7 @@ class MastodonClient:
 
         except Exception as e:
             logger.error("Failed to upload media", error=str(e), media_type=media_type)
-            raise UploadError(f"Media upload failed: {str(e)}") from e
+            raise UploadError(f"Media upload failed: {str(e)}")
 
     async def post_status_with_media(self, status: str, media_data: bytes,
                                    media_type: str = "image/jpeg",
@@ -330,7 +344,7 @@ class MastodonClient:
 
         except Exception as e:
             logger.error("Toot command execution failed", error=str(e))
-            raise MastodonClientError(f"Toot execution failed: {str(e)}") from e
+            raise MastodonClientError(f"Toot execution failed: {str(e)}")
 
     def _get_file_extension(self, media_type: str) -> str:
         """
@@ -362,15 +376,15 @@ class MastodonClient:
         Raises:
             MastodonClientError: If the request fails
         """
-        if not self._initialized or not self.mastodon:
-            raise MastodonClientError("Client not initialized")
+        if not self._initialized or not self.mastodon or not self.ready:
+            raise MastodonClientError("Client not ready or not initialized")
 
         try:
             instance_info = self.mastodon.instance()
             return instance_info
         except Exception as e:
             logger.error("Failed to get instance info", error=str(e))
-            raise MastodonClientError(f"Instance info request failed: {str(e)}") from e
+            raise MastodonClientError(f"Instance info request failed: {str(e)}")
 
     async def get_account_info(self) -> Dict[str, Any]:
         """
@@ -382,12 +396,12 @@ class MastodonClient:
         Raises:
             MastodonClientError: If the request fails
         """
-        if not self._initialized or not self.mastodon:
-            raise MastodonClientError("Client not initialized")
+        if not self._initialized or not self.mastodon or not self.ready:
+            raise MastodonClientError("Client not ready or not initialized")
 
         try:
             account_info = self.mastodon.account_verify_credentials()
             return account_info
         except Exception as e:
             logger.error("Failed to get account info", error=str(e))
-            raise MastodonClientError(f"Account info request failed: {str(e)}") from e
+            raise MastodonClientError(f"Account info request failed: {str(e)}")
