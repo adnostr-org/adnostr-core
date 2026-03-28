@@ -231,14 +231,6 @@ def get_adnostr_db() -> sqlite3.Connection:
     return adnostr_db_conn
 
 
-def get_data_bridge() -> DataBridge:
-    """Get or create DataBridge instance."""
-    global data_bridge
-    if data_bridge is None:
-        data_bridge = DataBridge()
-    return data_bridge
-
-
 @router.post("/post_ad", response_model=PostAdResponse)
 async def post_advertisement(
     request: PostAdRequest,
