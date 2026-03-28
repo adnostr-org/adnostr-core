@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "dashboard": "仪表板",
+    "expert_engine": "专家引擎",
+    "merchant_center": "商家中心",
+    "attribution": "归因与结算",
+    "api_specs": "API规格",
+    "language": "EN"
+  },
+  "dashboard": {
+    "title": "AdNostr-Core 管理仪表板",
+    "subtitle": "收入引擎与流量分析平台",
+    "traffic_heatmap": "流量热力图",
+    "sats_total": "Sats结算总额",
+    "relay_health": "Nostr中继器健康度",
+    "live_attribution": "实时归因窗口"
+  },
+  "expert_engine": {
+    "title": "专家目录",
+    "profile": "专家资料",
+    "dynamic_params": "动态参数调整",
+    "load_directory": "加载专家目录"
+  },
+  "merchant_center": {
+    "title": "商家中心 - Web 2.5 收入引擎",
+    "subtitle": "跨境卖家的P2P广告革命：省90%成本，收款即时化，让中小卖家成为流量主宰者",
+    "ad_comparison": "广告成本对比",
+    "settlement_speed": "结算速度",
+    "p2p_matching": "P2P流量匹配",
+    "budget_management": "预算管理",
+    "active_campaigns": "活跃活动",
+    "transactions": "近期跨境交易",
+    "top_up": "充值预算",
+    "new_campaign": "新活动",
+    "export_report": "导出完整报告"
+  },
+  "attribution": {
+    "click_tracking": "点击路径跟踪",
+    "lightning_status": "闪电网络状态",
+    "data_export": "数据导出与审计",
+    "load_clicks": "刷新点击数据"
+  },
+  "api": {
+    "title": "AdNostr API 规格说明",
+    "core_endpoints": "核心端点",
+    "integration": "集成示例",
+    "expansion": "生态扩展"
+  }
+}

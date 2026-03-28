@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "expert_engine": "Expert Engine",
+    "merchant_center": "Merchant Center",
+    "attribution": "Attribution & Settlement",
+    "api_specs": "API Specs",
+    "language": "中文"
+  },
+  "dashboard": {
+    "title": "AdNostr-Core Admin Dashboard",
+    "subtitle": "Revenue Engine & Traffic Analytics Platform",
+    "traffic_heatmap": "Traffic Heatmap",
+    "sats_total": "Sats Settlement Total",
+    "relay_health": "Nostr Relay Health",
+    "live_attribution": "Live Attribution Window"
+  },
+  "expert_engine": {
+    "title": "Expert Directory",
+    "profile": "Expert Profile",
+    "dynamic_params": "Dynamic Parameter Adjustment",
+    "load_directory": "Load Expert Directory"
+  },
+  "merchant_center": {
+    "title": "Merchant Center - Web 2.5 Revenue Engine",
+    "subtitle": "跨境賣家的P2P廣告革命：省90%成本，收款即時化，讓中小賣家成為流量主宰者",
+    "ad_comparison": "Ad Cost Comparison",
+    "settlement_speed": "Settlement Speed",
+    "p2p_matching": "P2P Traffic Matching",
+    "budget_management": "Budget Management",
+    "active_campaigns": "Active Campaigns",
+    "transactions": "Recent Cross-Border Transactions",
+    "top_up": "Top Up Budget",
+    "new_campaign": "New Campaign",
+    "export_report": "Export Full Report"
+  },
+  "attribution": {
+    "click_tracking": "Click Path Tracking",
+    "lightning_status": "Lightning Network Status",
+    "data_export": "Data Export & Auditing",
+    "load_clicks": "Refresh Click Data"
+  },
+  "api": {
+    "title": "AdNostr API Specifications",
+    "core_endpoints": "Core Endpoints",
+    "integration": "Integration Examples",
+    "expansion": "Ecosystem Expansion"
+  }
+}

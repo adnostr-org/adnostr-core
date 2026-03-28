@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.api.title }}{% endblock %}
+
+{% block content %}
+<div class="card p-6">
+    <h2 class="text-2xl font-semibold mb-6 text-white border-b border-gray-600 pb-4">
+        📚 {{ t.api.title }}
+    </h2>
+
+    <div class="space-y-8">
+        <!-- Core Endpoints -->
+        <div>
+            <h3 class="text-lg font-semibold mb-4 text-blue-400">{{ t.api.core_endpoints }}</h3>
+            <div class="space-y-4">
+                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-green-400 font-mono">POST /api/v1/post_ad</span>
+                        <span class="text-xs bg-green-600 px-2 py-1 rounded">Generate Ad</span>
+                    </div>
+                    <p class="text-gray-300 text-sm">Generate AI-powered advertisement and post to Mastodon</p>
+                    <div class="mt-2 text-xs text-gray-500">
+                        <strong>Payload:</strong> prompt, image_type, description, style, brand_elements
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-yellow-400 font-mono">POST /api/v1/click_track</span>
+                        <span class="text-xs bg-yellow-600 px-2 py-1 rounded">Track Click</span>
+                    </div>
+                    <p class="text-gray-300 text-sm">Track advertisement clicks for revenue attribution</p>
+                    <div class="mt-2 text-xs text-gray-500">
+                        <strong>Payload:</strong> post_id, click_source, campaign_id
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-blue-400 font-mono">GET /api/v1/ad/stream</span>
+                        <span class="text-xs bg-blue-600 px-2 py-1 rounded">Get Stream</span>
+                    </div>
+                    <p class="text-gray-300 text-sm">Get advertisement stream with expert data</p>
+                    <div class="mt-2 text-xs text-gray-500">
+                        <strong>Returns:</strong> Array of expert profiles with avatars/banners
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Examples -->
+        <div>
+            <h3 class="text-lg font-semibold mb-4 text-purple-400">{{ t.api.integration }}</h3>
+            <div class="bg-gray-900 p-4 rounded border border-gray-600">
+                <h4 class="text-white mb-2">JavaScript Integration</h4>
+                <pre class="text-gray-300 text-sm overflow-x-auto"><code>// Generate advertisement
+const response = await fetch('/api/v1/post_ad', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    prompt: "Beautiful sunset over mountains",
+    image_type: "beauty",
+    style: "photorealistic",
+    brand_elements: ["nature", "adventure"]
+  })
+});
+
+// Track clicks
+await fetch('/api/v1/click_track', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    post_id: "123456",
+    click_source: "tiktok",
+    campaign_id: "summer_campaign"
+  })
+});</code></pre>
+            </div>
+        </div>
+
+        <!-- Ecosystem Expansion -->
+        <div>
+            <h3 class="text-lg font-semibold mb-4 text-green-400">{{ t.api.expansion }}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                    <h4 class="text-white mb-2">🤝 Third-Party Clients</h4>
+                    <p class="text-gray-300 text-sm">Any Nostr client can integrate AdNostr revenue attribution</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                    <h4 class="text-white mb-2">🌐 Cross-Platform</h4>
+                    <p class="text-gray-300 text-sm">Works with TikTok, Instagram, Twitter, and any traffic source</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                    <h4 class="text-white mb-2">⚡ Lightning Integration</h4>
+                    <p class="text-gray-300 text-sm">Automated micro-payments via Lightning Network</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded border border-gray-600">
+                    <h4 class="text-white mb-2">🎯 Smart Attribution</h4>
+                    <p class="text-gray-300 text-sm">AI-powered click attribution with fraud detection</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

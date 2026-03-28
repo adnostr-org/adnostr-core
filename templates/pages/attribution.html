@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.attribution.title }}{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <!-- Click Path Tracking -->
+    <div class="card p-6">
+        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            🕵️ {{ t.attribution.click_tracking }}
+        </h3>
+        <div id="clickTracking" class="space-y-3 max-h-80 overflow-y-auto">
+            <div class="text-center text-gray-500 py-4">
+                <p>No recent click events</p>
+                <p class="text-sm mt-2">Click tracking data will appear here</p>
+            </div>
+        </div>
+        <button id="loadClicksBtn" class="w-full mt-4 btn-gray px-4 py-2 rounded">
+            {{ t.attribution.load_clicks }}
+        </button>
+    </div>
+
+    <!-- Lightning Network Status -->
+    <div class="card p-6">
+        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            ⚡ {{ t.attribution.lightning_status }}
+        </h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Available Balance</span>
+                <span class="text-yellow-400 font-semibold">12,456 Sats</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Pending Payments</span>
+                <span class="text-blue-400">3,221 Sats</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Today's Settlements</span>
+                <span class="text-green-400">847 Sats</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Network Fee Rate</span>
+                <span class="text-gray-400">0.1%</span>
+            </div>
+        </div>
+        <div class="mt-4 p-3 bg-gray-800 rounded border border-gray-600">
+            <p class="text-gray-300 text-sm">
+                <span class="text-green-400">●</span> Lightning Network: Operational
+            </p>
+            <p class="text-gray-400 text-xs mt-1">
+                Ready to process automated settlements
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Data Export -->
+<div class="card p-6">
+    <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+        📄 {{ t.attribution.data_export }}
+    </h3>
+    <div class="flex flex-wrap gap-4">
+        <button class="btn-primary px-6 py-2 rounded">
+            📊 Generate PDF Report
+        </button>
+        <button class="btn-gray px-6 py-2 rounded">
+            📈 Export CSV Data
+        </button>
+        <button class="btn-gray px-6 py-2 rounded">
+            🔍 Audit Trail
+        </button>
+    </div>
+    <p class="text-gray-400 text-sm mt-4">
+        Generate comprehensive reports for sponsors and stakeholders
+    </p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load Click Tracking Data
+    document.getElementById('loadClicksBtn').addEventListener('click', async function() {
+        const clickTracking = document.getElementById('clickTracking');
+        this.textContent = 'Loading...';
+        this.disabled = true;
+
+        try {
+            // Mock click tracking data
+            const mockClicks = [
+                { id: 'abc123', source: 'tiktok', sats: 1249, timestamp: '2024-01-15 14:30:22', ip: '192.168.1.1' },
+                { id: 'def456', source: 'instagram', sats: 998, timestamp: '2024-01-15 13:45:10', ip: '10.0.0.5' },
+                { id: 'ghi789', source: 'twitter', sats: 756, timestamp: '2024-01-15 12:20:33', ip: '172.16.0.12' }
+            ];
+
+            clickTracking.innerHTML = '';
+            mockClicks.forEach(click => {
+                const clickDiv = document.createElement('div');
+                clickDiv.className = 'p-3 bg-gray-700 rounded border border-gray-600';
+                clickDiv.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="text-white font-medium">${click.source.toUpperCase()} Click</div>
+                            <div class="text-gray-400 text-sm">ID: ${click.id} | IP: ${click.ip}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-green-400 font-semibold">+${click.sats} sats</div>
+                            <div class="text-gray-500 text-xs">${click.timestamp}</div>
+                        </div>
+                    </div>
+                `;
+                clickTracking.appendChild(clickDiv);
+            });
+        } catch (error) {
+            clickTracking.innerHTML = `<div class="text-center text-red-400 py-4">Error loading click data</div>`;
+        } finally {
+            this.textContent = '{{ t.attribution.load_clicks }}';
+            this.disabled = false;
+        }
+    });
+
+    // Export buttons
+    const exportButtons = document.querySelectorAll('#content-attribution .btn-primary, #content-attribution .btn-gray');
+    exportButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const action = this.textContent.trim();
+            alert(`${action} feature coming soon!\nThis will generate comprehensive reports for sponsors.`);
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -18,15 +18,17 @@ License: MIT
 """
 
 import asyncio
+import json
 import logging
 import os
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
+from pathlib import Path
+from typing import AsyncGenerator, Dict, Any
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import structlog
@@ -34,6 +36,7 @@ import structlog
 from src.api.routes import router as api_router
 from src.engine.ad_generator import AdGenerator
 from src.utils.mastodon_client import MastodonClient
+from src.utils.data_bridge import DataBridge
 
 # Load environment variables
 load_dotenv()
@@ -63,6 +66,45 @@ logger = structlog.get_logger()
 ad_generator = AdGenerator()
 mastodon_client = MastodonClient()
 
+# Language support
+LOCALES_DIR = Path(__file__).parent / "locales"
+locales: Dict[str, Dict[str, Any]] = {}
+
+def load_locales():
+    """Load all locale files."""
+    global locales
+    for locale_file in LOCALES_DIR.glob("*.json"):
+        locale_name = locale_file.stem
+        with open(locale_file, 'r', encoding='utf-8') as f:
+            locales[locale_name] = json.load(f)
+    logger.info("Locales loaded", available_locales=list(locales.keys()))
+
+def get_locale(request: Request) -> str:
+    """Detect user locale from request."""
+    # Check query parameter
+    lang = request.query_params.get('lang')
+    if lang and lang in locales:
+        return lang
+
+    # Check Accept-Language header
+    accept_language = request.headers.get('accept-language', '')
+    if accept_language.startswith('zh'):
+        return 'zh_CN'
+
+    return 'en'
+
+def get_translations(locale: str) -> Dict[str, Any]:
+    """Get translations for a locale."""
+    return locales.get(locale, locales.get('en', {}))
+
+def add_context(request: Request) -> Dict[str, Any]:
+    """Add global context to all templates."""
+    locale = get_locale(request)
+    return {
+        "locale": locale,
+        "t": get_translations(locale)
+    }
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
@@ -76,6 +118,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         app: FastAPI application instance
     """
     logger.info("Starting AdNostr-Core application")
+
+    # Load locales
+    load_locales()
 
     # Startup: Initialize services
     try:
@@ -126,7 +171,7 @@ def create_application() -> FastAPI:
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
     # Configure Jinja2 templates
-    templates = Jinja2Templates(directory="templates")
+    templates = Jinja2Templates(directory="templates", context_processors=[add_context])
 
     # Global exception handler
     @app.exception_handler(Exception)
@@ -143,11 +188,74 @@ def create_application() -> FastAPI:
         """Health check endpoint for monitoring and load balancers."""
         return {"status": "healthy", "service": "adnostr-core"}
 
-    # Admin dashboard endpoint
+    # Language switching
+    @app.get("/lang/{locale}")
+    async def switch_language(locale: str, request: Request):
+        """Switch language and redirect back to current page."""
+        if locale not in locales:
+            locale = 'en'
+        # Redirect back to the page without lang parameter
+        current_path = str(request.url).split('?')[0].replace(request.base_url, '')
+        return RedirectResponse(url=f"{current_path}?lang={locale}", status_code=302)
+
+    # Page routes with i18n support
     @app.get("/", response_class=HTMLResponse)
-    async def admin_dashboard(request: Request):
-        """Serve the admin dashboard with Matrix-style UI."""
-        return templates.TemplateResponse("dashboard.html", {"request": request})
+    async def dashboard(request: Request):
+        """Dashboard page."""
+        return templates.TemplateResponse("pages/dashboard.html", {
+            "request": request,
+            "page": "dashboard"
+        })
+
+    @app.get("/experts", response_class=HTMLResponse)
+    async def expert_engine(request: Request):
+        """Expert Engine page."""
+        return templates.TemplateResponse("pages/expert_engine.html", {
+            "request": request,
+            "page": "experts",
+            "experts": []
+        })
+
+    @app.get("/merchant", response_class=HTMLResponse)
+    async def merchant_center(request: Request):
+        """Merchant Center page."""
+        # Get merchant data
+        merchant_data = {
+            "total_savings": 12847.50,
+            "capital_velocity": 400,
+            "active_experts": 24,
+            "matching_rate": 94.3,
+            "budget_available": 2450.00,
+            "daily_spend": 127.50,
+            "roi_7day": 3247,
+            "transactions": [
+                {"id": "TXN-2024-001", "merchant": "FashionHub Inc", "amount": 247.50, "settlement": "Instant", "savings": 185.63, "status": "Settled"},
+                {"id": "TXN-2024-002", "merchant": "TechGadgets Ltd", "amount": 189.99, "settlement": "T+1", "savings": 142.49, "status": "Processing"},
+                {"id": "TXN-2024-003", "merchant": "HomeDecor Pro", "amount": 456.78, "settlement": "Instant", "savings": 342.59, "status": "Settled"},
+            ]
+        }
+
+        return templates.TemplateResponse("pages/merchant_center.html", {
+            "request": request,
+            "page": "merchant",
+            "data": merchant_data
+        })
+
+    @app.get("/attribution", response_class=HTMLResponse)
+    async def attribution_settlement(request: Request):
+        """Attribution & Settlement page."""
+        return templates.TemplateResponse("pages/attribution.html", {
+            "request": request,
+            "page": "attribution"
+        })
+
+    @app.get("/api-docs", response_class=HTMLResponse)
+    async def api_specs(request: Request):
+        """API Specifications page."""
+        return templates.TemplateResponse("pages/api_specs.html", {
+            "request": request,
+            "page": "api"
+        })
 
     # Include API routes
     app.include_router(api_router, prefix="/api/v1")

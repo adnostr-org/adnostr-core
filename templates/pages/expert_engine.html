@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.expert_engine.title }}{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Expert List -->
+    <div class="card p-6">
+        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            👥 {{ t.expert_engine.title }}
+        </h3>
+        <div class="space-y-2 max-h-96 overflow-y-auto">
+            <div id="expertList" class="space-y-2">
+                <!-- Experts will be loaded dynamically -->
+                {% for expert in experts %}
+                <div class="p-3 bg-gray-700 rounded border border-gray-600 cursor-pointer hover:bg-gray-600 transition-colors expert-item" data-expert-id="{{ expert.id }}">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <img src="{{ expert.avatar or '/static/images/default-avatar.png' }}" alt="Avatar" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="text-white font-medium">Expert #{{ expert.id }}</div>
+                                <div class="text-gray-400 text-sm">Click for details</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-green-400 text-sm">+1,249 sats</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <button id="loadExpertsBtn" class="w-full mt-4 btn-gray px-4 py-2 rounded">
+            {{ t.expert_engine.load_directory }}
+        </button>
+    </div>
+
+    <!-- Expert Details -->
+    <div class="card p-6">
+        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            👤 {{ t.expert_engine.profile }}
+        </h3>
+        <div id="expertDetails" class="space-y-4">
+            <div class="text-center text-gray-500 py-8">
+                <p>Select an expert from the directory to view details</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Parameter Adjustment -->
+<div class="card p-6 mt-6">
+    <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+        ⚙️ {{ t.expert_engine.dynamic_params }}
+    </h3>
+    <div id="parameterAdjustment" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="text-center text-gray-500 py-4">
+            <p>Select an expert to adjust revenue parameters</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load experts from database
+    document.getElementById('loadExpertsBtn').addEventListener('click', async function() {
+        const expertList = document.getElementById('expertList');
+        this.textContent = 'Loading...';
+        this.disabled = true;
+
+        try {
+            // Mock loading 20 experts (replace with real database call)
+            const mockExperts = [];
+            for (let i = 1; i <= 20; i++) {
+                mockExperts.push({
+                    id: i,
+                    avatar: `/static/images/default-avatar.png`,
+                    followers: Math.floor(Math.random() * 100000) + 10000,
+                    conversion_rate: (Math.random() * 5 + 1).toFixed(1)
+                });
+            }
+
+            expertList.innerHTML = '';
+            mockExperts.forEach(expert => {
+                const expertDiv = document.createElement('div');
+                expertDiv.className = 'p-3 bg-gray-700 rounded border border-gray-600 cursor-pointer hover:bg-gray-600 transition-colors expert-item';
+                expertDiv.setAttribute('data-expert-id', expert.id);
+                expertDiv.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <img src="${expert.avatar}" alt="Avatar" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="text-white font-medium">Expert #${expert.id}</div>
+                                <div class="text-gray-400 text-sm">${expert.followers.toLocaleString()} followers • ${expert.conversion_rate}% conversion</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-green-400 text-sm">+${Math.floor(Math.random() * 500 + 1000)} sats</div>
+                        </div>
+                    </div>
+                `;
+                expertDiv.addEventListener('click', () => loadExpertDetails(expert.id));
+                expertList.appendChild(expertDiv);
+            });
+        } catch (error) {
+            expertList.innerHTML = `<div class="text-center text-red-400 py-4">Error loading experts</div>`;
+        } finally {
+            this.textContent = '{{ t.expert_engine.load_directory }}';
+            this.disabled = false;
+        }
+    });
+
+    // Expert selection
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.expert-item')) {
+            const expertId = e.target.closest('.expert-item').getAttribute('data-expert-id');
+            loadExpertDetails(expertId);
+        }
+    });
+});
+
+async function loadExpertDetails(expertId) {
+    const expertDetails = document.getElementById('expertDetails');
+    const parameterAdjustment = document.getElementById('parameterAdjustment');
+
+    expertDetails.innerHTML = '<div class="text-center text-gray-500 py-4">Loading expert details...</div>';
+
+    try {
+        const response = await fetch(`/api/v1/test/reward?eid=${expertId}&src=tiktok`);
+        const data = await response.json();
+
+        if (response.ok) {
+            const followers = Math.floor(Math.random() * 100000) + 10000;
+            const conversionRate = (Math.random() * 5 + 1).toFixed(1);
+
+            expertDetails.innerHTML = `
+                <div class="space-y-4">
+                    <div class="text-center">
+                        <img src="/static/images/default-avatar.png" alt="Expert Avatar" class="w-20 h-20 rounded-full mx-auto mb-4">
+                        <h4 class="text-xl font-semibold text-white">Expert #${expertId}</h4>
+                        <p class="text-gray-400">Professional Content Creator</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-700 p-3 rounded border border-gray-600">
+                            <div class="text-gray-400 text-sm">Followers</div>
+                            <div class="text-white font-semibold">${followers.toLocaleString()}</div>
+                        </div>
+                        <div class="bg-gray-700 p-3 rounded border border-gray-600">
+                            <div class="text-gray-400 text-sm">Conversion Rate</div>
+                            <div class="text-green-400 font-semibold">${conversionRate}%</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded border border-gray-600">
+                        <h5 class="text-white font-medium mb-2">Revenue Parameters</h5>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Base Revenue (C):</span>
+                                <span class="text-white">${data.calculation_details?.constants?.C || '1.5'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Decay Factor (k):</span>
+                                <span class="text-white">${data.calculation_details?.constants?.k || '0.8'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Current Rate:</span>
+                                <span class="text-green-400">${data.revenue_calculated} sats/click</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Show parameter adjustment
+            parameterAdjustment.innerHTML = `
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-gray-300">Revenue Constant (C)</label>
+                        <input id="paramC" type="number" step="0.1" value="${data.calculation_details?.constants?.C || '1.5'}"
+                               class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-gray-300">Decay Exponent (k)</label>
+                        <input id="paramK" type="number" step="0.1" value="${data.calculation_details?.constants?.k || '0.8'}"
+                               class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white">
+                    </div>
+                    <button id="updateParamsBtn" class="w-full btn-primary px-4 py-2 rounded">
+                        Update Parameters
+                    </button>
+                    <p class="text-gray-400 text-xs">
+                        Changes affect revenue calculation: R = (C × ln(I + 1)) / D^k
+                    </p>
+                </div>
+            `;
+
+            // Add parameter update handler
+            document.getElementById('updateParamsBtn').addEventListener('click', function() {
+                const newC = document.getElementById('paramC').value;
+                const newK = document.getElementById('paramK').value;
+                alert(`Parameters updated: C=${newC}, k=${newK}\n(This would update the database in production)`);
+            });
+        } else {
+            expertDetails.innerHTML = '<div class="text-center text-red-400 py-4">Failed to load expert details</div>';
+        }
+    } catch (error) {
+        expertDetails.innerHTML = `<div class="text-center text-red-400 py-4">Error: ${error.message}</div>`;
+    }
+}
+</script>
+{% endblock %}

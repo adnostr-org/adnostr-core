@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.dashboard.title }}{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">{{ t.dashboard.title }}</h2>
+    <p class="text-gray-300">{{ t.dashboard.subtitle }}</p>
+</div>
+
+<!-- KPI Cards Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Traffic Heatmap -->
+    <div class="card p-6">
+        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            🌡️ {{ t.dashboard.traffic_heatmap }}
+        </h3>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">TikTok</span>
+                <div class="flex items-center">
+                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                        <div class="bg-pink-500 h-2 rounded-full" style="width: 85%"></div>
+                    </div>
+                    <span class="text-pink-400 text-sm">247</span>
+                </div>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Instagram</span>
+                <div class="flex items-center">
+                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                        <div class="bg-purple-500 h-2 rounded-full" style="width: 62%"></div>
+                    </div>
+                    <span class="text-purple-400 text-sm">156</span>
+                </div>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Twitter</span>
+                <div class="flex items-center">
+                    <div class="w-20 bg-gray-700 rounded-full h-2 mr-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: 43%"></div>
+                    </div>
+                    <span class="text-blue-400 text-sm">108</span>
+                </div>
+            </div>
+        </div>
+        <p class="text-gray-400 text-xs mt-4">Real-time clicks to adnostr.org (last 24h)</p>
+    </div>
+
+    <!-- Sats Settlement Total -->
+    <div class="card p-6">
+        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            ₿ {{ t.dashboard.sats_total }}
+        </h3>
+        <div class="text-center">
+            <div class="text-4xl font-bold text-yellow-400 mb-2">47,891</div>
+            <p class="text-gray-400 text-sm">Total Sats generated for 20 experts</p>
+            <div class="mt-4 grid grid-cols-2 gap-4 text-center">
+                <div>
+                    <div class="text-lg font-semibold text-green-400">+2,156</div>
+                    <p class="text-gray-500 text-xs">Today</p>
+                </div>
+                <div>
+                    <div class="text-lg font-semibold text-blue-400">+15,432</div>
+                    <p class="text-gray-500 text-xs">This Week</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nostr Relay Health -->
+    <div class="card p-6">
+        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            🛰️ {{ t.dashboard.relay_health }}
+        </h3>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Global Coverage</span>
+                <span class="text-green-400">94.2%</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Active Relays</span>
+                <span class="text-white">1,247</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Avg Response</span>
+                <span class="text-yellow-400">142ms</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Uptime (30d)</span>
+                <span class="text-green-400">99.7%</span>
+            </div>
+        </div>
+        <div class="mt-4 w-full bg-gray-700 rounded-full h-2">
+            <div class="bg-green-500 h-2 rounded-full" style="width: 94.2%"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Live Attribution Window -->
+<div class="card p-6">
+    <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+        📊 {{ t.dashboard.live_attribution }}
+    </h3>
+    <div id="liveAttribution" class="space-y-3">
+        <div class="text-center text-gray-500 py-8">
+            <p>Waiting for traffic attribution events...</p>
+            <p class="text-sm mt-2">Share links on social media to see real-time data here</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Simulate live attribution updates
+    setInterval(() => {
+        updateLiveAttribution();
+    }, 5000);
+});
+
+function updateLiveAttribution() {
+    const liveAttribution = document.getElementById('liveAttribution');
+    if (!liveAttribution) return;
+
+    // Mock live attribution data
+    const mockEvents = [
+        { platform: 'TikTok', expert: 'Expert #1', sats: 1249, time: new Date().toLocaleTimeString() },
+        { platform: 'Instagram', expert: 'Expert #3', sats: 998, time: new Date(Date.now() - 30000).toLocaleTimeString() },
+        { platform: 'Twitter', expert: 'Expert #7', sats: 756, time: new Date(Date.now() - 60000).toLocaleTimeString() }
+    ];
+
+    liveAttribution.innerHTML = mockEvents.map(event => `
+        <div class="p-3 bg-gray-700 rounded border border-gray-600">
+            <div class="flex justify-between items-center">
+                <div>
+                    <div class="text-white font-medium">${event.platform} → ${event.expert}</div>
+                    <div class="text-gray-400 text-sm">${event.time}</div>
+                </div>
+                <div class="text-green-400 font-semibold">+${event.sats} sats</div>
+            </div>
+        </div>
+    `).join('');
+}
+</script>
+{% endblock %}

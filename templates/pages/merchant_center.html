@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.merchant_center.title }}{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">{{ t.merchant_center.title }}</h2>
+    <p class="text-gray-300">{{ t.merchant_center.subtitle }}</p>
+</div>
+
+<!-- KPI Cards Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Ad Cost Comparison -->
+    <div class="card p-6">
+        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            📉 {{ t.merchant_center.ad_comparison }}
+        </h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Market Avg (Google/FB)</span>
+                <span class="text-red-400 font-semibold">$1.5 - $3.0 / Click</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">AdNostr P2P Cost</span>
+                <span class="text-green-400 font-semibold">$0.15 - $0.30 / Click</span>
+            </div>
+            <div class="border-t border-gray-600 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300">Total Savings</span>
+                    <span class="text-yellow-400 font-bold text-xl">${{ "%.2f"|format(data.total_savings) }}</span>
+                </div>
+                <p class="text-gray-500 text-xs mt-1">90% cost reduction achieved</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settlement Speed -->
+    <div class="card p-6">
+        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            ⚡ {{ t.merchant_center.settlement_speed }}
+        </h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Traditional Cycle</span>
+                <span class="text-red-400 font-semibold">14 - 28 Days</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">AdNostr Settlement</span>
+                <span class="text-green-400 font-semibold">Real-time (Lightning)</span>
+            </div>
+            <div class="border-t border-gray-600 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300">Capital Velocity</span>
+                    <span class="text-blue-400 font-bold text-xl">+{{ data.capital_velocity }}%</span>
+                </div>
+                <p class="text-gray-500 text-xs mt-1">Funds available instantly vs 2-4 weeks</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- P2P Traffic Matching -->
+    <div class="card p-6">
+        <h3 class="text-lg font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            🤝 {{ t.merchant_center.p2p_matching }}
+        </h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Active Experts</span>
+                <span class="text-green-400 font-semibold">{{ data.active_experts }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Avg Expert Score</span>
+                <span class="text-yellow-400 font-semibold">8.7/10</span>
+            </div>
+            <div class="border-t border-gray-600 pt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300">Matching Rate</span>
+                    <span class="text-purple-400 font-bold text-xl">{{ data.matching_rate }}%</span>
+                </div>
+                <p class="text-gray-500 text-xs mt-1">AI-powered traffic-to-product matching</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Merchant Actions -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Budget Management -->
+    <div class="card p-6">
+        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            💰 {{ t.merchant_center.budget_management }}
+        </h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Available Budget</span>
+                <span class="text-green-400 font-semibold">${{ "%.2f"|format(data.budget_available) }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">Today's Spend</span>
+                <span class="text-blue-400 font-semibold">${{ "%.2f"|format(data.daily_spend) }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-300">ROI (7-day)</span>
+                <span class="text-yellow-400 font-semibold">{{ data.roi_7day }}%</span>
+            </div>
+            <button class="w-full btn-success px-4 py-2 rounded mt-4">
+                🔄 {{ t.merchant_center.top_up }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Active Campaigns -->
+    <div class="card p-6">
+        <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+            📢 {{ t.merchant_center.active_campaigns }}
+        </h3>
+        <div class="space-y-3">
+            <div class="p-3 bg-gray-700 rounded border border-gray-600">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-white font-medium">Summer Dress Collection</span>
+                    <span class="text-green-400 text-sm">Active</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">Clicks: 1,247</span>
+                    <span class="text-gray-400">Conv: 3.2%</span>
+                    <span class="text-gray-400">Revenue: $847</span>
+                </div>
+            </div>
+            <div class="p-3 bg-gray-700 rounded border border-gray-600">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-white font-medium">Tech Gadget Launch</span>
+                    <span class="text-yellow-400 text-sm">Pending</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">Target: 2,000 clicks</span>
+                    <span class="text-gray-400">Budget: $500</span>
+                </div>
+            </div>
+        </div>
+        <button class="w-full btn-primary px-4 py-2 rounded mt-4">
+            ➕ {{ t.merchant_center.new_campaign }}
+        </button>
+    </div>
+</div>
+
+<!-- Recent Transactions Table -->
+<div class="card p-6">
+    <h3 class="text-xl font-semibold mb-4 text-white border-b border-gray-600 pb-2">
+        📊 {{ t.merchant_center.transactions }}
+    </h3>
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gray-600">
+                    <th class="text-left py-2 px-3 text-gray-300">Transaction ID</th>
+                    <th class="text-left py-2 px-3 text-gray-300">Merchant</th>
+                    <th class="text-left py-2 px-3 text-gray-300">Amount (USD)</th>
+                    <th class="text-left py-2 px-3 text-gray-300">Settlement Time</th>
+                    <th class="text-left py-2 px-3 text-gray-300">P2P Savings</th>
+                    <th class="text-left py-2 px-3 text-gray-300">Status</th>
+                </tr>
+            </thead>
+            <tbody id="transactionTable" class="divide-y divide-gray-600">
+                {% for transaction in data.transactions %}
+                <tr class="hover:bg-gray-700">
+                    <td class="py-3 px-3 text-gray-400">#{{ transaction.id }}</td>
+                    <td class="py-3 px-3 text-white">{{ transaction.merchant }}</td>
+                    <td class="py-3 px-3 text-green-400">${{ "%.2f"|format(transaction.amount) }}</td>
+                    <td class="py-3 px-3 text-blue-400">{{ transaction.settlement }}</td>
+                    <td class="py-3 px-3 text-yellow-400">${{ "%.2f"|format(transaction.savings) }}</td>
+                    <td class="py-3 px-3">
+                        {% if transaction.status == 'Settled' %}
+                        <span class="text-green-400">✓ Settled</span>
+                        {% else %}
+                        <span class="text-yellow-400">⟳ {{ transaction.status }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4 flex justify-between items-center">
+        <p class="text-gray-400 text-sm">Showing last {{ data.transactions|length }} transactions</p>
+        <button class="btn-gray px-4 py-2 rounded text-sm">
+            📄 {{ t.merchant_center.export_report }}
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Dynamic metric updates
+    setInterval(() => {
+        updateMerchantMetrics();
+    }, 30000);
+
+    // Button handlers
+    const topUpBtn = document.querySelector('.btn-success');
+    const newCampaignBtn = document.querySelector('.btn-primary');
+    const exportBtn = document.querySelector('.btn-gray:last-of-type');
+
+    if (topUpBtn) {
+        topUpBtn.addEventListener('click', function() {
+            alert('Budget top-up feature coming soon!\nIntegration with Lightning Network wallet.');
+        });
+    }
+
+    if (newCampaignBtn) {
+        newCampaignBtn.addEventListener('click', function() {
+            alert('New campaign creation!\nAI-powered expert matching and budget optimization.');
+        });
+    }
+
+    if (exportBtn) {
+        exportBtn.addEventListener('click', function() {
+            alert('Exporting full transaction report...\nThis would generate a comprehensive PDF with all cross-border settlements.');
+        });
+    }
+});
+
+function updateMerchantMetrics() {
+    // Simulate dynamic updates
+    const savingsElement = document.querySelector('.text-yellow-400.font-bold.text-xl');
+    const velocityElement = document.querySelector('.text-blue-400.font-bold.text-xl');
+
+    if (savingsElement && Math.random() > 0.7) {
+        const currentSavings = parseFloat(savingsElement.textContent.replace(/[$,]/g, ''));
+        const newSavings = currentSavings + (Math.random() * 50 - 25);
+        savingsElement.textContent = '$' + Math.max(0, newSavings).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+
+    if (velocityElement && Math.random() > 0.8) {
+        const currentVelocity = parseInt(velocityElement.textContent.replace(/[^\d]/g, ''));
+        const newVelocity = Math.max(300, currentVelocity + (Math.random() * 20 - 10));
+        velocityElement.textContent = '+' + Math.round(newVelocity) + '%';
+    }
+}
+</script>
+{% endblock %}
