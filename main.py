@@ -11,6 +11,7 @@ Key Features:
 - Integrated revenue calculation engine
 - Mastodon integration for social media posting
 - AI-powered advertisement generation
+- Admin dashboard with visualization interface
 
 Author: AdNostr Team
 License: MIT
@@ -25,7 +26,9 @@ from typing import AsyncGenerator
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 import structlog
 
 from src.api.routes import router as api_router
@@ -119,6 +122,12 @@ def create_application() -> FastAPI:
         allow_headers=["*"],
     )
 
+    # Mount static files
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+
+    # Configure Jinja2 templates
+    templates = Jinja2Templates(directory="templates")
+
     # Global exception handler
     @app.exception_handler(Exception)
     async def global_exception_handler(request: Request, exc: Exception):
@@ -133,6 +142,12 @@ def create_application() -> FastAPI:
     async def health_check():
         """Health check endpoint for monitoring and load balancers."""
         return {"status": "healthy", "service": "adnostr-core"}
+
+    # Admin dashboard endpoint
+    @app.get("/", response_class=HTMLResponse)
+    async def admin_dashboard(request: Request):
+        """Serve the admin dashboard with Matrix-style UI."""
+        return templates.TemplateResponse("dashboard.html", {"request": request})
 
     # Include API routes
     app.include_router(api_router, prefix="/api/v1")

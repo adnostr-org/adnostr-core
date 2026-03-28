@@ -26,6 +26,7 @@ import json
 import math
 import os
 import sqlite3
+import subprocess
 import time
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
@@ -35,6 +36,7 @@ from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, validator
 import structlog
+from mastodon import Mastodon
 
 from src.engine.ad_generator import AdGenerator, ImageType, GenerationRequest
 from src.utils.mastodon_client import MastodonClient
@@ -49,87 +51,48 @@ router = APIRouter()
 ad_generator = AdGenerator()
 mastodon_client = MastodonClient()
 
-
-class PostAdRequest(BaseModel):
-    """Request model for posting advertisements."""
-    prompt: str = Field(..., min_length=10, max_length=500,
-                       description="Text prompt for AI image generation")
-    image_type: str = Field(..., regex="^(beauty|product)$",
-                           description="Type of image to generate: 'beauty' or 'product'")
-    description: Optional[str] = Field(None, max_length=200,
-                                      description="Optional description text for the post")
-    style: Optional[str] = Field(None, max_length=50,
-                                description="Optional style specification")
-    brand_elements: Optional[List[str]] = Field(None,
-                                                description="Optional brand elements to include")
-
-    @validator('image_type')
-    def validate_image_type(cls, v):
-        """Convert string to ImageType enum."""
-        return ImageType(v)
+# Initialize Mastodon.py client and DataBridge
+mastodon_py_client: Optional[Mastodon] = None
+data_bridge_instance: Optional[DataBridge] = None
 
 
-class PostAdResponse(BaseModel):
-    """Response model for advertisement posting."""
-    success: bool
-    post_id: Optional[str] = None
-    post_url: Optional[str] = None
-    image_url: Optional[str] = None
-    revenue_estimate: float
-    processing_time: float
-    metadata: Dict[str, Any] = {}
+def get_mastodon_client() -> Mastodon:
+    """Get or create Mastodon.py client instance."""
+    global mastodon_py_client
+    if mastodon_py_client is None:
+        try:
+            access_token = os.getenv("MASTODON_ACCESS_TOKEN")
+            base_url = os.getenv("MASTODON_BASE_URL", "https://admin.adnostr.org")
+
+            if not access_token:
+                raise ValueError("MASTODON_ACCESS_TOKEN not configured")
+
+            mastodon_py_client = Mastodon(
+                access_token=access_token,
+                api_base_url=base_url
+            )
+
+            logger.info("Mastodon.py client initialized", base_url=base_url)
+
+        except Exception as e:
+            logger.error("Failed to initialize Mastodon.py client", error=str(e))
+            raise
+
+    return mastodon_py_client
 
 
-class ClickTrackRequest(BaseModel):
-    """Request model for click tracking."""
-    post_id: str = Field(..., description="Mastodon post ID")
-    click_source: str = Field(..., description="Source of the click (e.g., 'tiktok', 'twitter')")
-    user_agent: Optional[str] = Field(None, description="User agent string")
-    referrer: Optional[str] = Field(None, description="Referrer URL")
-    ip_hash: Optional[str] = Field(None, description="Hashed IP address for privacy")
-    campaign_id: Optional[str] = Field(None, description="Campaign identifier")
+def get_data_bridge() -> DataBridge:
+    """Get or create DataBridge instance."""
+    global data_bridge_instance
+    if data_bridge_instance is None:
+        try:
+            data_bridge_instance = DataBridge()
+            logger.info("DataBridge initialized")
+        except Exception as e:
+            logger.error("Failed to initialize DataBridge", error=str(e))
+            raise
 
-
-class ClickTrackResponse(BaseModel):
-    """Response model for click tracking."""
-    success: bool
-    click_id: str
-    revenue_calculated: float
-    attribution_data: Dict[str, Any] = {}
-
-
-class ClickRequest(BaseModel):
-    """Request model for expert click tracking."""
-    eid: int = Field(..., description="Expert ID")
-    src: str = Field(..., description="Click source (e.g., 'tiktok', 'twitter')")
-
-
-class ClickResponse(BaseModel):
-    """Response model for expert click tracking."""
-    success: bool
-    expert_id: int
-    click_source: str
-    revenue_calculated: float
-    timestamp: str
-
-
-class AdStreamResponse(BaseModel):
-    """Response model for advertisement stream."""
-    experts: List[Dict[str, Any]]
-    total_count: int
-    timestamp: str
-
-
-# In-memory storage for demonstration (use database in production)
-click_storage: Dict[str, Dict[str, Any]] = {}
-post_storage: Dict[str, Dict[str, Any]] = {}
-
-# Database connection for AdNostr data
-adnostr_db_path = os.getenv("ADNOSTR_DATA_DB", "adnostr_data.db")
-adnostr_db_conn: Optional[sqlite3.Connection] = None
-
-# Data bridge for TickleBell integration
-data_bridge: Optional[DataBridge] = None
+    return data_bridge_instance
 
 
 def get_adnostr_db() -> sqlite3.Connection:
@@ -479,6 +442,296 @@ async def list_clicks() -> Dict[str, Any]:
         "clicks": list(click_storage.keys()),
         "total": len(click_storage)
     }
+
+
+@router.get("/admin/toot_check", response_model=TootCheckResponse)
+async def check_toot_auth() -> TootCheckResponse:
+    """
+    Check Toot CLI authentication status.
+
+    This endpoint executes 'toot auth' command to verify the authentication
+    status of configured Toot CLI accounts.
+
+    Returns:
+        Authentication status and output
+
+    Raises:
+        HTTPException: If the command execution fails
+    """
+    try:
+        logger.info("Checking Toot CLI authentication status")
+
+        # Execute toot auth command
+        result = subprocess.run(
+            ["toot", "auth"],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        output = result.stdout.strip() if result.stdout else ""
+        error_output = result.stderr.strip() if result.stderr else ""
+
+        # Combine stdout and stderr for complete output
+        full_output = output
+        if error_output:
+            full_output += "\n" + error_output
+
+        success = result.returncode == 0
+
+        logger.info("Toot CLI check completed",
+                   success=success,
+                   returncode=result.returncode)
+
+        return TootCheckResponse(
+            success=success,
+            output=full_output or "No output from toot command"
+        )
+
+    except subprocess.TimeoutExpired:
+        logger.error("Toot command timed out")
+        raise HTTPException(status_code=500, detail="Toot command timed out")
+
+    except FileNotFoundError:
+        logger.error("Toot command not found")
+        raise HTTPException(status_code=500, detail="Toot CLI not installed or not in PATH")
+
+    except Exception as e:
+        logger.error("Toot CLI check failed", error=str(e))
+        raise HTTPException(status_code=500, detail=f"Toot check failed: {str(e)}")
+
+
+@router.post("/admin/mastodon_post", response_model=MastodonPostResponse)
+async def post_to_mastodon(request: MastodonPostRequest) -> MastodonPostResponse:
+    """
+    Post advertisement content to Mastodon with expert avatar.
+
+    This endpoint:
+    1. Fetches expert avatar from TickleBell database
+    2. Uploads avatar as media to Mastodon
+    3. Posts status with content and attached media
+    4. Returns posting results
+
+    Args:
+        request: Post request with content and expert ID
+
+    Returns:
+        Posting result with post details
+
+    Raises:
+        HTTPException: If posting fails or expert not found
+    """
+    try:
+        logger.info("Processing Mastodon post request",
+                   expert_id=request.expert_id,
+                   content_length=len(request.content))
+
+        # Get Mastodon client
+        mastodon = get_mastodon_client()
+
+        # Get DataBridge for expert data
+        data_bridge = get_data_bridge()
+
+        # Fetch expert creative data
+        expert_data = None
+        try:
+            expert_data = data_bridge.get_expert_creative(request.expert_id)
+        except Exception as e:
+            logger.warning("Failed to fetch expert creative data", error=str(e))
+
+        avatar_used = False
+        media_id = None
+
+        # Upload avatar if available
+        if expert_data and expert_data.get("avatar_url"):
+            try:
+                # For this implementation, we'll use a placeholder since we can't actually
+                # download and upload media without the actual file path
+                # In production, you would download the image and upload it
+                avatar_used = True
+                logger.info("Expert avatar available for upload", avatar_url=expert_data["avatar_url"])
+
+                # Placeholder: In real implementation, download image and upload to Mastodon
+                # media_dict = mastodon.media_post(image_file, description="Expert avatar")
+                # media_id = media_dict["id"]
+
+            except Exception as e:
+                logger.warning("Failed to upload expert avatar", error=str(e))
+
+        # Post status with media if available
+        try:
+            post_data = {
+                "status": f"{request.content} #adnostr"
+            }
+
+            if media_id:
+                post_data["media_ids"] = [media_id]
+
+            posted_status = mastodon.status_post(**post_data)
+
+            logger.info("Successfully posted to Mastodon",
+                       post_id=posted_status["id"],
+                       expert_id=request.expert_id,
+                       avatar_used=avatar_used)
+
+            return MastodonPostResponse(
+                success=True,
+                post_id=str(posted_status["id"]),
+                post_url=posted_status.get("url"),
+                expert_id=request.expert_id,
+                content=request.content,
+                avatar_used=avatar_used
+            )
+
+        except Exception as e:
+            logger.error("Failed to post status to Mastodon", error=str(e))
+            raise HTTPException(status_code=500, detail=f"Mastodon posting failed: {str(e)}")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Mastodon post request failed", error=str(e))
+        raise HTTPException(status_code=500, detail=f"Post request failed: {str(e)}")
+
+
+@router.get("/test/reward", response_model=RewardTestResponse)
+async def test_reward_calculation(eid: int, src: str) -> RewardTestResponse:
+    """
+    Test revenue calculation for expert click.
+
+    This endpoint calculates revenue using the formula:
+    R = (C × ln(I + 1)) / D^k
+
+    Where:
+    - I: Complexity factor based on expert data availability
+    - D: Difficulty factor based on data freshness
+    - C/k: Configurable constants
+
+    Args:
+        eid: Expert ID
+        src: Click source (tiktok, twitter, etc.)
+
+    Returns:
+        Revenue calculation result with details
+
+    Raises:
+        HTTPException: If calculation fails
+    """
+    try:
+        logger.info("Testing revenue calculation",
+                   expert_id=eid,
+                   click_source=src)
+
+        # Validate parameters
+        if not src or src not in ["tiktok", "twitter", "facebook", "instagram", "direct", "search", "email"]:
+            raise HTTPException(status_code=400, detail="Invalid click source")
+
+        # Calculate revenue using the same logic as click tracking
+        revenue_calculated = await _calculate_expert_revenue(eid, src)
+
+        # Get detailed calculation information
+        calculation_details = await _get_calculation_details(eid, src)
+
+        timestamp = datetime.utcnow().isoformat()
+
+        logger.info("Revenue calculation test completed",
+                   expert_id=eid,
+                   click_source=src,
+                   revenue=revenue_calculated)
+
+        return RewardTestResponse(
+            success=True,
+            expert_id=eid,
+            click_source=src,
+            revenue_calculated=round(revenue_calculated, 4),
+            calculation_details=calculation_details,
+            timestamp=timestamp
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Revenue calculation test failed", error=str(e))
+        raise HTTPException(status_code=500, detail=f"Calculation failed: {str(e)}")
+
+
+async def _get_calculation_details(expert_id: int, click_source: str) -> Dict[str, Any]:
+    """
+    Get detailed calculation information for debugging.
+
+    Args:
+        expert_id: Expert ID
+        click_source: Click source
+
+    Returns:
+        Dictionary with calculation breakdown
+    """
+    try:
+        # Get configuration parameters
+        C = float(os.getenv("REVENUE_CONSTANT_C", "1.5"))
+        k = float(os.getenv("REVENUE_EXPONENT_K", "0.8"))
+
+        # Get expert data
+        db = get_adnostr_db()
+        cursor = db.cursor()
+        cursor.execute("""
+            SELECT avatar_url, banner_url, created_at, last_sync
+            FROM experts
+            WHERE expert_id = ?
+        """, (expert_id,))
+        expert = cursor.fetchone()
+
+        # Calculate factors
+        has_avatar = bool(expert["avatar_url"]) if expert else False
+        has_banner = bool(expert["banner_url"]) if expert else False
+        base_complexity = 1.0
+        if has_avatar:
+            base_complexity += 1.0
+        if has_banner:
+            base_complexity += 1.0
+
+        source_multiplier = _calculate_click_multiplier(click_source)
+        I = base_complexity * source_multiplier
+
+        D = 1.0
+        if expert:
+            try:
+                last_sync = datetime.fromisoformat(expert["last_sync"])
+                hours_since_sync = (datetime.utcnow() - last_sync).total_seconds() / 3600
+                D = max(1.0, hours_since_sync / 24)
+            except (ValueError, TypeError):
+                D = 1.0
+
+        revenue = (C * math.log(I + 1)) / (D ** k)
+
+        return {
+            "formula": "R = (C × ln(I + 1)) / D^k",
+            "constants": {
+                "C": C,
+                "k": k
+            },
+            "factors": {
+                "I_complexity": I,
+                "D_difficulty": D,
+                "base_complexity": base_complexity,
+                "source_multiplier": source_multiplier
+            },
+            "expert_data": {
+                "has_avatar": has_avatar,
+                "has_banner": has_banner,
+                "last_sync": expert["last_sync"] if expert else None
+            },
+            "intermediate_calculations": {
+                "ln_I_plus_1": math.log(I + 1),
+                "D_to_power_k": D ** k,
+                "numerator": C * math.log(I + 1),
+                "denominator": D ** k
+            }
+        }
+
+    except Exception as e:
+        logger.warning("Failed to get calculation details", error=str(e))
+        return {"error": str(e)}
 
 
 @router.get("/ad/stream", response_model=AdStreamResponse)

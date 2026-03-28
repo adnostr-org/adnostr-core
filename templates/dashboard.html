@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdNostr-Core Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/matrix-theme.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'matrix-black': '#020617',
+                        'matrix-blue': '#22d3ee',
+                        'matrix-green': '#10b981'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #020617;
+            color: #22d3ee;
+            font-family: 'Courier New', monospace;
+        }
+        .matrix-bg {
+            background: linear-gradient(45deg, #020617 25%, transparent 25%),
+                        linear-gradient(-45deg, #020617 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #020617 75%),
+                        linear-gradient(-45deg, transparent 75%, #020617 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        .glow {
+            text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee, 0 0 30px #22d3ee;
+        }
+        .panel {
+            background: rgba(2, 6, 23, 0.8);
+            border: 1px solid #22d3ee;
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+        }
+    </style>
+</head>
+<body class="h-full matrix-bg">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-black bg-opacity-50 border-b border-matrix-blue p-4">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-3xl font-bold glow text-matrix-blue text-center">
+                    AdNostr-Core Admin Dashboard
+                </h1>
+                <p class="text-matrix-green text-center mt-2 opacity-75">
+                    Matrix Protocol Revenue Engine - Industrial Control Interface
+                </p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto w-full p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Panel: Account Monitoring -->
+            <div class="panel rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4 glow text-matrix-blue border-b border-matrix-blue pb-2">
+                    🔐 Account Monitoring
+                </h2>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Toot CLI Auth Status</label>
+                        <button id="checkTootBtn" class="w-full bg-matrix-blue text-black px-4 py-2 rounded hover:bg-opacity-80 transition-colors">
+                            Check Authentication
+                        </button>
+                    </div>
+
+                    <div id="tootStatus" class="mt-4 p-3 bg-black bg-opacity-50 rounded border border-matrix-green">
+                        <pre id="tootOutput" class="text-matrix-green text-sm whitespace-pre-wrap">Click "Check Authentication" to verify Toot CLI status...</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Panel: Traffic Simulator -->
+            <div class="panel rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4 glow text-matrix-blue border-b border-matrix-blue pb-2">
+                    🚀 Traffic Simulator
+                </h2>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Expert ID</label>
+                        <input id="expertId" type="number" placeholder="Enter expert ID"
+                               class="w-full bg-black border border-matrix-blue rounded px-3 py-2 text-matrix-blue placeholder-matrix-blue placeholder-opacity-50">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Traffic Source</label>
+                        <select id="trafficSource" class="w-full bg-black border border-matrix-blue rounded px-3 py-2 text-matrix-blue">
+                            <option value="tiktok">TikTok</option>
+                            <option value="twitter">Twitter</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="direct">Direct</option>
+                        </select>
+                    </div>
+
+                    <button id="testRewardBtn" class="w-full bg-matrix-green text-black px-4 py-2 rounded hover:bg-opacity-80 transition-colors">
+                        Calculate Revenue
+                    </button>
+
+                    <div id="rewardResult" class="mt-4 p-3 bg-black bg-opacity-50 rounded border border-matrix-green min-h-32">
+                        <pre id="rewardOutput" class="text-matrix-green text-sm">Enter Expert ID and Source, then click "Calculate Revenue"...</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Ad Posting Test -->
+            <div class="panel rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4 glow text-matrix-blue border-b border-matrix-blue pb-2">
+                    📢 Ad Posting Test
+                </h2>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Expert ID</label>
+                        <input id="postExpertId" type="number" placeholder="Enter expert ID"
+                               class="w-full bg-black border border-matrix-blue rounded px-3 py-2 text-matrix-blue placeholder-matrix-blue placeholder-opacity-50">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Post Content</label>
+                        <textarea id="postContent" rows="3" placeholder="Enter advertisement content..."
+                                  class="w-full bg-black border border-matrix-blue rounded px-3 py-2 text-matrix-blue placeholder-matrix-blue placeholder-opacity-50"></textarea>
+                    </div>
+
+                    <button id="postAdBtn" class="w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-opacity-80 transition-colors">
+                        🚀 Launch Ad Campaign
+                    </button>
+
+                    <div id="postResult" class="mt-4 p-3 bg-black bg-opacity-50 rounded border border-red-500 min-h-32">
+                        <pre id="postOutput" class="text-red-400 text-sm">Ready to launch advertisement campaign...</pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-black bg-opacity-50 border-t border-matrix-blue p-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <p class="text-matrix-blue opacity-75">
+                    AdNostr-Core v1.0.0 | Matrix Protocol Revenue Engine | Built with FastAPI & Tailwind CSS
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Matrix-style typing effect for initial load
+        document.addEventListener('DOMContentLoaded', function() {
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            };
+            typeWriter();
+        });
+
+        // Toot CLI Check
+        document.getElementById('checkTootBtn').addEventListener('click', async function() {
+            const output = document.getElementById('tootOutput');
+            output.textContent = 'Checking Toot CLI authentication...';
+
+            try {
+                const response = await fetch('/api/v1/admin/toot_check');
+                const data = await response.json();
+
+                if (response.ok) {
+                    output.textContent = data.output || 'Authentication check completed successfully';
+                } else {
+                    output.textContent = `Error: ${data.detail || 'Unknown error'}`;
+                }
+            } catch (error) {
+                output.textContent = `Network Error: ${error.message}`;
+            }
+        });
+
+        // Revenue Calculation
+        document.getElementById('testRewardBtn').addEventListener('click', async function() {
+            const expertId = document.getElementById('expertId').value;
+            const source = document.getElementById('trafficSource').value;
+            const output = document.getElementById('rewardOutput');
+
+            if (!expertId) {
+                output.textContent = 'Error: Please enter an Expert ID';
+                return;
+            }
+
+            output.textContent = 'Calculating revenue...';
+
+            try {
+                const response = await fetch(`/api/v1/test/reward?eid=${expertId}&src=${source}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    const result = JSON.stringify(data, null, 2);
+                    output.textContent = `Revenue Calculation Result:\n${result}`;
+                } else {
+                    output.textContent = `Error: ${data.detail || 'Unknown error'}`;
+                }
+            } catch (error) {
+                output.textContent = `Network Error: ${error.message}`;
+            }
+        });
+
+        // Ad Posting
+        document.getElementById('postAdBtn').addEventListener('click', async function() {
+            const expertId = document.getElementById('postExpertId').value;
+            const content = document.getElementById('postContent').value;
+            const output = document.getElementById('postOutput');
+
+            if (!expertId || !content) {
+                output.textContent = 'Error: Please enter both Expert ID and Post Content';
+                return;
+            }
+
+            output.textContent = 'Launching advertisement campaign...';
+
+            try {
+                const response = await fetch('/api/v1/admin/mastodon_post', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: content,
+                        expert_id: parseInt(expertId)
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const result = JSON.stringify(data, null, 2);
+                    output.textContent = `Campaign Launched Successfully:\n${result}`;
+                } else {
+                    output.textContent = `Error: ${data.detail || 'Unknown error'}`;
+                }
+            } catch (error) {
+                output.textContent = `Network Error: ${error.message}`;
+            }
+        });
+
+        // Matrix rain effect (subtle background animation)
+        function createMatrixRain() {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.zIndex = '-1';
+            canvas.style.opacity = '0.1';
+            document.body.appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const matrix = '01';
+            const fontSize = 10;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(2, 6, 23, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#22d3ee';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrix[Math.floor(Math.random() * matrix.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(draw, 35);
+        }
+
+        // Initialize matrix rain effect after a short delay
+        setTimeout(createMatrixRain, 1000);
+    </script>
+</body>
+</html>
