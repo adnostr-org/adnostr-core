@@ -165,18 +165,20 @@ def create_application() -> FastAPI:
         max_age=3600
     )
 
-    # API key authentication middleware
+    # API key authentication middleware with three-layer security
+    from src.utils.security_middleware import ThreeLayerSecurity
+    security = ThreeLayerSecurity()
+    
     @app.middleware("http")
-    async def verify_api_key(request: Request, call_next):
-        api_key = request.headers.get("X-API-Key")
-        if not api_key or not validate_api_key(api_key):
-            return JSONResponse({"error": "Invalid API key"}, 401)
-        return await call_next(request)
-
-    def validate_api_key(api_key: str) -> bool:
-        """Validate API key against environment variable."""
-        expected_key = os.getenv("API_KEY")
-        return bool(expected_key and api_key == expected_key)
+    async def verify_request_security(request: Request, call_next):
+        try:
+            await security.verify_request(request)
+            return await call_next(request)
+        except HTTPException as e:
+            return JSONResponse({"error": e.detail}, e.status_code)
+        except Exception as e:
+            logger.error("Security verification error", error=str(e))
+            return JSONResponse({"error": "Security verification failed"}, 500)
 
     # Global exception handler
     @app.exception_handler(Exception)
