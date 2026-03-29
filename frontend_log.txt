@@ -1,0 +1,2294 @@
+nohup: ignoring input
+3:12:38 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+  VITE v6.4.1  ready in 1362 ms
+
+  ➜  Local:   http://localhost:8081/
+  ➜  Network: http://10.128.0.3:8081/
+
+warn - The utility `shadow-[0_0_0_2px_theme(colors.primary.600),0_0_0_4px_theme(colors.white)]` contains an invalid theme value and was not generated.
+The request url "/www/wwwroot/adnostr-core/frontend/.env.production" is outside of Vite serving allow list.
+
+- /www/wwwroot/adnostr-core/frontend
+
+Refer to docs https://vite.dev/config/server-options.html#server-fs-allow for configurations and more details.
+
+The request url "/www/wwwroot/adnostr-core/frontend/.env.example" is outside of Vite serving allow list.
+Files in the public directory are served at the root path.
+Instead of /public/.env, use /.env.
+The request url "/www/wwwroot/adnostr-core/frontend/.git/config" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.git/config" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.git/HEAD" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.git/config" is outside of Vite serving allow list.
+The request url "/proc/self/environ" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.env.production" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.env.example" is outside of Vite serving allow list.
+Files in the public directory are served at the root path.
+Instead of /public/.env, use /.env.
+The request url "/proc/self/environ" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.git/config" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.git/HEAD" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.env.production" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.env.example" is outside of Vite serving allow list.
+Files in the public directory are served at the root path.
+Instead of /public/.env, use /.env.
+The request url "/www/wwwroot/adnostr-core/frontend/.git/config" is outside of Vite serving allow list.
+The request url "/www/wwwroot/adnostr-core/frontend/.git/HEAD" is outside of Vite serving allow list.
+4:09:13 AM [vite] changed tsconfig file detected: /www/wwwroot/adnostr-core/frontend/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+4:09:13 AM [vite] vite.config.ts changed, restarting server...
+4:09:13 AM [vite] (client) page reload services/iframe-fetch-client/index.html
+4:09:13 AM [vite] (client) page reload src/actions/about.ts
+4:09:13 AM [vite] (client) page reload src/actions/account-notes.ts
+4:09:13 AM [vite] (client) page reload src/actions/accounts.ts
+4:09:13 AM [vite] (client) page reload src/actions/admin.ts
+4:09:13 AM [vite] (client) page reload src/actions/aliases.ts
+4:09:13 AM [vite] (client) page reload src/actions/apps.ts
+4:09:13 AM [vite] (client) page reload src/actions/auth.ts
+4:09:13 AM [vite] (client) page reload src/actions/backups.ts
+4:09:13 AM [vite] (client) page reload src/actions/blocks.ts
+4:09:13 AM [vite] (client) page reload src/actions/chats.ts
+4:09:13 AM [vite] (client) page reload src/actions/compose-status.ts
+4:09:13 AM [vite] (client) page reload src/actions/compose.test.ts
+4:09:13 AM [vite] (client) page reload src/actions/compose.ts
+4:09:13 AM [vite] (client) page reload src/actions/consumer-auth.ts
+4:09:13 AM [vite] (client) page reload src/actions/conversations.ts
+4:09:13 AM [vite] (client) page reload src/actions/directory.ts
+4:09:13 AM [vite] (client) page reload src/actions/domain-blocks.ts
+4:09:13 AM [vite] (client) page reload src/actions/dropdown-menu.ts
+4:09:13 AM [vite] (client) page reload src/actions/email-list.ts
+4:09:13 AM [vite] (client) page reload src/actions/emoji-reacts.ts
+4:09:13 AM [vite] (client) page reload src/actions/emojis.ts
+4:09:13 AM [vite] (client) page reload src/actions/events.ts
+4:09:13 AM [vite] (client) page reload src/actions/export-data.ts
+4:09:13 AM [vite] (client) page reload src/actions/external-auth.ts
+4:09:13 AM [vite] (client) page reload src/actions/familiar-followers.ts
+4:09:13 AM [vite] (client) page reload src/actions/favourites.ts
+4:09:13 AM [vite] (client) page reload src/actions/filters.ts
+4:09:13 AM [vite] (client) page reload src/actions/groups.ts
+4:09:13 AM [vite] (client) page reload src/actions/history.ts
+4:09:13 AM [vite] (client) page reload src/actions/import-data.ts
+4:09:13 AM [vite] (client) page reload src/actions/importer/index.ts
+4:09:13 AM [vite] (client) page reload src/actions/instance.ts
+4:09:13 AM [vite] (client) page reload src/actions/interactions.ts
+4:09:13 AM [vite] (client) page reload src/actions/lists.ts
+4:09:13 AM [vite] (client) page reload src/actions/markers.ts
+4:09:13 AM [vite] (client) page reload src/actions/me.ts
+4:09:13 AM [vite] (client) page reload src/actions/media.ts
+4:09:13 AM [vite] (client) page reload src/actions/mfa.ts
+4:09:13 AM [vite] (client) page reload src/actions/modals.ts
+4:09:13 AM [vite] (client) page reload src/actions/moderation.tsx
+4:09:13 AM [vite] (client) page reload src/actions/mrf.ts
+4:09:13 AM [vite] (client) page reload src/actions/mutes.ts
+4:09:13 AM [vite] (client) page reload src/actions/nostr.ts
+4:09:13 AM [vite] (client) page reload src/actions/notifications.ts
+4:09:13 AM [vite] (client) page reload src/actions/oauth.ts
+4:09:13 AM [vite] (client) page reload src/actions/onboarding.test.ts
+4:09:13 AM [vite] (client) page reload src/actions/onboarding.ts
+4:09:13 AM [vite] (client) page reload src/actions/patron.ts
+4:09:13 AM [vite] (client) page reload src/actions/pin-statuses.ts
+4:09:13 AM [vite] (client) page reload src/actions/polls.ts
+4:09:13 AM [vite] (client) page reload src/actions/preload.ts
+4:09:13 AM [vite] (client) page reload src/actions/profile-hover-card.ts
+4:09:13 AM [vite] (client) page reload src/actions/push-notifications/registerer.ts
+4:09:13 AM [vite] (client) page reload src/actions/remote-timeline.ts
+4:09:13 AM [vite] (client) page reload src/actions/reports.ts
+4:09:13 AM [vite] (client) page reload src/actions/scheduled-statuses.ts
+4:09:13 AM [vite] (client) page reload src/actions/search.ts
+4:09:13 AM [vite] (client) page reload src/actions/security.ts
+4:09:13 AM [vite] (client) page reload src/actions/settings.ts
+4:09:13 AM [vite] (client) page reload src/actions/sidebar.ts
+4:09:13 AM [vite] (client) page reload src/actions/soapbox.ts
+4:09:13 AM [vite] (client) page reload src/actions/status-hover-card.ts
+4:09:13 AM [vite] (client) page reload src/actions/status-quotes.ts
+4:09:13 AM [vite] (client) page reload src/actions/statuses.ts
+4:09:13 AM [vite] (client) page reload src/actions/streaming.ts
+4:09:13 AM [vite] (client) page reload src/actions/suggestions.ts
+4:09:13 AM [vite] (client) page reload src/actions/sw.ts
+4:09:13 AM [vite] (client) page reload src/actions/tags.ts
+4:09:13 AM [vite] (client) page reload src/actions/timelines.ts
+4:09:13 AM [vite] (client) page reload src/actions/trending-statuses.ts
+4:09:13 AM [vite] (client) page reload src/actions/trends.ts
+4:09:13 AM [vite] (client) page reload src/api/HTTPError.ts
+4:09:13 AM [vite] (client) page reload src/api/MastodonClient.ts
+4:09:13 AM [vite] (client) page reload src/api/MastodonResponse.ts
+4:09:13 AM [vite] (client) page reload src/api/index.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/index.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/useCustomEmojis.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/index.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useAdminAccounts.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useAnnouncements.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useCreateDomain.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useDeleteDomain.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useDomains.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useManageZapSplit.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useModerationLog.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useRelays.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useRules.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useSuggest.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useUpdateDomain.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/admin/useVerify.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/accounts/useAccount.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/accounts/useAccountList.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/accounts/useAccountLookup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/accounts/useFollow.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/accounts/usePatronUser.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/accounts/useRelationship.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/accounts/useRelationships.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/announcements/index.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/announcements/useAnnouncements.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/captcha/useCaptcha.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useBlockGroupMember.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useCancelMembershipRequest.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useCreateGroup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useDeleteGroup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useDeleteGroupStatus.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useDemoteGroupMember.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupLookup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupMedia.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupMembers.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupMembershipRequests.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupMutes.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupRelationship.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupRelationships.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupSearch.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupTag.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupTags.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupValidation.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroups.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useGroupsFromTag.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useJoinGroup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useLeaveGroup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useMuteGroup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/usePendingGroups.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/usePopularGroups.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/usePopularTags.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/usePromoteGroupMember.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useSuggestedGroups.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useUnmuteGroup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useUpdateGroup.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/groups/useUpdateGroupTag.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/statuses/useBookmark.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/statuses/useBookmarks.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/statuses/useFavourite.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/statuses/useReaction.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/useCommunityStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/useDirectStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/useGroupStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/useHashtagStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/useListStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/usePublicStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/useRemoteStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/useTimelineStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/streaming/useUserStream.ts
+4:09:13 AM [vite] (client) page reload src/api/hooks/zap-split/useZapSplit.ts
+4:09:13 AM [vite] (client) page reload src/build-config-compiletime.ts
+4:09:13 AM [vite] (client) page reload src/build-config.ts
+4:09:13 AM [vite] (client) hmr update /src/components/AIMessageItem.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AIProviderConfigDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/AISettingsProvider.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/AISettingsProvider.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/Act1Dialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AddAIProviderDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AddCustomAIProviderDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AddCustomGitCredentialDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AddCustomProviderDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AddDeployProviderDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AddGitCredentialDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AddProviderTile.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/AddSharedProviderDialog.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/AddSharedProviderDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AppLayout.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AppShowcase.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/AppShowcaseCard.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/BranchSwitcher.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/BranchSwitcher.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ConsoleErrorProvider.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ConsoleErrorProvider.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/CreditsBadge.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/CreditsBadge.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/CreditsDialog.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/DeleteProjectDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/DeploySettingsProvider.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/DiscoverPluginsDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/DraggableProviderTile.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/DuplicateProjectDialog.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/DuplicateProjectDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/DynamicFavicon.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/EmailSubscription.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ErrorBoundary.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ExternalFavicon.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/FSProvider.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/GiftCardRedeemDialog.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/GiftCardRedeemDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/GitCredentialConfigDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/GitSettingsProvider.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/GitSettingsProvider.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/GitStatusIndicator.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/GitStatusIndicator.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/GitSyncProvider.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/GraspListManager.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ImageLightbox.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ImageModelDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/LanguagePicker.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/LanguagePicker.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/LightningPayment.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/MCPServersSection.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ModelInput.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ModelInput.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ModelPricing.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ModelSelector.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ModelSelector.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/NostrRepoEditDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/OfflineIndicator.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/OnboardingCreditsBadge.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/OnboardingCreditsBadge.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/OnboardingDialog.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/OnboardingDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/PWAUpdatePrompt.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/PluginsSection.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ProjectDetailsDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ProjectSidebar.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ProjectSidebar.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ProjectTemplatesSection.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ProjectTitleMenu.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ProviderConfigDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ProviderTile.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/Quilly.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/Quilly.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/RepositoryCard.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/SentryProvider.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/SentryProvider.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/SessionManagerProvider.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/SessionMonitor.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/SettingsItem.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/SettingsItemMobile.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/SettingsLayout.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/SettingsPageLayout.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/Shakespeare/ChatInput.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/Shakespeare/ChatPane.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/Shakespeare/FileEditor.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/Shakespeare/FileTree.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/Shakespeare/PreviewPane.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/Shakespeare/ToolsDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/ShakespeareLogo.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/StarButton.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/Terminal.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/TerminalTest.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ThemePicker.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ToolCallDisplay.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ToolCallDisplay.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/URLFragmentHandler.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/URLFragmentHandler.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/UserMessage.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/VFSImage.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ZipImportDialog.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ZipImportDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/__mocks__/react-inlinesvg.tsx
+4:09:13 AM [vite] (client) page reload src/components/account-search.tsx
+4:09:13 AM [vite] (client) page reload src/components/account.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/account.tsx
+4:09:13 AM [vite] (client) page reload src/components/ai/GitCommit.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ai/GitCommit.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ai/GitHistoryDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/animated-number.tsx
+4:09:13 AM [vite] (client) page reload src/components/announcements/announcement-content.tsx
+4:09:13 AM [vite] (client) page reload src/components/announcements/announcement.tsx
+4:09:13 AM [vite] (client) page reload src/components/announcements/announcements-panel.tsx
+4:09:13 AM [vite] (client) page reload src/components/announcements/emoji.tsx
+4:09:13 AM [vite] (client) page reload src/components/announcements/reaction.tsx
+4:09:13 AM [vite] (client) page reload src/components/announcements/reactions-bar.tsx
+4:09:13 AM [vite] (client) page reload src/components/attachment-thumbs.tsx
+4:09:13 AM [vite] (client) page reload src/components/auth/AccountSwitcher.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/auth/LoginArea.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/auth/SimpleLoginDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/auth/SimpleSignupDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/authorize-reject-buttons.tsx
+4:09:13 AM [vite] (client) page reload src/components/autosuggest-account-input.tsx
+4:09:13 AM [vite] (client) page reload src/components/autosuggest-emoji.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/autosuggest-emoji.tsx
+4:09:13 AM [vite] (client) page reload src/components/autosuggest-input.tsx
+4:09:13 AM [vite] (client) page reload src/components/autosuggest-location.tsx
+4:09:13 AM [vite] (client) page reload src/components/avatar-stack.tsx
+4:09:13 AM [vite] (client) page reload src/components/badge.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/badge.tsx
+4:09:13 AM [vite] (client) page reload src/components/big-card.tsx
+4:09:13 AM [vite] (client) page reload src/components/birthday-input.tsx
+4:09:13 AM [vite] (client) page reload src/components/birthday-panel.tsx
+4:09:13 AM [vite] (client) page reload src/components/blurhash.tsx
+4:09:13 AM [vite] (client) page reload src/components/copyable-input.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/CloudflareDeployForm.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/DenoDeployForm.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/DeployButton.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/DeploySteps.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/NetlifyDeployForm.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/NsiteDeployForm.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/RailwayDeployForm.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/ShakespeareDeployForm.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/deploy/VercelDeployForm.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/display-name-inline.tsx
+4:09:13 AM [vite] (client) page reload src/components/display-name.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/display-name.tsx
+4:09:13 AM [vite] (client) page reload src/components/domain.tsx
+4:09:13 AM [vite] (client) page reload src/components/dropdown-menu/dropdown-menu-item.tsx
+4:09:13 AM [vite] (client) page reload src/components/dropdown-menu/dropdown-menu.tsx
+4:09:13 AM [vite] (client) page reload src/components/dropdown-menu/index.ts
+4:09:13 AM [vite] (client) page reload src/components/emoji-graphic.tsx
+4:09:13 AM [vite] (client) page reload src/components/event-preview.tsx
+4:09:13 AM [vite] (client) page reload src/components/extended-video-player.tsx
+4:09:13 AM [vite] (client) page reload src/components/fork-awesome-icon.tsx
+4:09:13 AM [vite] (client) page reload src/components/gdpr-banner.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/GitSyncButton.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/GitSyncSteps.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/git-sync/index.ts
+4:09:13 AM [vite] (client) page reload src/components/git-sync/types.ts
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/steps/ConfigureRepoStep.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/steps/ForcePullDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/steps/ForcePushDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/steps/InitSuccessStep.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/steps/SelectProviderStep.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/steps/SyncStep.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/git-sync/steps/SyncStepError.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/group-card.tsx
+4:09:13 AM [vite] (client) page reload src/components/groups/group-avatar.tsx
+4:09:13 AM [vite] (client) page reload src/components/groups/popover/group-popover.tsx
+4:09:13 AM [vite] (client) page reload src/components/hashtag-link.tsx
+4:09:13 AM [vite] (client) page reload src/components/hashtag.tsx
+4:09:13 AM [vite] (client) page reload src/components/helmet.tsx
+4:09:13 AM [vite] (client) page reload src/components/hover-ref-wrapper.tsx
+4:09:13 AM [vite] (client) page reload src/components/hover-status-wrapper.tsx
+4:09:13 AM [vite] (client) page reload src/components/icon-button.tsx
+4:09:13 AM [vite] (client) page reload src/components/icon-with-counter.tsx
+4:09:13 AM [vite] (client) page reload src/components/icon.tsx
+4:09:13 AM [vite] (client) page reload src/components/instance-favicon.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/labels/LabelSelector.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/components/labels/LabelsManageDialog.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/labels/index.ts
+4:09:13 AM [vite] (client) page reload src/components/link.tsx
+4:09:13 AM [vite] (client) page reload src/components/list.tsx
+4:09:13 AM [vite] (client) page reload src/components/load-gap.tsx
+4:09:13 AM [vite] (client) page reload src/components/loading-screen.tsx
+4:09:13 AM [vite] (client) page reload src/components/load-more.tsx
+4:09:13 AM [vite] (client) page reload src/components/location-search.tsx
+4:09:13 AM [vite] (client) page reload src/components/markup.tsx
+4:09:13 AM [vite] (client) page reload src/components/media-gallery.tsx
+4:09:13 AM [vite] (client) page reload src/components/mention.tsx
+4:09:13 AM [vite] (client) page reload src/components/missing-indicator.tsx
+4:09:13 AM [vite] (client) page reload src/components/modal-root.tsx
+4:09:13 AM [vite] (client) page reload src/components/navlinks.tsx
+4:09:13 AM [vite] (client) page reload src/components/outline-box.tsx
+4:09:13 AM [vite] (client) page reload src/components/pending-items-row.tsx
+4:09:13 AM [vite] (client) page reload src/components/polls/poll-footer.tsx
+4:09:13 AM [vite] (client) page reload src/components/polls/poll-option.tsx
+4:09:13 AM [vite] (client) page reload src/components/polls/poll.tsx
+4:09:13 AM [vite] (client) page reload src/components/preview-card.tsx
+4:09:13 AM [vite] (client) page reload src/components/profile-hover-card.tsx
+4:09:13 AM [vite] (client) page reload src/components/progress-circle.tsx
+4:09:13 AM [vite] (client) page reload src/components/pull-to-refresh.tsx
+4:09:13 AM [vite] (client) page reload src/components/pullable.tsx
+4:09:13 AM [vite] (client) page reload src/components/pure-event-preview.tsx
+4:09:13 AM [vite] (client) page reload src/components/pure-status-action-bar.tsx
+4:09:13 AM [vite] (client) page reload src/components/pure-status-content.tsx
+4:09:13 AM [vite] (client) page reload src/components/pure-status-list.tsx
+4:09:13 AM [vite] (client) page reload src/components/pure-status-reaction-wrapper.tsx
+4:09:13 AM [vite] (client) page reload src/components/pure-status-reply-mentions.tsx
+4:09:13 AM [vite] (client) page reload src/components/pure-status.tsx
+4:09:13 AM [vite] (client) page reload src/components/pure-translate-button.tsx
+4:09:13 AM [vite] (client) page reload src/components/quoted-status-indicator.tsx
+4:09:13 AM [vite] (client) page reload src/components/quoted-status.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/quoted-status.tsx
+4:09:13 AM [vite] (client) page reload src/components/radio.tsx
+4:09:13 AM [vite] (client) page reload src/components/relative-timestamp.tsx
+4:09:13 AM [vite] (client) page reload src/components/safe-embed.tsx
+4:09:13 AM [vite] (client) page reload src/components/scroll-context.tsx
+4:09:13 AM [vite] (client) page reload src/components/scroll-top-button.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/scroll-top-button.tsx
+4:09:13 AM [vite] (client) page reload src/components/scrollable-list.tsx
+4:09:13 AM [vite] (client) page reload src/components/sidebar-menu.tsx
+4:09:13 AM [vite] (client) page reload src/components/sidebar-navigation-link.tsx
+4:09:13 AM [vite] (client) page reload src/components/sidebar-navigation.tsx
+4:09:13 AM [vite] (client) page reload src/components/site-error-boundary.tsx
+4:09:13 AM [vite] (client) page reload src/components/site-logo.tsx
+4:09:13 AM [vite] (client) page reload src/components/status-action-bar.tsx
+4:09:13 AM [vite] (client) page reload src/components/status-action-button.tsx
+4:09:13 AM [vite] (client) page reload src/components/status-content.tsx
+4:09:13 AM [vite] (client) page reload src/components/status-hover-card.tsx
+4:09:13 AM [vite] (client) page reload src/components/status-list.tsx
+4:09:13 AM [vite] (client) page reload src/components/status-media.tsx
+4:09:13 AM [vite] (client) page reload src/components/status-reaction-wrapper.tsx
+4:09:13 AM [vite] (client) page reload src/components/status-reply-mentions.tsx
+4:09:13 AM [vite] (client) page reload src/components/status.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/status.tsx
+4:09:13 AM [vite] (client) page reload src/components/statuses/pure-sensitive-content-overlay.tsx
+4:09:13 AM [vite] (client) page reload src/components/statuses/sensitive-content-overlay.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/statuses/sensitive-content-overlay.tsx
+4:09:13 AM [vite] (client) page reload src/components/statuses/status-info.tsx
+4:09:13 AM [vite] (client) page reload src/components/still-image.tsx
+4:09:13 AM [vite] (client) page reload src/components/thumb-navigation-link.tsx
+4:09:13 AM [vite] (client) page reload src/components/thumb-navigation.tsx
+4:09:13 AM [vite] (client) page reload src/components/tombstone.tsx
+4:09:13 AM [vite] (client) page reload src/components/translate-button.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ui/QuillySVG.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ui/banner.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/avatar.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/browser-address-bar.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/button.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ui/browser-address-bar.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ui/card.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ui/circular-progress.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ui/column.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/column.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/combobox.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/counter.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/datepicker.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/datepicker.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/datetime.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ui/device-toggle.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ui/divider.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/divider.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/emoji-selector.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/emoji.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/emoji.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ui/external-input.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ui/file-attachment.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ui/file-attachment.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ui/file-input.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/form-actions.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/form-actions.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/form-group.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/form-group.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/form.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/hstack.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/icon-button.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/icon.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/index.ts
+4:09:13 AM [vite] (client) page reload src/components/ui/language-dropdown.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/layout.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/menu.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/modal.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/modal.tsx
+4:09:13 AM [vite] (client) hmr update /src/components/ui/password-input.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/components/ui/portal.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/progress-bar.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/radio-button.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/spinner.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/stack.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/streamfield.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/svg-icon.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/svg-icon.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/tag-input.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/tag-input.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/tag.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/text.tsx
+4:09:13 AM [vite] (client) page reload src/components/ui/useButtonStyles.ts
+4:09:13 AM [vite] (client) page reload src/components/ui/widget.tsx
+4:09:13 AM [vite] (client) page reload src/components/upload-progress.tsx
+4:09:13 AM [vite] (client) page reload src/components/upload.tsx
+4:09:13 AM [vite] (client) page reload src/components/validation-checkmark.test.tsx
+4:09:13 AM [vite] (client) page reload src/components/validation-checkmark.tsx
+4:09:13 AM [vite] (client) page reload src/components/verification-badge.tsx
+4:09:13 AM [vite] (client) page reload src/containers/account-container.tsx
+4:09:13 AM [vite] (client) page reload src/containers/status-container.tsx
+4:09:13 AM [vite] (client) page reload src/contexts/AISettingsContext.ts
+4:09:13 AM [vite] (client) page reload src/contexts/ConsoleErrorContext.ts
+4:09:13 AM [vite] (client) page reload src/contexts/DeploySettingsContext.ts
+4:09:13 AM [vite] (client) page reload src/contexts/FSContext.ts
+4:09:13 AM [vite] (client) page reload src/contexts/GitSettingsContext.ts
+4:09:13 AM [vite] (client) page reload src/contexts/GitSyncContext.ts
+4:09:13 AM [vite] (client) page reload src/contexts/SessionManagerContext.ts
+4:09:13 AM [vite] (client) page reload src/contexts/chat-context.tsx
+4:09:13 AM [vite] (client) page reload src/contexts/nostr-context.tsx
+4:09:13 AM [vite] (client) page reload src/contexts/stat-context.tsx
+4:09:13 AM [vite] (client) page reload src/custom.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/actions.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/entities.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/reducer.test.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/reducer.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/selectors.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/types.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/utils.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/types.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useBatchedEntities.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/index.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useChangeEntity.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useCreateEntity.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useDeleteEntity.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useDismissEntity.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useEntities.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useEntity.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useEntityActions.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useEntityLookup.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useIncrementEntity.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/useTransaction.ts
+4:09:13 AM [vite] (client) page reload src/entity-store/hooks/utils.ts
+4:09:13 AM [vite] (client) page reload src/features/about/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/account-gallery/components/media-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/account/components/header.tsx
+4:09:13 AM [vite] (client) page reload src/features/account-gallery/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/account-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/account-timeline/components/moved-note.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/announcements.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/domains.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/manage-ditto-server.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/manage-zap-split.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/moderation-log.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/nostr-relays.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/relays.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/rules.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/user-index.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/components/admin-tabs.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/components/dashcounter.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/components/latest-accounts-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/components/registration-mode-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/components/report-status.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/components/report.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/components/unapproved-account.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/hooks/useAdminNostrRelays.ts
+4:09:13 AM [vite] (client) page reload src/features/admin/hooks/useManageDittoServer.ts
+4:09:13 AM [vite] (client) page reload src/features/admin/tabs/awaiting-approval.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/tabs/dashboard.tsx
+4:09:13 AM [vite] (client) page reload src/features/admin/tabs/reports.tsx
+4:09:13 AM [vite] (client) page reload src/features/adnostr/expert-ai.tsx
+4:09:13 AM [vite] (client) page reload src/features/adnostr/merchant-hub.tsx
+4:09:13 AM [vite] (client) page reload src/features/aliases/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/aliases/components/account.tsx
+4:09:13 AM [vite] (client) page reload src/features/aliases/components/search.tsx
+4:09:13 AM [vite] (client) page reload src/features/audio/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/audio/visualizer.ts
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/captcha.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/consumer-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/consumers-list.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/captcha.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/login-form.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/login-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/login-page.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/login-page.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/logout.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/otp-auth-form.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/otp-auth-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/password-reset-confirm.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/password-reset.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/registration-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-login/components/registration-page.tsx
+4:09:13 AM [vite] (client) page reload src/features/auth-token-list/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/backups/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/birthdays/account.tsx
+4:09:13 AM [vite] (client) page reload src/features/blocks/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/bookmarks/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-composer.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-list-item.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-list-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-list.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-message-list-intro.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-message-list.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-message-reaction.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-message-reaction.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-message.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-pane-header.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-pending-upload.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-search-input.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-textarea.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-upload-preview.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-upload.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-widget.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-page/chat-page.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-page/components/blankslate-empty.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-page/components/blankslate-with-chats.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-page/components/chat-page-main.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-page/components/chat-page-new.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-page/components/chat-page-settings.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-page/components/chat-page-sidebar.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-page/components/welcome.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-message-reaction-wrapper/chat-message-reaction-wrapper.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-pane/blankslate.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-pane/chat-pane.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-search/blankslate.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-search/chat-search.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-search/empty-results-blankslate.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-search/results.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-widget/chat-pane-header.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-widget/chat-settings.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-widget/chat-widget.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-widget/chat-window.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/chat-widget/headers/chat-search-header.tsx
+4:09:13 AM [vite] (client) page reload src/features/chats/components/ui/index.ts
+4:09:13 AM [vite] (client) page reload src/features/chats/components/ui/pane.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/autosuggest-account.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/compose-form-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/compose-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/markdown-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/poll-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/privacy-dropdown.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/reply-group-indicator.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/reply-indicator.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/reply-mentions.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/schedule-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/schedule-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/search-results.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/search-zap-split.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/search.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/spoiler-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/spoiler-input.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/text-character-counter.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/upload-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/upload-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/upload-progress.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/upload.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/visual-character-counter.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/warning.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/polls/duration-selector.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/polls/duration-selector.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/components/polls/poll-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/containers/quoted-status-container.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/containers/reply-indicator-container.ts
+4:09:13 AM [vite] (client) page reload src/features/compose/containers/upload-button-container.ts
+4:09:13 AM [vite] (client) page reload src/features/compose/containers/warning-container.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/nodes/emoji-node.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/nodes/index.ts
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/nodes/mention-node.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/plugins/autosuggest-plugin.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/plugins/focus-plugin.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/plugins/ref-plugin.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/plugins/link-plugin.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/plugins/state-plugin.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/editor/plugins/submit-plugin.tsx
+4:09:13 AM [vite] (client) page reload src/features/compose/util/counter.ts
+4:09:13 AM [vite] (client) page reload src/features/compose/util/url-regex.ts
+4:09:13 AM [vite] (client) page reload src/features/conversations/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/conversations/components/conversation.tsx
+4:09:13 AM [vite] (client) page reload src/features/conversations/components/conversations-list.tsx
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/components/crypto-address.tsx
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/components/crypto-donate-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/components/crypto-icon.tsx
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/components/detailed-crypto-address.tsx
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/components/lightning-address.tsx
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/components/site-wallet.tsx
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/utils/block-explorer.ts
+4:09:13 AM [vite] (client) page reload src/features/crypto-donate/utils/coin-db.ts
+4:09:13 AM [vite] (client) page reload src/features/delete-account/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/developers/developers-challenge.tsx
+4:09:13 AM [vite] (client) page reload src/features/developers/developers-menu.tsx
+4:09:13 AM [vite] (client) page reload src/features/developers/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/developers/service-worker-info.tsx
+4:09:13 AM [vite] (client) page reload src/features/developers/settings-store.tsx
+4:09:13 AM [vite] (client) page reload src/features/developers/apps/create.tsx
+4:09:13 AM [vite] (client) page reload src/features/developers/components/indicator.tsx
+4:09:13 AM [vite] (client) page reload src/features/direct-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/directory/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/directory/components/account-card.tsx
+4:09:13 AM [vite] (client) page reload src/features/divine/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/domain-blocks/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/edit-email/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/edit-identity/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/edit-password/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/edit-profile/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/edit-profile/components/avatar-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/edit-profile/components/header-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/email-confirmation/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/embedded-status/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/emoji/data.ts
+4:09:13 AM [vite] (client) page reload src/features/emoji/index.ts
+4:09:13 AM [vite] (client) page reload src/features/emoji/mapping.ts
+4:09:13 AM [vite] (client) page reload src/features/emoji/search.test.ts
+4:09:13 AM [vite] (client) page reload src/features/emoji/search.ts
+4:09:13 AM [vite] (client) page reload src/features/emoji/components/emoji-picker-dropdown.tsx
+4:09:13 AM [vite] (client) page reload src/features/emoji/components/emoji-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/emoji/containers/emoji-picker-dropdown-container.tsx
+4:09:13 AM [vite] (client) page reload src/features/event/event-discussion.tsx
+4:09:13 AM [vite] (client) page reload src/features/event/event-information.tsx
+4:09:13 AM [vite] (client) page reload src/features/event/components/event-action-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/event/components/event-date.tsx
+4:09:13 AM [vite] (client) page reload src/features/event/components/event-header.tsx
+4:09:13 AM [vite] (client) page reload src/features/event/components/pure-event-action-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/event/components/pure-event-date.tsx
+4:09:13 AM [vite] (client) page reload src/features/events/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/events/components/event-carousel.tsx
+4:09:13 AM [vite] (client) page reload src/features/explore/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/explore/useSearchTokens.ts
+4:09:13 AM [vite] (client) page reload src/features/explore/components/explore-cards.tsx
+4:09:13 AM [vite] (client) page reload src/features/explore/components/nostr.tsx
+4:09:13 AM [vite] (client) page reload src/features/explore/components/popular-accounts.tsx
+4:09:13 AM [vite] (client) page reload src/features/export-data/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/export-data/components/csv-exporter.tsx
+4:09:13 AM [vite] (client) page reload src/features/external-login/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/external-login/components/external-login-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/favourited-statuses/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/federation-restrictions/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/federation-restrictions/components/instance-restrictions.tsx
+4:09:13 AM [vite] (client) page reload src/features/federation-restrictions/components/restricted-instance.tsx
+4:09:13 AM [vite] (client) page reload src/features/feed-suggestions/feed-suggestions.tsx
+4:09:13 AM [vite] (client) page reload src/features/filters/edit-filter.tsx
+4:09:13 AM [vite] (client) page reload src/features/filters/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/follow-recommendations/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/follow-requests/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/follow-requests/components/account-authorize.tsx
+4:09:13 AM [vite] (client) page reload src/features/followed-tags/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/followers/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/following/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/forms/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/generic-not-found/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/edit-group.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/group-blocked-members.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/group-gallery.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/group-members.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/group-membership-requests.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/group-tag-timeline.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/group-tags.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/group-timeline.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/manage-group.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-action-button.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-action-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-header-image.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-header.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-header.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-member-count.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-member-count.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-member-list-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-options-button.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-options-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-privacy.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-privacy.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-relationship.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-relationship.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-tag-list-item.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-tag-list-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/group/components/group-tags-field.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/discover.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/discover.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/pending-requests.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/popular.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/suggested.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/tag.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/tags.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/group-link-preview.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/pending-groups-row.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/tab-bar.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/group-grid-item.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/group-grid-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/group-list-item.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/group-list-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/layout-buttons.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/layout-buttons.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/popular-groups.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/popular-tags.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/suggested-groups.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/tag-list-item.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/tag-list-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/search/blankslate.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/search/blankslate.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/search/recent-searches.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/search/results.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/search/results.tsx
+4:09:13 AM [vite] (client) page reload src/features/groups/components/discover/search/search.tsx
+4:09:13 AM [vite] (client) page reload src/features/hashtag-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/home-timeline/community-timeline.tsx
+4:09:13 AM [vite] (client) page reload src/features/home-timeline/follows-timeline.tsx
+4:09:13 AM [vite] (client) page reload src/features/home-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/import-data/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/import-data/components/csv-importer.tsx
+4:09:13 AM [vite] (client) page reload src/features/intentional-error/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/landing-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/landing-timeline/components/logo-text.tsx
+4:09:13 AM [vite] (client) page reload src/features/landing-timeline/components/site-banner.tsx
+4:09:13 AM [vite] (client) page reload src/features/list-adder/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/list-adder/components/list.tsx
+4:09:13 AM [vite] (client) page reload src/features/list-editor/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/list-editor/components/account.tsx
+4:09:13 AM [vite] (client) page reload src/features/list-editor/components/edit-list-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/list-editor/components/search.tsx
+4:09:13 AM [vite] (client) page reload src/features/list-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/lists/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/lists/components/new-list-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/migration/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/mutes/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/mutes/components/group-list-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/new-status/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/nostr/Bech32Redirect.tsx
+4:09:13 AM [vite] (client) page reload src/features/nostr/NBunker.ts
+4:09:13 AM [vite] (client) page reload src/features/nostr/NKeyring.ts
+4:09:13 AM [vite] (client) page reload src/features/nostr/keyring.ts
+4:09:13 AM [vite] (client) page reload src/features/nostr/nostr-bunker-login.tsx
+4:09:13 AM [vite] (client) page reload src/features/nostr/hooks/useNostrReq.ts
+4:09:13 AM [vite] (client) page reload src/features/nostr-relays/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/nostr-relays/components/relay-editor.tsx
+4:09:13 AM [vite] (client) page reload src/features/notifications/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/notifications/components/filter-bar.tsx
+4:09:13 AM [vite] (client) page reload src/features/notifications/components/notification.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/notifications/components/notification.tsx
+4:09:13 AM [vite] (client) page reload src/features/notifications/components/setting-toggle.tsx
+4:09:13 AM [vite] (client) page reload src/features/pinned-statuses/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/utils.ts
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-account.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-avatar.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-card.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-chat-message.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-chat.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-display-name.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-event-header.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-event-preview.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-group-card.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-group-discover.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-group-search.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-hashtag.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-material-status.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-media-gallery.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-notification.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-sidebar-suggestions.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-sidebar-trends.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-status-content.tsx
+4:09:13 AM [vite] (client) page reload src/features/placeholder/components/placeholder-status.tsx
+4:09:13 AM [vite] (client) page reload src/features/public-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/preferences/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/quotes/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/register-invite/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/remote-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/remote-timeline/components/pinned-hosts-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/reply-mentions/account.tsx
+4:09:13 AM [vite] (client) page reload src/features/report/components/status-check-box.tsx
+4:09:13 AM [vite] (client) page reload src/features/scheduled-statuses/builder.tsx
+4:09:13 AM [vite] (client) page reload src/features/scheduled-statuses/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/scheduled-statuses/components/scheduled-status-action-bar.tsx
+4:09:13 AM [vite] (client) page reload src/features/scheduled-statuses/components/scheduled-status.tsx
+4:09:13 AM [vite] (client) page reload src/features/security/mfa-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/security/mfa/disable-otp-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/security/mfa/enable-otp-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/security/mfa/otp-confirm-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/server-info/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/settings/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/settings/components/messages-settings.tsx
+4:09:13 AM [vite] (client) page reload src/features/share/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/color-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/color-with-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/crypto-address-input.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/footer-link-input.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/icon-picker-dropdown.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/icon-picker-menu.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/icon-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/promo-panel-input.tsx
+4:09:13 AM [vite] (client) page reload src/features/soapbox-config/components/site-preview.tsx
+4:09:13 AM [vite] (client) page reload src/features/status/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/status/components/detailed-status.tsx
+4:09:13 AM [vite] (client) page reload src/features/status/components/status-interaction-bar.tsx
+4:09:13 AM [vite] (client) page reload src/features/status/components/thread-login-cta.tsx
+4:09:13 AM [vite] (client) page reload src/features/status/components/thread-status.tsx
+4:09:13 AM [vite] (client) page reload src/features/status/components/thread.tsx
+4:09:13 AM [vite] (client) page reload src/features/status/containers/quoted-status-container.tsx
+4:09:13 AM [vite] (client) page reload src/features/test-timeline/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/theme-editor/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/theme-editor/components/color.tsx
+4:09:13 AM [vite] (client) page reload src/features/theme-editor/components/palette.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/action-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/column-forbidden.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/column-loading.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/columns-area.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/compose-button.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/compose-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/cta-banner.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/cta-banner.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/error-column.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/floating-action-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/funding-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/group-media-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/hotkeys.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/image-loader.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/instance-info-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/instance-moderation-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/latest-accounts-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/link-footer.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modal-loading.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modal-root.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/navbar.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/navbar.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/new-account-zap-split.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/pending-status.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/pinned-accounts-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/pocket-wallet.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/poll-preview.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/profile-dropdown.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/profile-familiar-followers.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/profile-field.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/profile-fields-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/profile-info-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/profile-media-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/profile-stats.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/promo-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/subscribe-button.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/subscription-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/theme-selector.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/theme-toggle.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/timeline.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/trends-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/who-to-follow-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/zoomable-image.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/actions-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/birthdays-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/boost-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/compare-history-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/component-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/compose-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/confirmation-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/crypto-donate-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/dislikes-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/edit-announcement-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/edit-domain-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/edit-federation-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/edit-rule-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/embed-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/emoji-picker-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/event-map-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/event-participants-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/familiar-followers-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/favourites-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/hotkeys-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/join-event-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/landing-page-modal.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/landing-page-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/media-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/mentions-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/missing-description-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/mute-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/pay-request-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/reactions-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/reblogs-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/reply-mentions-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/streak-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/unauthorized-modal.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/unauthorized-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/video-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/zap-invoice.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/zaps-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/account-moderation-modal/account-moderation-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/account-moderation-modal/badge-input.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/account-moderation-modal/staff-role-picker.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/captcha-modal/captcha-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/captcha-modal/components/puzzle.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/manage-group-modal/create-group-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/manage-group-modal/steps/confirmation-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/manage-group-modal/steps/details-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/manage-group-modal/steps/privacy-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/nostr-login-modal/nostr-login-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/nostr-login-modal/steps/extension-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/nostr-login-modal/steps/key-add-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/nostr-login-modal/components/nostr-extension-indicator.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/nostr-signup-modal/nostr-signup-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/nostr-signup-modal/steps/key-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/nostr-signup-modal/steps/keygen-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/compose-event-modal/compose-event-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/compose-event-modal/upload-button.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/header-steps.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/onboarding-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/steps/avatar-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/steps/bio-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/steps/completed-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/steps/cover-photo-selection-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/steps/display-name-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/steps/suggested-accounts-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/onboarding-flow-modal/steps/username-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/zap-split/zap-split-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/zap-split/zap-split.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/report-modal/report-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/report-modal/steps/confirmation-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/report-modal/steps/other-actions-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/modals/report-modal/steps/reason-step.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/panels/account-note-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/panels/my-groups-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/panels/new-event-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/panels/new-group-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/panels/sign-up-panel.test.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/panels/sign-up-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/components/panels/suggested-groups-panel.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/containers/modal-container.ts
+4:09:13 AM [vite] (client) page reload src/features/ui/util/async-components.ts
+4:09:13 AM [vite] (client) page reload src/features/ui/util/fullscreen.ts
+4:09:13 AM [vite] (client) page reload src/features/ui/util/global-hotkeys.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/util/optional-motion.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/util/pending-status-builder.ts
+4:09:13 AM [vite] (client) page reload src/features/ui/util/react-router-helpers.tsx
+4:09:13 AM [vite] (client) page reload src/features/ui/util/reduced-motion.tsx
+4:09:13 AM [vite] (client) page reload src/features/video/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/index.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/components/balance.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/components/create-wallet.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/components/editable-lists.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/components/transactions.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/components/wallet-mints.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/components/wallet-relays.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/components/wallet-transactions.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/components/withdraw-modal.tsx
+4:09:13 AM [vite] (client) page reload src/features/wallet/hooks/useHooks.ts
+4:09:13 AM [vite] (client) page reload src/features/zap/usePaymentMethod.ts
+4:09:13 AM [vite] (client) page reload src/features/zap/components/pay-request-form.tsx
+4:09:13 AM [vite] (client) page reload src/features/zap/components/zap-split-account-item.tsx
+4:09:13 AM [vite] (client) page reload src/features/zap/components/zap-button/payment-button.tsx
+4:09:13 AM [vite] (client) page reload src/global.d.ts
+4:09:13 AM [vite] (client) page reload src/hooks/__mocks__/resize-observer.ts
+4:09:13 AM [vite] (client) page reload src/hooks/forms/index.ts
+4:09:13 AM [vite] (client) page reload src/hooks/forms/useImageField.ts
+4:09:13 AM [vite] (client) page reload src/hooks/forms/usePreview.ts
+4:09:13 AM [vite] (client) page reload src/hooks/forms/useTextField.ts
+4:09:13 AM [vite] (client) page reload src/hooks/nostr/useBunker.ts
+4:09:13 AM [vite] (client) page reload src/hooks/nostr/useBunkerStore.ts
+4:09:13 AM [vite] (client) page reload src/hooks/nostr/useSigner.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useAIChat.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useAICredits.ts
+4:09:13 AM [vite] (client) hmr update /src/pages/Index.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/hooks/useAnyProjectBusy.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useApi.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useAppDispatch.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useAppSelector.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useAppSubmissions.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useAutoBuild.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useBackend.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useBuildProject.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useClickOutside.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useCompose.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useConsoleError.test.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useConsoleError.ts
+4:09:13 AM [vite] (client) hmr update /src/components/NostrSync.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/hooks/useDebounce.ts
+4:09:13 AM [vite] (client) hmr update /src/hooks/useDeploySettings.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/hooks/useDimensions.test.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useDimensions.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useDiscoverPlugins.test.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useDiscoverPlugins.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useDislike.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useDraggedFiles.ts
+4:09:13 AM [vite] (client) hmr update /src/pages/Index.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/hooks/useFSPaths.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useFeatures.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useFollowedRepositories.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useForceUpdate.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useFrequentlyUsedEmojis.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGenerateProjectInfo.test.ts
+4:09:13 AM [vite] (client) hmr update /src/pages/Index.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/hooks/useGetState.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGit.test.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGit.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGitAutosync.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGitHubOAuth.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGitSettings.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGitStatus.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGitSync.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGitSyncState.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useGitSyncStatus.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useInitReport.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useInstance.ts
+4:09:13 AM [vite] (client) hmr update /src/pages/Index.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/hooks/useIsProjectPreviewable.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useKeepAlive.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useLabels.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useLoading.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useLocale.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useLoggedIn.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useMCPServerStatus.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useMCPTools.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useMentionCompose.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useNetlifyOAuth.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useNostrRepo.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useOAuth.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useOffline.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useOnScreen.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useOpenRouterOAuth.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useOwnAccount.ts
+4:09:13 AM [vite] (client) page reload src/hooks/usePin.ts
+4:09:13 AM [vite] (client) page reload src/hooks/usePinGroup.ts
+4:09:13 AM [vite] (client) page reload src/hooks/usePluginGitInfo.ts
+4:09:13 AM [vite] (client) page reload src/hooks/usePlugins.ts
+4:09:13 AM [vite] (client) page reload src/hooks/usePrevious.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useProjectDeploySettings.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useProjectLabels.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useProjectSessionStatus.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useProjects.test.tsx
+4:09:13 AM [vite] (client) page reload src/hooks/useProjects.ts
+4:09:13 AM [vite] (client) hmr update /src/pages/Index.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/hooks/useProviderModels.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useQuoteCompose.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useReblog.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useRefEventHandler.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useRegistrationStatus.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useReplyCompose.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useScreenWidth.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useSessionManager.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useSessionSubscription.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useSettings.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useSettingsNotifications.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useSoapboxConfig.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useStatusHidden.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useSystemTheme.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useTranslation.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useUserRepositories.ts
+4:09:13 AM [vite] (client) page reload src/hooks/useVercelOAuth.ts
+4:09:13 AM [vite] (client) page reload src/iframe.ts
+4:09:13 AM [vite] (client) page reload src/init/soapbox-head.tsx
+4:09:13 AM [vite] (client) page reload src/init/soapbox-load.tsx
+4:09:13 AM [vite] (client) page reload src/init/soapbox-mount.tsx
+4:09:13 AM [vite] (client) page reload src/init/soapbox.tsx
+4:09:13 AM [vite] (client) page reload src/is-mobile.ts
+4:09:13 AM [vite] (client) page reload src/jest/factory.ts
+4:09:13 AM [vite] (client) page reload src/jest/mock-stores.tsx
+4:09:13 AM [vite] (client) page reload src/jest/test-helpers.tsx
+4:09:13 AM [vite] (client) page reload src/jest/test-setup.ts
+4:09:13 AM [vite] (client) page reload src/lib/BuildDebouncer.ts
+4:09:13 AM [vite] (client) page reload src/lib/DotAI.test.ts
+4:09:13 AM [vite] (client) hmr update /src/pages/Index.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/lib/HTTPError.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/HTTPError.ts
+4:09:13 AM [vite] (client) page reload src/lib/JSRuntime.ts
+4:09:13 AM [vite] (client) page reload src/lib/KindGenerator.ts
+4:09:13 AM [vite] (client) hmr update /src/App.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/lib/MCPClient.ts
+4:09:13 AM [vite] (client) page reload src/lib/NIPsClient.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/NIPsClient.ts
+4:09:13 AM [vite] (client) page reload src/lib/NostrURI.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/NostrURI.ts
+4:09:13 AM [vite] (client) page reload src/lib/NostrbookClient.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/NostrbookClient.ts
+4:09:13 AM [vite] (client) page reload src/lib/ProjectsManager.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/ProjectsManager.ts
+4:09:13 AM [vite] (client) page reload src/lib/SessionManager.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/SessionManager.ts
+4:09:13 AM [vite] (client) page reload src/lib/ai-client.ts
+4:09:13 AM [vite] (client) page reload src/lib/aiProviderPresets.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/aiProviderPresets.ts
+4:09:13 AM [vite] (client) page reload src/lib/announceRepository.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/announceRepository.ts
+4:09:13 AM [vite] (client) page reload src/lib/ansiToHtml.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/ansiToHtml.ts
+4:09:13 AM [vite] (client) page reload src/lib/build/esmPlugin.ts
+4:09:13 AM [vite] (client) page reload src/lib/build/fsPlugin.ts
+4:09:13 AM [vite] (client) page reload src/lib/build/index.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/build/index.ts
+4:09:13 AM [vite] (client) page reload src/lib/build/shakespearePlugin.ts
+4:09:13 AM [vite] (client) page reload src/lib/build/yarnLockConverter.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/build/yarnLockConverter.ts
+4:09:13 AM [vite] (client) hmr update /src/pages/Index.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/lib/commands/ShellCommand.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/cat.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/cat.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/cd.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/cd.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/clear.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/clear.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/cp.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/cp.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/curl.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/curl.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/cut.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/cut.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/date.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/date.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/diff.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/diff.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/echo.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/echo.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/env.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/env.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/find.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/find.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/grep.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/grep.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/head.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/head.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/hexdump.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/hexdump.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/ls.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/ls.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/index.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/mkdir.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/mkdir.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/mv.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/mv.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/pwd.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/pwd.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/rm.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/rm.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/sed.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/sed.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/shakespeare.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/sort.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/sort.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/tail.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/tail.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/touch.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/touch.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/tr.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/tr.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/uniq.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/uniq.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/unzip.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/unzip.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/wc.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/wc.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/which.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/which.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/whoami.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/whoami.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/add.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/add.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/branch.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/checkout.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/clone.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/commit.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/commit.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/config.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/diff.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/diff.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/fetch.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/fetch.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/init.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/log.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/log.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/pull.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/pull.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/push.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/push.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/remote.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/reset.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/reset.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/show.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/show.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/stash.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/stash.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/status.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/status.ts
+4:09:13 AM [vite] (client) page reload src/lib/commands/git/tag.ts
+4:09:13 AM [vite] (client) page reload src/lib/configUtils.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/configUtils.ts
+4:09:13 AM [vite] (client) page reload src/lib/consoleMessages.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/consoleMessages.ts
+4:09:13 AM [vite] (client) page reload src/lib/copyFiles.ts
+4:09:13 AM [vite] (client) page reload src/lib/csp.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/csp.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/CloudflareAdapter.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/DenoDeployAdapter.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/NetlifyAdapter.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/NsiteAdapter.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/RailwayAdapter.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/ShakespeareAdapter.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/VercelAdapter.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/index.ts
+4:09:13 AM [vite] (client) page reload src/lib/deploy/types.ts
+4:09:13 AM [vite] (client) page reload src/lib/deployProviderPresets.ts
+4:09:13 AM [vite] (client) page reload src/lib/detectFork.ts
+4:09:13 AM [vite] (client) page reload src/lib/errors/EmptyMessageError.ts
+4:09:13 AM [vite] (client) page reload src/lib/errors/MalformedToolCallError.ts
+4:09:13 AM [vite] (client) page reload src/lib/esbuild.ts
+4:09:13 AM [vite] (client) page reload src/lib/faviconUrl.ts
+4:09:13 AM [vite] (client) page reload src/lib/fileUtils.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/fileUtils.ts
+4:09:13 AM [vite] (client) page reload src/lib/git.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/git.ts
+4:09:13 AM [vite] (client) page reload src/lib/gitCredentials.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/gitCredentials.ts
+4:09:13 AM [vite] (client) page reload src/lib/gitignore.ts
+4:09:13 AM [vite] (client) page reload src/lib/i18n.ts
+4:09:13 AM [vite] (client) page reload src/lib/imageUtils.ts
+4:09:13 AM [vite] (client) page reload src/lib/isEmptyMessage.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/isEmptyMessage.ts
+4:09:13 AM [vite] (client) page reload src/lib/labels.ts
+4:09:13 AM [vite] (client) page reload src/lib/llmstxt.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/llmstxt.ts
+4:09:13 AM [vite] (client) page reload src/lib/ngitWebUrl.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/ngitWebUrl.ts
+4:09:13 AM [vite] (client) page reload src/lib/parseProviderModel.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/parseProviderModel.ts
+4:09:13 AM [vite] (client) page reload src/lib/persistentStorage.ts
+4:09:13 AM [vite] (client) page reload src/lib/plugins.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/plugins.ts
+4:09:13 AM [vite] (client) page reload src/lib/proxyUrl.ts
+4:09:13 AM [vite] (client) page reload src/lib/schema.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/schema.ts
+4:09:13 AM [vite] (client) page reload src/lib/security.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/security.ts
+4:09:13 AM [vite] (client) hmr update /src/components/ErrorBoundary.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/lib/settingsItems.ts
+4:09:13 AM [vite] (client) page reload src/lib/skills.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/skills.ts
+4:09:13 AM [vite] (client) page reload src/lib/system.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/system.ts
+4:09:13 AM [vite] (client) page reload src/lib/tmpCleanup.test.ts
+4:09:13 AM [vite] (client) hmr update /src/App.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/lib/tools/BuildProjectTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/BuildProjectTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/ConfigureImageGenerationTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/EditTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/GenerateImageTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/GenerateImageTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/GitCommitTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/GitCommitTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/GlobTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/GrepTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/MCPTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrFetchEventTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrGenerateKindTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrPublishEventsTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrPublishEventsTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrReadKindTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrReadNipTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrReadNipsIndexTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrReadProtocolTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NostrReadTagTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NpmAddPackageTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NpmAddPackageTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NpmRemovePackageTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/NpmRemovePackageTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/ReadConsoleMessagesTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/ReadConsoleMessagesTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/ReadTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/ShellTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/ShellTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/SkillTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/TodoReadTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/TodoReadTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/TodoWriteTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/TodoWriteTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/Tool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/ViewAvailableModelsTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/WebFetchTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/WebFetchTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/WebSearchTool.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/WebSearchTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/WriteTool.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/openai-adapter.test.ts
+4:09:13 AM [vite] (client) page reload src/lib/tools/openai-adapter.ts
+4:09:13 AM [vite] (client) page reload src/locales/en.json
+4:09:13 AM [vite] (client) page reload src/locales/ha.json
+4:09:13 AM [vite] (client) page reload src/locales/ig.json
+4:09:13 AM [vite] (client) page reload src/locales/pt.json
+4:09:13 AM [vite] (client) page reload src/locales/yo.json
+4:09:13 AM [vite] (client) page reload src/locales/zh.json
+4:09:13 AM [vite] (client) page reload src/messages.ts
+4:09:13 AM [vite] (client) page reload src/middleware/errors.ts
+4:09:13 AM [vite] (client) page reload src/middleware/sounds.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/account.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/admin-account.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/admin-report.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/attachment.test.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/attachment.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/chat-message.test.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/chat-message.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/chat.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/emoji.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/filter-keyword.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/filter-result.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/filter-status.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/filter.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/group-relationship.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/group.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/history.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/index.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/list.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/location.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/mention.test.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/mention.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/notification.test.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/notification.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/status-edit.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/status.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/tag.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/soapbox/soapbox-config.test.ts
+4:09:13 AM [vite] (client) page reload src/normalizers/soapbox/soapbox-config.ts
+4:09:13 AM [vite] (client) page reload src/pages/AISettings.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/pages/AISettings.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/AboutSettings.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/Clone.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/DeploySettings.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/GitHubOAuth.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/GitSettings.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/pages/Index.giftcard.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/pages/NetlifyOAuth.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/NostrSettings.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/OpenRouterOAuth.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/pages/Preferences.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/pages/Preferences.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/ProjectView.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/Settings.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/pages/StorageSettings.test.tsx
+4:09:13 AM [vite] (client) hmr update /src/pages/StorageSettings.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/SystemSettings.tsx, /src/index.css
+4:09:13 AM [vite] (client) hmr update /src/pages/VercelOAuth.tsx, /src/index.css
+4:09:13 AM [vite] (client) page reload src/pages/admin-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/chats-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/default-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/empty-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/event-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/events-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/group-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/groups-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/groups-pending-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/home-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/landing-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/manage-groups-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/profile-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/remote-instance-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/search-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/status-page.tsx
+4:09:13 AM [vite] (client) page reload src/pages/wide-page.tsx
+4:09:13 AM [vite] (client) page reload src/polyfill/Promise.withResolvers.ts
+4:09:13 AM [vite] (client) page reload src/queries/__mocks__/client.ts
+4:09:13 AM [vite] (client) page reload src/queries/accounts.ts
+4:09:13 AM [vite] (client) page reload src/queries/chats.ts
+4:09:13 AM [vite] (client) page reload src/queries/client.ts
+4:09:13 AM [vite] (client) page reload src/queries/embed.ts
+4:09:13 AM [vite] (client) page reload src/queries/relationships.ts
+4:09:13 AM [vite] (client) page reload src/queries/search.ts
+4:09:13 AM [vite] (client) page reload src/queries/suggestions.ts
+4:09:13 AM [vite] (client) page reload src/queries/trends.ts
+4:09:13 AM [vite] (client) page reload src/ready.ts
+4:09:13 AM [vite] (client) page reload src/reducers/accounts-meta.ts
+4:09:13 AM [vite] (client) page reload src/reducers/admin.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/admin.ts
+4:09:13 AM [vite] (client) page reload src/reducers/aliases.ts
+4:09:13 AM [vite] (client) page reload src/reducers/auth.ts
+4:09:13 AM [vite] (client) page reload src/reducers/backups.ts
+4:09:13 AM [vite] (client) page reload src/reducers/chat-message-lists.ts
+4:09:13 AM [vite] (client) page reload src/reducers/chat-messages.ts
+4:09:13 AM [vite] (client) page reload src/reducers/chats.ts
+4:09:13 AM [vite] (client) page reload src/reducers/compose-event.ts
+4:09:13 AM [vite] (client) page reload src/reducers/compose.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/compose.ts
+4:09:13 AM [vite] (client) page reload src/reducers/contexts.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/contexts.ts
+4:09:13 AM [vite] (client) page reload src/reducers/conversations.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/conversations.ts
+4:09:13 AM [vite] (client) page reload src/reducers/domain-lists.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/domain-lists.ts
+4:09:13 AM [vite] (client) page reload src/reducers/dropdown-menu.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/dropdown-menu.ts
+4:09:13 AM [vite] (client) page reload src/reducers/filters.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/filters.ts
+4:09:13 AM [vite] (client) page reload src/reducers/followed-tags.ts
+4:09:13 AM [vite] (client) page reload src/reducers/group-memberships.ts
+4:09:13 AM [vite] (client) page reload src/reducers/group-relationships.ts
+4:09:13 AM [vite] (client) page reload src/reducers/groups.ts
+4:09:13 AM [vite] (client) page reload src/reducers/history.ts
+4:09:13 AM [vite] (client) page reload src/reducers/index.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/index.ts
+4:09:13 AM [vite] (client) page reload src/reducers/instance.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/instance.ts
+4:09:13 AM [vite] (client) page reload src/reducers/list-adder.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/list-adder.ts
+4:09:13 AM [vite] (client) page reload src/reducers/list-editor.ts
+4:09:13 AM [vite] (client) page reload src/reducers/lists.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/lists.ts
+4:09:13 AM [vite] (client) page reload src/reducers/locations.ts
+4:09:13 AM [vite] (client) page reload src/reducers/me.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/me.ts
+4:09:13 AM [vite] (client) page reload src/reducers/meta.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/meta.ts
+4:09:13 AM [vite] (client) page reload src/reducers/modals.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/modals.ts
+4:09:13 AM [vite] (client) page reload src/reducers/mutes.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/mutes.ts
+4:09:13 AM [vite] (client) page reload src/reducers/notifications.ts
+4:09:13 AM [vite] (client) page reload src/reducers/notificationsSlice.ts
+4:09:13 AM [vite] (client) page reload src/reducers/onboarding.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/onboarding.ts
+4:09:13 AM [vite] (client) page reload src/reducers/patron.ts
+4:09:13 AM [vite] (client) page reload src/reducers/pending-statuses.ts
+4:09:13 AM [vite] (client) page reload src/reducers/polls.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/polls.ts
+4:09:13 AM [vite] (client) page reload src/reducers/profile-hover-card.ts
+4:09:13 AM [vite] (client) page reload src/reducers/relationships.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/relationships.ts
+4:09:13 AM [vite] (client) page reload src/reducers/reports.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/reports.ts
+4:09:13 AM [vite] (client) page reload src/reducers/scheduled-statuses.ts
+4:09:13 AM [vite] (client) page reload src/reducers/search.ts
+4:09:13 AM [vite] (client) page reload src/reducers/security.ts
+4:09:13 AM [vite] (client) page reload src/reducers/settings.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/settings.ts
+4:09:13 AM [vite] (client) page reload src/reducers/sidebar.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/sidebar.ts
+4:09:13 AM [vite] (client) page reload src/reducers/soapbox.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/soapbox.ts
+4:09:13 AM [vite] (client) page reload src/reducers/status-hover-card.test.tsx
+4:09:13 AM [vite] (client) page reload src/reducers/status-hover-card.ts
+4:09:13 AM [vite] (client) page reload src/reducers/status-lists.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/status-lists.ts
+4:09:13 AM [vite] (client) page reload src/reducers/statuses.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/statuses.ts
+4:09:13 AM [vite] (client) page reload src/reducers/suggestions.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/suggestions.ts
+4:09:13 AM [vite] (client) page reload src/reducers/tags.ts
+4:09:13 AM [vite] (client) page reload src/reducers/timelines.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/timelines.ts
+4:09:13 AM [vite] (client) page reload src/reducers/trending-statuses.ts
+4:09:13 AM [vite] (client) page reload src/reducers/trends.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/trends.ts
+4:09:13 AM [vite] (client) page reload src/reducers/user-lists.test.ts
+4:09:13 AM [vite] (client) page reload src/reducers/user-lists.ts
+4:09:13 AM [vite] (client) page reload src/schemas/account.ts
+4:09:13 AM [vite] (client) page reload src/schemas/admin-account.ts
+4:09:13 AM [vite] (client) page reload src/schemas/announcement-reaction.ts
+4:09:13 AM [vite] (client) page reload src/schemas/announcement.ts
+4:09:13 AM [vite] (client) page reload src/schemas/application.ts
+4:09:13 AM [vite] (client) page reload src/schemas/attachment.ts
+4:09:13 AM [vite] (client) page reload src/schemas/captcha.ts
+4:09:13 AM [vite] (client) page reload src/schemas/card.test.ts
+4:09:13 AM [vite] (client) page reload src/schemas/card.ts
+4:09:13 AM [vite] (client) page reload src/schemas/chat-message.ts
+4:09:13 AM [vite] (client) page reload src/schemas/custom-emoji.ts
+4:09:13 AM [vite] (client) page reload src/schemas/domain.ts
+4:09:13 AM [vite] (client) page reload src/schemas/emoji-reaction.ts
+4:09:13 AM [vite] (client) page reload src/schemas/event.ts
+4:09:13 AM [vite] (client) page reload src/schemas/group-member.ts
+4:09:13 AM [vite] (client) page reload src/schemas/group-relationship.ts
+4:09:13 AM [vite] (client) page reload src/schemas/group-tag.ts
+4:09:13 AM [vite] (client) page reload src/schemas/group.test.ts
+4:09:13 AM [vite] (client) page reload src/schemas/group.ts
+4:09:13 AM [vite] (client) page reload src/schemas/index.ts
+4:09:13 AM [vite] (client) page reload src/schemas/instance.test.ts
+4:09:13 AM [vite] (client) page reload src/schemas/instance.ts
+4:09:13 AM [vite] (client) page reload src/schemas/location.ts
+4:09:13 AM [vite] (client) page reload src/schemas/manifest.ts
+4:09:13 AM [vite] (client) page reload src/schemas/mention.ts
+4:09:13 AM [vite] (client) page reload src/schemas/moderation-log-entry.ts
+4:09:13 AM [vite] (client) page reload src/schemas/nostr.ts
+4:09:13 AM [vite] (client) page reload src/schemas/notification.ts
+4:09:13 AM [vite] (client) page reload src/schemas/patron.ts
+4:09:13 AM [vite] (client) page reload src/schemas/pleroma.ts
+4:09:13 AM [vite] (client) page reload src/schemas/poll.test.ts
+4:09:13 AM [vite] (client) page reload src/schemas/poll.ts
+4:09:13 AM [vite] (client) page reload src/schemas/relationship.ts
+4:09:13 AM [vite] (client) page reload src/schemas/relay.ts
+4:09:13 AM [vite] (client) page reload src/schemas/rule.ts
+4:09:13 AM [vite] (client) page reload src/schemas/status.ts
+4:09:13 AM [vite] (client) page reload src/schemas/tag.ts
+4:09:13 AM [vite] (client) page reload src/schemas/token.ts
+4:09:13 AM [vite] (client) page reload src/schemas/tombstone.ts
+4:09:13 AM [vite] (client) page reload src/schemas/utils.ts
+4:09:13 AM [vite] (client) page reload src/schemas/wallet.ts
+4:09:13 AM [vite] (client) page reload src/schemas/web-push.ts
+4:09:13 AM [vite] (client) page reload src/schemas/zap-split.ts
+4:09:13 AM [vite] (client) page reload src/schemas/soapbox/settings.ts
+4:09:13 AM [vite] (client) page reload src/schemas/soapbox/soapbox-auth.ts
+4:09:13 AM [vite] (client) page reload src/schemas/soapbox/soapbox-config.ts
+4:09:13 AM [vite] (client) page reload src/selectors/index.ts
+4:09:13 AM [vite] (client) page reload src/sentry.ts
+4:09:13 AM [vite] (client) page reload src/service-worker/sw.ts
+4:09:13 AM [vite] (client) page reload src/service-worker/web-push-locales.ts
+4:09:13 AM [vite] (client) page reload src/settings.ts
+4:09:13 AM [vite] (client) page reload src/store.ts
+4:09:13 AM [vite] (client) page reload src/stream.ts
+4:09:13 AM [vite] (client) page reload src/test/MockFS.test.ts
+4:09:13 AM [vite] (client) page reload src/test/MockFS.ts
+4:09:13 AM [vite] (client) page reload src/test/MockGitHttpServer.ts
+4:09:13 AM [vite] (client) page reload src/toast.test.tsx
+4:09:13 AM [vite] (client) page reload src/toast.tsx
+4:09:13 AM [vite] (client) page reload src/types/colors.ts
+4:09:13 AM [vite] (client) page reload src/types/entities.ts
+4:09:13 AM [vite] (client) page reload src/types/history.ts
+4:09:13 AM [vite] (client) page reload src/types/nostr.d.ts
+4:09:13 AM [vite] (client) page reload src/types/soapbox.ts
+4:09:13 AM [vite] (client) page reload src/types/webln.d.ts
+4:09:13 AM [vite] (client) page reload src/utils/accounts.ts
+4:09:13 AM [vite] (client) page reload src/utils/auth.ts
+4:09:13 AM [vite] (client) page reload src/utils/badges.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/badges.ts
+4:09:13 AM [vite] (client) page reload src/utils/base64.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/base64.ts
+4:09:13 AM [vite] (client) page reload src/utils/chats.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/chats.ts
+4:09:13 AM [vite] (client) page reload src/utils/code-compiletime.ts
+4:09:13 AM [vite] (client) page reload src/utils/code.ts
+4:09:13 AM [vite] (client) page reload src/utils/colors.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/colors.ts
+4:09:13 AM [vite] (client) page reload src/utils/comparators.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/comparators.ts
+4:09:13 AM [vite] (client) page reload src/utils/config-db.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/config-db.ts
+4:09:13 AM [vite] (client) page reload src/utils/console.ts
+4:09:13 AM [vite] (client) page reload src/utils/copy.ts
+4:09:13 AM [vite] (client) page reload src/utils/download.ts
+4:09:13 AM [vite] (client) page reload src/utils/emoji-reacts.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/emoji-reacts.ts
+4:09:13 AM [vite] (client) page reload src/utils/emojify.tsx
+4:09:13 AM [vite] (client) page reload src/utils/errors.ts
+4:09:13 AM [vite] (client) page reload src/utils/favicon-service.ts
+4:09:13 AM [vite] (client) page reload src/utils/features.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/features.ts
+4:09:13 AM [vite] (client) page reload src/utils/groups.ts
+4:09:13 AM [vite] (client) page reload src/utils/html.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/html.ts
+4:09:13 AM [vite] (client) page reload src/utils/input.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/input.ts
+4:09:13 AM [vite] (client) page reload src/utils/legacy.ts
+4:09:13 AM [vite] (client) page reload src/utils/media-aspect-ratio.ts
+4:09:13 AM [vite] (client) page reload src/utils/media.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/media.ts
+4:09:13 AM [vite] (client) page reload src/utils/normalizers.ts
+4:09:13 AM [vite] (client) page reload src/utils/nostr.ts
+4:09:13 AM [vite] (client) page reload src/utils/notification.ts
+4:09:13 AM [vite] (client) page reload src/utils/numbers.test.tsx
+4:09:13 AM [vite] (client) page reload src/utils/numbers.tsx
+4:09:13 AM [vite] (client) page reload src/utils/only-emoji.ts
+4:09:13 AM [vite] (client) page reload src/utils/permissions.ts
+4:09:13 AM [vite] (client) page reload src/utils/phone.ts
+4:09:13 AM [vite] (client) page reload src/utils/queries.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/queries.ts
+4:09:13 AM [vite] (client) page reload src/utils/redirect.ts
+4:09:13 AM [vite] (client) page reload src/utils/resize-image.ts
+4:09:13 AM [vite] (client) page reload src/utils/rtl.ts
+4:09:13 AM [vite] (client) page reload src/utils/scopes.ts
+4:09:13 AM [vite] (client) page reload src/utils/sounds.ts
+4:09:13 AM [vite] (client) page reload src/utils/state.ts
+4:09:13 AM [vite] (client) page reload src/utils/status.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/status.ts
+4:09:13 AM [vite] (client) page reload src/utils/strings.ts
+4:09:13 AM [vite] (client) page reload src/utils/suggestions.ts
+4:09:13 AM [vite] (client) page reload src/utils/sw.ts
+4:09:13 AM [vite] (client) page reload src/utils/tailwind.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/tailwind.ts
+4:09:13 AM [vite] (client) page reload src/utils/theme.ts
+4:09:13 AM [vite] (client) page reload src/utils/timelines.test.ts
+4:09:13 AM [vite] (client) page reload src/utils/timelines.ts
+4:09:13 AM [vite] (client) page reload src/utils/types.ts
+4:09:13 AM [vite] (client) page reload src/workers.ts
+4:09:13 AM [vite] (client) page reload src/workers/pow.worker.ts
+4:09:13 AM [vite] (client) page reload tailwind.config.ts
+4:09:13 AM [vite] server restarted.
+Error: The following dependencies are imported but could not be resolved:
+
+  @/polyfill/Promise.withResolvers.ts (imported by /www/wwwroot/adnostr-core/frontend/frontend/src/main.tsx)
+  @/components/ErrorBoundary (imported by /www/wwwroot/adnostr-core/frontend/src/main.tsx)
+  @/build-config.ts (imported by /www/wwwroot/adnostr-core/frontend/frontend/src/main.tsx)
+  @/init/soapbox.tsx (imported by /www/wwwroot/adnostr-core/frontend/frontend/src/main.tsx)
+  @/utils/console.ts (imported by /www/wwwroot/adnostr-core/frontend/frontend/src/main.tsx)
+  @/components/NostrProvider (imported by /www/wwwroot/adnostr-core/frontend/src/App.tsx)
+  @/components/NostrSync (imported by /www/wwwroot/adnostr-core/frontend/src/App.tsx)
+  @/components/ui/toaster (imported by /www/wwwroot/adnostr-core/frontend/src/App.tsx)
+  @/components/ui/tooltip (imported by /www/wwwroot/adnostr-core/frontend/src/App.tsx)
+  @/features/nostr/keyring.ts (imported by /www/wwwroot/adnostr-core/frontend/frontend/src/main.tsx)
+  @/components/AppProvider (imported by /www/wwwroot/adnostr-core/frontend/src/App.tsx)
+  @/contexts/NWCContext (imported by /www/wwwroot/adnostr-core/frontend/src/App.tsx)
+
+Are they installed?
+    at file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:14849:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:47014:28
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Internal server error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+      at TransformPluginContext._formatLog (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42528:41)
+      at TransformPluginContext.error (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42525:16)
+      at normalizeUrl (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40504:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40623:37
+      at async Promise.all (index 2)
+      at async TransformPluginContext.transform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40550:7)
+      at async EnvironmentPluginContainer.transform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42323:18)
+      at async loadAndTransform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35739:27)
+4:09:15 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:15 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:15 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:15 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:16 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:16 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:16 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:16 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:17 AM [vite] (client) ✨ new dependencies optimized: react-dom/client, @tanstack/react-query, @unhead/react/client, @unhead/addons, react, @nostrify/react/login, buffer, react-router-dom, @unhead/react, nostr-tools
+4:09:23 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:23 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:23 AM [vite] Internal server error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+      at TransformPluginContext._formatLog (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42528:41)
+      at TransformPluginContext.error (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42525:16)
+      at normalizeUrl (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40504:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40623:37
+      at async Promise.all (index 2)
+      at async TransformPluginContext.transform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40550:7)
+      at async EnvironmentPluginContainer.transform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42323:18)
+      at async loadAndTransform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35739:27)
+      at async viteTransformMiddleware (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:37254:24)
+4:09:23 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:36 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:36 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:36 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:36 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:38 AM [vite] Pre-transform error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+4:09:38 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";
+4:09:38 AM [vite] Internal server error: Failed to resolve import "@/components/ErrorBoundary" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/main.tsx:6:30
+  1  |  import { createRoot } from "react-dom/client";
+  2  |  import "./lib/polyfills.ts";
+  3  |  import { ErrorBoundary } from "@/components/ErrorBoundary";
+     |                                 ^
+  4  |  import App from "./App.tsx";
+  5  |  import "./index.css";
+      at TransformPluginContext._formatLog (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42528:41)
+      at TransformPluginContext.error (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42525:16)
+      at normalizeUrl (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40504:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40623:37
+      at async Promise.all (index 2)
+      at async TransformPluginContext.transform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40550:7)
+      at async EnvironmentPluginContainer.transform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42323:18)
+      at async loadAndTransform (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35739:27)
+      at async viteTransformMiddleware (file:///www/wwwroot/adnostr-core/frontend/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:37254:24)
+4:09:38 AM [vite] (client) Pre-transform error: Failed to resolve import "@/components/NostrProvider" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /www/wwwroot/adnostr-core/frontend/src/App.tsx:8:26
+  3  |  import { InferSeoMetaPlugin } from "@unhead/addons";
+  4  |  import { Suspense } from "react";
+  5  |  import NostrProvider from "@/components/NostrProvider";
+     |                             ^
+  6  |  import { NostrSync } from "@/components/NostrSync";
+  7  |  import { Toaster } from "@/components/ui/toaster";

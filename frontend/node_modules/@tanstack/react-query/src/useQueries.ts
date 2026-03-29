@@ -4,10 +4,11 @@ import * as React from 'react'
 import {
   QueriesObserver,
   QueryObserver,
+  noop,
   notifyManager,
 } from '@tanstack/query-core'
 import { useQueryClient } from './QueryClientProvider'
-import { useIsRestoring } from './isRestoring'
+import { useIsRestoring } from './IsRestoringProvider'
 import { useQueryErrorResetBoundary } from './QueryErrorResetBoundary'
 import {
   ensurePreventErrorBoundaryRetry,
@@ -18,9 +19,7 @@ import {
   ensureSuspenseTimers,
   fetchOptimistic,
   shouldSuspend,
-  willFetch,
 } from './suspense'
-import { noop } from './utils'
 import type {
   DefinedUseQueryResult,
   UseQueryOptions,
@@ -242,9 +241,10 @@ export function useQueries<
     [queries, client, isRestoring],
   )
 
-  defaultedQueries.forEach((query) => {
-    ensureSuspenseTimers(query)
-    ensurePreventErrorBoundaryRetry(query, errorResetBoundary)
+  defaultedQueries.forEach((queryOptions) => {
+    ensureSuspenseTimers(queryOptions)
+    const query = client.getQueryCache().get(queryOptions.queryHash)
+    ensurePreventErrorBoundaryRetry(queryOptions, errorResetBoundary, query)
   })
 
   useClearResetErrorBoundary(errorResetBoundary)
@@ -293,13 +293,9 @@ export function useQueries<
     ? optimisticResult.flatMap((result, index) => {
         const opts = defaultedQueries[index]
 
-        if (opts) {
+        if (opts && shouldSuspend(opts, result)) {
           const queryObserver = new QueryObserver(client, opts)
-          if (shouldSuspend(opts, result)) {
-            return fetchOptimistic(opts, queryObserver, errorResetBoundary)
-          } else if (willFetch(result, isRestoring)) {
-            void fetchOptimistic(opts, queryObserver, errorResetBoundary)
-          }
+          return fetchOptimistic(opts, queryObserver, errorResetBoundary)
         }
         return []
       })
