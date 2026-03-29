@@ -127,8 +127,8 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         await mastodon_client.initialize()
         logger.info("Mastodon client initialized successfully")
     except Exception as e:
-        logger.error("Failed to initialize Mastodon client", error=str(e))
-        raise
+        logger.warning("Failed to initialize Mastodon client, continuing anyway", error=str(e))
+        # Do not raise exception to allow application to continue running
 
     yield
 
