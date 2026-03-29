@@ -154,24 +154,29 @@ def create_application() -> FastAPI:
         openapi_url="/openapi.json",
     )
 
-    # Configure CORS
+    # Configure precise CORS
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[
-            "https://demo.adnostr.org",
-            "http://localhost:3000",  # Development
-            "http://localhost:5173",  # Vite dev server
-        ],
+        allow_origins=["http://localhost:8081"],  # Only frontend development address
         allow_credentials=True,
-        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=["*"],
+        allow_methods=["GET", "POST"],
+        allow_headers=["Authorization", "Content-Type"],
+        expose_headers=["X-AdNostr-Version"],
+        max_age=3600
     )
 
-    # Mount static files
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+    # API key authentication middleware
+    @app.middleware("http")
+    async def verify_api_key(request: Request, call_next):
+        api_key = request.headers.get("X-API-Key")
+        if not api_key or not validate_api_key(api_key):
+            return JSONResponse({"error": "Invalid API key"}, 401)
+        return await call_next(request)
 
-    # Configure Jinja2 templates
-    templates = Jinja2Templates(directory="templates", context_processors=[add_context])
+    def validate_api_key(api_key: str) -> bool:
+        """Validate API key against environment variable."""
+        expected_key = os.getenv("API_KEY")
+        return bool(expected_key and api_key == expected_key)
 
     # Global exception handler
     @app.exception_handler(Exception)
@@ -183,80 +188,22 @@ def create_application() -> FastAPI:
         )
 
     # Health check endpoint
-    @app.get("/health")
+    @app.get("/api/v1/health")
     async def health_check():
         """Health check endpoint for monitoring and load balancers."""
         return {"status": "healthy", "service": "adnostr-core"}
 
-    # Language switching
-    @app.get("/lang/{locale}")
-    async def switch_language(locale: str, request: Request):
-        """Switch language and redirect back to current page."""
-        supported_locales = ['en', 'zh_CN', 'ja', 'ko']
-        if locale not in supported_locales:
-            locale = 'en'
-        # Redirect back to the page without lang parameter
-        current_path = str(request.url).split('?')[0].replace(request.base_url, '')
-        return RedirectResponse(url=f"{current_path}?lang={locale}", status_code=302)
-
-    # Page routes with i18n support
-    @app.get("/", response_class=HTMLResponse)
-    async def dashboard(request: Request):
-        """Dashboard page."""
-        return templates.TemplateResponse("pages/dashboard.html", {
-            "request": request,
-            "page": "dashboard"
-        })
-
-    @app.get("/experts", response_class=HTMLResponse)
-    async def expert_engine(request: Request):
-        """Expert Engine page."""
-        return templates.TemplateResponse("pages/expert_engine.html", {
-            "request": request,
-            "page": "experts",
-            "experts": []
-        })
-
-    @app.get("/merchant", response_class=HTMLResponse)
-    async def merchant_center(request: Request):
-        """Merchant Center page."""
-        # Get merchant data
-        merchant_data = {
-            "total_savings": 12847.50,
-            "capital_velocity": 400,
-            "active_experts": 24,
-            "matching_rate": 94.3,
-            "budget_available": 2450.00,
-            "daily_spend": 127.50,
-            "roi_7day": 3247,
-            "transactions": [
-                {"id": "TXN-2024-001", "merchant": "FashionHub Inc", "amount": 247.50, "settlement": "Instant", "savings": 185.63, "status": "Settled"},
-                {"id": "TXN-2024-002", "merchant": "TechGadgets Ltd", "amount": 189.99, "settlement": "T+1", "savings": 142.49, "status": "Processing"},
-                {"id": "TXN-2024-003", "merchant": "HomeDecor Pro", "amount": 456.78, "settlement": "Instant", "savings": 342.59, "status": "Settled"},
-            ]
+    # Dashboard metrics endpoint
+    @app.get("/api/v1/global-ads/dashboard")
+    async def get_dashboard_metrics():
+        """Get dashboard metrics for global advertisement data."""
+        return {
+            "platforms": ["google", "meta", "amazon", "openads", "demo"],
+            "global_roi": 32.47,  # 3247%
+            "total_spend": 95000,
+            "total_revenue": 3084650,
+            "timestamp": datetime.utcnow().isoformat()
         }
-
-        return templates.TemplateResponse("pages/merchant_center.html", {
-            "request": request,
-            "page": "merchant",
-            "data": merchant_data
-        })
-
-    @app.get("/attribution", response_class=HTMLResponse)
-    async def attribution_settlement(request: Request):
-        """Attribution & Settlement page."""
-        return templates.TemplateResponse("pages/attribution.html", {
-            "request": request,
-            "page": "attribution"
-        })
-
-    @app.get("/api-docs", response_class=HTMLResponse)
-    async def api_specs(request: Request):
-        """API Specifications page."""
-        return templates.TemplateResponse("pages/api_specs.html", {
-            "request": request,
-            "page": "api"
-        })
 
     # Include API routes
     app.include_router(api_router, prefix="/api/v1")

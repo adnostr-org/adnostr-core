@@ -231,7 +231,7 @@ def get_adnostr_db() -> sqlite3.Connection:
     return adnostr_db_conn
 
 
-@router.post("/post_ad", response_model=PostAdResponse)
+@router.post("/global-ads/post_ad", response_model=PostAdResponse)
 async def post_advertisement(
     request: PostAdRequest,
     background_tasks: BackgroundTasks
@@ -307,6 +307,20 @@ async def post_advertisement(
                 "generation_time": round(processing_time, 2)
             }
         )
+        
+        # Integrate with Nostr for advertisement posting
+        try:
+            from src.utils.nostr_event import NostrEventUtility
+            nostr_utility = NostrEventUtility()
+            background_tasks.add_task(
+                nostr_utility.create_ad_event,
+                post_id=str(post_id) if post_id else "unknown",
+                revenue=generation_response.revenue_estimate,
+                metadata=response.metadata
+            )
+            logger.info("Nostr ad event creation tasked", post_id=post_id)
+        except Exception as e:
+            logger.warning("Failed to task Nostr ad event creation", error=str(e))
 
         logger.info("Advertisement posted successfully",
                    post_id=post_id,
@@ -323,7 +337,7 @@ async def post_advertisement(
         raise HTTPException(status_code=500, detail=f"Posting failed: {str(e)}")
 
 
-@router.post("/click_track", response_model=ClickTrackResponse)
+@router.post("/global-ads/click_track", response_model=ClickTrackResponse)
 async def track_click(
     request: ClickTrackRequest,
     background_tasks: BackgroundTasks,
@@ -389,6 +403,21 @@ async def track_click(
 
         # Background task for additional processing
         background_tasks.add_task(_process_click_analytics, click_data)
+        
+        # Integrate with Nostr for click tracking
+        try:
+            from src.utils.nostr_event import NostrEventUtility
+            nostr_utility = NostrEventUtility()
+            background_tasks.add_task(
+                nostr_utility.track_click_event,
+                click_id=click_id,
+                post_id=request.post_id,
+                revenue=attributed_revenue,
+                click_source=request.click_source
+            )
+            logger.info("Nostr click event tracking tasked", click_id=click_id)
+        except Exception as e:
+            logger.warning("Failed to task Nostr click event tracking", error=str(e))
 
         response = ClickTrackResponse(
             success=True,
@@ -416,7 +445,7 @@ async def track_click(
         raise HTTPException(status_code=500, detail=f"Tracking failed: {str(e)}")
 
 
-@router.get("/analytics/{post_id}")
+@router.get("/global-ads/analytics/{post_id}")
 async def get_post_analytics(post_id: str) -> Dict[str, Any]:
     """
     Get analytics data for a specific advertisement post.
