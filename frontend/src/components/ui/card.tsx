@@ -1,106 +1,79 @@
-import arrowLeftIcon from '@tabler/icons/outline/arrow-left.svg';
-import clsx from 'clsx';
-import { forwardRef } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
-import { Link } from 'react-router-dom';
+import * as React from "react"
 
-import SvgIcon from '@/components/ui/svg-icon.tsx';
+import { cn } from "@/lib/utils"
 
-import HStack from './hstack.tsx';
-import Text from './text.tsx';
-
-const messages = defineMessages({
-  back: { id: 'card.back.label', defaultMessage: 'Back' },
-});
-
-interface ICard {
-  rounded?: boolean;
-  transparent?: boolean;
-  slim?: boolean;
-  /** Card size preset. */
-  size?: 'md' | 'lg' | 'xl';
-  /** Extra classnames for the <div> element. */
-  className?: string;
-  /** Elements inside the card. */
-  children: React.ReactNode;
-  tabIndex?: number;
-}
-
-/** An opaque backdrop to hold a collection of related elements. */
-const Card = forwardRef<HTMLDivElement, ICard>(({ children, rounded, transparent, slim, size = 'md', className, ...filteredProps }, ref): JSX.Element => (
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    {...filteredProps}
-    className={clsx({
-      'bg-white dark:bg-primary-900 black:bg-black': !transparent,
-      'overflow-hidden': rounded,
-      'rounded-xl': rounded && size !== 'xl',
-      'rounded-3xl': rounded && size === 'xl',
-      'py-4 px-5': !slim,
-    }, className)}
-  >
-    {children}
-  </div>
-));
+    className={cn(
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      className
+    )}
+    {...props}
+  />
+))
+Card.displayName = "Card"
 
-interface ICardHeader {
-  backHref?: string;
-  onBackClick?: (event: React.MouseEvent) => void;
-  className?: string;
-  children?: React.ReactNode;
-}
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+))
+CardHeader.displayName = "CardHeader"
 
-/**
- * Card header container with back button.
- * Typically holds a CardTitle.
- */
-const CardHeader: React.FC<ICardHeader> = ({ className, children, backHref, onBackClick }): JSX.Element => {
-  const intl = useIntl();
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+))
+CardTitle.displayName = "CardTitle"
 
-  const renderBackButton = () => {
-    if (!backHref && !onBackClick) {
-      return null;
-    }
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+))
+CardDescription.displayName = "CardDescription"
 
-    const Comp: React.ElementType = backHref ? Link : 'button';
-    const backAttributes = backHref ? { to: backHref } : { onClick: onBackClick };
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+))
+CardContent.displayName = "CardContent"
 
-    return (
-      <Comp {...backAttributes} className='rounded-full text-gray-900 focus:ring-2 focus:ring-primary-500 dark:text-gray-100' aria-label={intl.formatMessage(messages.back)}>
-        <SvgIcon src={arrowLeftIcon} className='size-6 rtl:rotate-180' />
-        <span className='sr-only' data-testid='back-button'>{intl.formatMessage(messages.back)}</span>
-      </Comp>
-    );
-  };
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0", className)}
+    {...props}
+  />
+))
+CardFooter.displayName = "CardFooter"
 
-  return (
-    <HStack alignItems='center' space={2} className={className}>
-      {renderBackButton()}
-
-      {children}
-    </HStack>
-  );
-};
-
-interface ICardTitle {
-  title: React.ReactNode;
-}
-
-/** A card's title. */
-const CardTitle: React.FC<ICardTitle> = ({ title }): JSX.Element => (
-  <Text size='xl' weight='bold' tag='h1' data-testid='card-title' truncate>{title}</Text>
-);
-
-interface ICardBody {
-  /** Classnames for the <div> element. */
-  className?: string;
-  /** Children to appear inside the card. */
-  children: React.ReactNode;
-}
-
-/** A card's body. */
-const CardBody: React.FC<ICardBody> = ({ className, children }): JSX.Element => (
-  <div data-testid='card-body' className={className}>{children}</div>
-);
-
-export { Card, CardHeader, CardTitle, CardBody };
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }

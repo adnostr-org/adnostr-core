@@ -1,0 +1,186 @@
+import { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Menu } from 'lucide-react';
+import { ProjectSidebar } from '@/components/ProjectSidebar';
+import { useProjectsManager } from '@/hooks/useProjectsManager';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { type Project } from '@/lib/ProjectsManager';
+import { getSettingsCategories } from '@/lib/settingsItems';
+import { SettingsItem } from '@/components/SettingsItem';
+
+export function SettingsLayout() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isMobile = useIsMobile();
+  const projectsManager = useProjectsManager();
+
+  const [_projects, setProjects] = useState<Project[]>([]);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(!isMobile);
+  const [hasSetInitialState, setHasSetInitialState] = useState(false);
+
+  const loadProjects = useCallback(async () => {
+    try {
+      await projectsManager.init();
+      const projectList = await projectsManager.getProjects();
+      setProjects(projectList);
+
+      // Set initial sidebar state based on projects and device type
+      if (!hasSetInitialState && !isMobile) {
+        // On desktop, show sidebar if there are projects
+        setIsSidebarVisible(true);
+        setHasSetInitialState(true);
+      } else if (!hasSetInitialState && isMobile) {
+        // On mobile, always start hidden
+        setIsSidebarVisible(false);
+        setHasSetInitialState(true);
+      }
+    } catch (error) {
+      console.error('Failed to load projects:', error);
+      if (!hasSetInitialState) {
+        setHasSetInitialState(true);
+      }
+    }
+  }, [projectsManager, hasSetInitialState, isMobile]);
+
+  useEffect(() => {
+    loadProjects();
+  }, [loadProjects]);
+
+  const handleProjectSelect = (project: Project | null) => {
+    if (project) {
+      setIsSidebarVisible(false); // Collapse sidebar on mobile navigation
+      navigate(`/project/${project.id}`);
+    } else {
+      navigate('/');
+    }
+  };
+
+  // Get current settings page
+  const settingsCategories = getSettingsCategories(t);
+  const currentPath = location.pathname;
+  const currentSettingsId = settingsCategories
+    .flatMap(category => category.items)
+    .find(item => item.href === currentPath)?.id;
+
+  if (isMobile) {
+    return (
+      <div className="min-h-dvh pb-safe bg-background">
+        {/* Mobile Header */}
+        <header className="pt-safe bg-background">
+          <div className="flex items-center space-x-2 h-12 border-b px-4 py-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsSidebarVisible(!isSidebarVisible)}
+              aria-label={t('toggleSidebar')}
+            >
+              <Menu className="h-4 w-4" />
+            </Button>
+            <h1 className="text-lg font-semibold">{t('settings')}</h1>
+          </div>
+        </header>
+
+        {/* Mobile Sidebar Overlay */}
+        {isSidebarVisible && (
+          <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
+            <div
+              className="absolute inset-0"
+              onClick={() => setIsSidebarVisible(false)}
+            />
+            <div className="relative left-0 top-0 h-full w-72 max-w-[80vw] bg-background border-r shadow-lg z-10">
+              <ProjectSidebar
+                selectedProject={null}
+                onSelectProject={(project) => {
+                  setIsSidebarVisible(false);
+                  handleProjectSelect(project);
+                }}
+                onClose={() => setIsSidebarVisible(false)}
+              />
+            </div>
+          </div>
+        )}
+
+        <Outlet />
+      </div>
+    );
+  }
+
+  // Desktop 3-column layout
+  return (
+    <div className="h-screen flex bg-background overflow-hidden">
+      {/* Left Column - Projects Sidebar (optionally hidden) */}
+      {isSidebarVisible && (
+        <div className="w-72 border-r bg-sidebar flex-shrink-0">
+          <ProjectSidebar
+            selectedProject={null}
+            onSelectProject={handleProjectSelect}
+            className="h-full"
+            onToggleSidebar={() => setIsSidebarVisible(false)}
+          />
+        </div>
+      )}
+
+      {/* Middle Column - Settings Navigation */}
+      <div className="w-72 border-r bg-background flex flex-col flex-shrink-0">
+        {/* Header with toggle button */}
+        <div className="h-12 px-4 py-2 border-b flex-shrink-0">
+          <div className="flex items-center gap-3">
+            {!isSidebarVisible && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsSidebarVisible(true)}
+                className="h-8 w-8 p-0"
+                aria-label={t('openSidebar')}
+              >
+                <Menu className="h-4 w-4" />
+              </Button>
+            )}
+            <h1 className="text-xl font-bold flex items-center gap-2">
+              {t('settings')}
+            </h1>
+          </div>
+        </div>
+
+        {/* Settings Navigation - Scrollable */}
+        <ScrollArea className="flex-1">
+          <div className="p-4 space-y-6">
+            {settingsCategories.map((category) => (
+              <div key={category.id}>
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 px-2">
+                  {category.title}
+                </h3>
+                <div className="space-y-1">
+                  {category.items.map((item) => {
+                    const isActive = currentSettingsId === item.id;
+
+                    return (
+                      <SettingsItem
+                        key={item.id}
+                        icon={item.icon}
+                        title={item.title}
+                        onClick={() => navigate(item.href)}
+                        isActive={isActive}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+      </div>
+
+      {/* Right Column - Settings Content - Scrollable */}
+      <ScrollArea className="flex-1 bg-background">
+        <div className="max-w-4xl">
+          <Outlet />
+        </div>
+      </ScrollArea>
+    </div>
+  );
+}

@@ -1,183 +1,53 @@
-import { useRect } from '@reach/rect';
-import {
-  Tabs as ReachTabs,
-  TabList as ReachTabList,
-  Tab as ReachTab,
-  useTabsContext,
-} from '@reach/tabs';
-import clsx from 'clsx';
-import { createContext, useContext, useLayoutEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import * as React from "react"
+import * as TabsPrimitive from "@radix-ui/react-tabs"
 
-import Counter from './counter.tsx';
-import './tabs.css';
+import { cn } from "@/lib/utils"
 
-const HORIZONTAL_PADDING = 8;
-const AnimatedContext = createContext(null);
+const Tabs = TabsPrimitive.Root
 
-interface IAnimatedInterface {
-  /** Callback when a tab is chosen. */
-  onChange(index: number): void;
-  /** Default tab index. */
-  defaultIndex: number;
-  children: React.ReactNode;
-}
+const TabsList = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.List>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.List
+    ref={ref}
+    className={cn(
+      "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
+      className
+    )}
+    {...props}
+  />
+))
+TabsList.displayName = TabsPrimitive.List.displayName
 
-/** Tabs with a sliding active state. */
-const AnimatedTabs: React.FC<IAnimatedInterface> = ({ children, ...rest }) => {
-  const [activeRect, setActiveRect] = useState(null);
-  const ref = useRef();
-  const rect = useRect(ref);
+const TabsTrigger = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
+      className
+    )}
+    {...props}
+  />
+))
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
-  // @ts-ignore
-  const top: number = (activeRect && activeRect.bottom) - (rect && rect.top);
-  // @ts-ignore
-  const width: number = activeRect && activeRect.width - HORIZONTAL_PADDING * 2;
-  // @ts-ignore
-  const left: number = (activeRect && activeRect.left) - (rect && rect.left) + HORIZONTAL_PADDING;
+const TabsContent = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Content
+    ref={ref}
+    className={cn(
+      "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      className
+    )}
+    {...props}
+  />
+))
+TabsContent.displayName = TabsPrimitive.Content.displayName
 
-  return (
-    // @ts-ignore
-    <AnimatedContext.Provider value={setActiveRect}>
-      <ReachTabs
-        {...rest}
-        // @ts-ignore
-        ref={ref}
-      >
-        <div
-          className='absolute h-[3px] w-full bg-primary-200 dark:bg-gray-800'
-          style={{ top }}
-        />
-        <div
-          className={clsx('absolute h-[3px] bg-primary-500 transition-all duration-200', {
-            'hidden': top <= 0,
-          })}
-          style={{ left, top, width }}
-        />
-        {children}
-      </ReachTabs>
-    </AnimatedContext.Provider>
-  );
-};
-
-interface IAnimatedTab {
-  /** ARIA role. */
-  role: 'button';
-  /** Element to represent the tab. */
-  as: 'a' | 'button';
-  /** Route to visit when the tab is chosen. */
-  href?: string;
-  /** Tab title text. */
-  title: string;
-  /** Index value of the tab. */
-  index: number;
-}
-
-/** A single animated tab. */
-const AnimatedTab: React.FC<IAnimatedTab> = ({ index, ...props }) => {
-  // get the currently selected index from useTabsContext
-  const { selectedIndex } = useTabsContext();
-  const isSelected: boolean = selectedIndex === index;
-
-  // measure the size of our element, only listen to rect if active
-  const ref = useRef();
-  const rect = useRect(ref, { observe: isSelected });
-
-  // get the style changing function from context
-  const setActiveRect = useContext(AnimatedContext);
-
-  // callup to set styles whenever we're active
-  useLayoutEffect(() => {
-    if (isSelected) {
-      // @ts-ignore
-      setActiveRect(rect);
-    }
-  }, [isSelected, rect, setActiveRect]);
-
-  return (
-    // @ts-ignore
-    <ReachTab ref={ref} {...props} />
-  );
-};
-
-/** Structure to represent a tab. */
-export type Item = {
-  /** Tab text. */
-  text: React.ReactNode;
-  /** Tab tooltip text. */
-  title?: string;
-  /** URL to visit when the tab is selected. */
-  href?: string;
-  /** Route to visit when the tab is selected. */
-  to?: string;
-  /** Callback when the tab is selected. */
-  action?: () => void;
-  /** Display a counter over the tab. */
-  count?: number;
-  /** Unique name for this tab. */
-  name: string;
-  /** Display a notificationicon over the tab */
-  notification?: boolean;
-}
-
-interface ITabs {
-  /** Array of structured tab items. */
-  items: Item[];
-  /** Name of the active tab item. */
-  activeItem: string;
-}
-
-/** Animated tabs component. */
-const Tabs = ({ items, activeItem }: ITabs) => {
-  const defaultIndex = items.findIndex(({ name }) => name === activeItem);
-
-  const history = useHistory();
-
-  const onChange = (selectedIndex: number) => {
-    const item = items[selectedIndex];
-
-    if (typeof item.action === 'function') {
-      item.action();
-    } else if (item.to) {
-      history.push(item.to);
-    }
-  };
-
-  const renderItem = (item: Item, idx: number) => {
-    const { name, text, title, count, notification } = item;
-
-    return (
-      <AnimatedTab
-        key={name}
-        as='button'
-        role='button'
-        // @ts-ignore
-        title={title}
-        index={idx}
-      >
-        <div className='relative'>
-          {count ? (
-            <span className='absolute left-full ml-2'>
-              <Counter count={count} />
-            </span>
-          ) : null}
-
-          <div className='relative flex items-center justify-center gap-1.5'>
-            {text}
-            {notification && <div className='absolute -right-4 size-2 animate-pulse rounded-full bg-primary-500' />}
-          </div>
-        </div>
-      </AnimatedTab>
-    );
-  };
-
-  return (
-    <AnimatedTabs onChange={onChange} defaultIndex={defaultIndex}>
-      <ReachTabList>
-        {items.map((item, i) => renderItem(item, i))}
-      </ReachTabList>
-    </AnimatedTabs>
-  );
-};
-
-export default Tabs;
+export { Tabs, TabsList, TabsTrigger, TabsContent }

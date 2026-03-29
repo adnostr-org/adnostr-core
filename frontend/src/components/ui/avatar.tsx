@@ -1,57 +1,48 @@
-import photoOffIcon from '@tabler/icons/outline/photo-off.svg';
-import clsx from 'clsx';
-import { useMemo, useState } from 'react';
+import * as React from "react"
+import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
-import StillImage, { IStillImage } from '@/components/still-image.tsx';
+import { cn } from "@/lib/utils"
 
-import Icon from '../icon.tsx';
+const Avatar = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      className
+    )}
+    {...props}
+  />
+))
+Avatar.displayName = AvatarPrimitive.Root.displayName
 
-const AVATAR_SIZE = 42;
+const AvatarImage = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Image>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Image
+    ref={ref}
+    className={cn("aspect-square h-full w-full object-cover", className)}
+    {...props}
+  />
+))
+AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
-interface IAvatar extends Pick<IStillImage, 'src' | 'onError' | 'className'> {
-  /** Width and height of the avatar in pixels. */
-  size?: number;
-}
+const AvatarFallback = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Fallback
+    ref={ref}
+    className={cn(
+      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      className
+    )}
+    {...props}
+  />
+))
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
-/** Round profile avatar for accounts. */
-const Avatar = (props: IAvatar) => {
-  const { src, size = AVATAR_SIZE, className } = props;
-
-  const [isAvatarMissing, setIsAvatarMissing] = useState<boolean>(false);
-
-  const handleLoadFailure = () => setIsAvatarMissing(true);
-
-  const style: React.CSSProperties = useMemo(() => ({
-    width: size,
-    height: size,
-  }), [size]);
-
-  if (isAvatarMissing) {
-    return (
-      <div
-        style={{
-          width: size,
-          height: size,
-        }}
-        className={clsx('flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-900', className)}
-      >
-        <Icon
-          src={photoOffIcon}
-          className='size-4 text-gray-500 dark:text-gray-700'
-        />
-      </div>
-    );
-  }
-
-  return (
-    <StillImage
-      className={clsx('rounded-full', className)}
-      style={style}
-      src={src}
-      alt='Avatar'
-      onError={handleLoadFailure}
-    />
-  );
-};
-
-export { Avatar as default, AVATAR_SIZE };
+export { Avatar, AvatarImage, AvatarFallback }

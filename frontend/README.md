@@ -1,92 +1,43 @@
-![Soapbox Screenshot](soapbox-screenshot.png)
+# Shakespeare 🎭
 
-**Soapbox** is customizable open-source software that puts the power of social media in the hands of the people. Feature-rich and hyper-focused on providing a user experience to rival Big Tech, Soapbox is already home to some of the biggest alternative social platforms.
+[![Edit with Shakespeare](https://shakespeare.diy/badge.svg)](https://shakespeare.diy/clone?url=https://gitlab.com/soapbox-pub/shakespeare.git)
 
-For more info see: https://docs.soapbox.pub/soapbox/
+Shakespeare is an open-source AI app builder that runs entirely in your browser.
 
-# On The Fediverse
+https://shakespeare.diy
 
-You may have heard of **Mastodon**. Soapbox builds upon what Mastodon made great to make something even better.
+## Features
 
-You can run **Mastodon+Soapbox**, **Rebased+Soapbox**, and more.
+- **Use any AI provider** OpenAI, Anthropic, OpenRouter, xAI, ZAI, Deepseek, and more
+- **Buy credits anonymously** with Nostr and Lightning ⚡
+- **Redeem gift cards** with shareable links for instant credits
+- **Runs entirely in the browser** No backend required
 
-Soapbox is the **frontend** (what users see) while Mastodon is the **backend** (data, APIs). You can mix-and-match in the Fediverse ecosystem.
+## How it Works
 
-> 💡 If you're starting a new server, we highly recommend **Rebased+Soapbox**. Rebased is our custom-built backend just for Soapbox, providing important new features such as **quote posting** and **chats**.
->
-> See: [Installing Rebased+Soapbox](https://soapbox.pub/install/)
+Shakespeare is a React PWA that stores files in IndexedDB with [LightningFS](https://github.com/isomorphic-git/lightning-fs). Your browser connects directly to AI providers and git services (through [isomorphic-git](https://github.com/isomorphic-git/isomorphic-git)) to enable you to build and deploy AI apps entirely from your device.
 
-# Try It Out
+Shakespeare hosts no backend (except for a couple microservices in the `services/` directory; these are fully configurable within Shakespeare's settings). All your code and configuration is stored in your browser.
 
-Want to give Soapbox a shot? Here are some suggested servers:
+Configure any AI providers and git services you want. Configuration is stored entirely in the browser in localStorage.
 
-- [gleasonator.com](https://gleasonator.com/) - operated by the lead developer of Soapbox
-- [social.teci.world](https://social.teci.world/) - free speech server run by a Soapbox contributor
-- [spinster.xyz](https://spinster.xyz/) - one of the largest feminist communities on the internet
-- [poa.st](https://poa.st/) - the largest Soapbox server on the network
+You can then push and pull code to syncronize your work across devices.
 
-Want to use Soapbox against **any existing Mastodon/Pleroma server?** Try:
+Shakespeare can work on any type of project. But it is specialized to build React applications in TypeScript, which it compiles in the browser with [esbuild-wasm](https://www.npmjs.com/package/esbuild-wasm) and custom plugins. Any codebase can be worked on, but only compatible projects can be previewed directly in Shakespeare.
 
-- [fe.soapbox.pub](https://fe.soapbox.pub) - enter your server's domain name to use Soapbox on any server!
+## Open Source
 
-# 🚀 Starting Your Own Server
+Shakespeare is proudly Open Source software licensed under the GNU AGPLv3. The purpose of Shakespeare is to provide a free and open platform for building AI applications that respects user privacy and freedom.
 
-Starting your own server is one of the best ways to have freedom online! We recommend installing **Rebased+Soapbox**.
+## Mirrors
 
-See here for a detailed setup guide: [Installing Rebased+Soapbox](https://soapbox.pub/install/)
+Shakespeare is available on the following URLs:
 
-# Adding Soapbox to an Existing Server
+- [shakespeare.diy](https://shakespeare.diy)
+- [shakespeare-diy.github.io](https://shakespeare-diy.github.io)
+- [shakespeare-b0b9c8.gitlab.io](https://shakespeare-b0b9c8.gitlab.io)
 
-Already have a server? No problem — it is still possible to use Soapbox.
+## Alternatives
 
-- [Deploying on Pleroma](https://docs.soapbox.pub/soapbox/install/pleroma/#install-soapbox)
-- [Deploying on Mastodon](https://docs.soapbox.pub/soapbox/install/mastodon/)
-
-> 💡 If using Pleroma, it's recommended to [upgrade it to Rebased](https://gitlab.com/-/snippets/2411739). This comes with better support and many new features, helping you get the most out of Soapbox.
-
-# Developing Soapbox
-
-tl;dr — `git clone`, `yarn`, and `yarn dev`.
-
-For detailed guides, see these pages:
-
-1. [Soapbox local development](https://docs.soapbox.pub/soapbox/development/local/)
-2. [yarn commands](https://docs.soapbox.pub/soapbox/development/yarn-commands/)
-3. [How it works](https://docs.soapbox.pub/soapbox/development/how-it-works/)
-4. [Build config](https://docs.soapbox.pub/soapbox/development/build-config/)
-5. [Developing a backend](https://docs.soapbox.pub/soapbox/development/backend/)
-
-## Contributing
-
-We welcome contributions to this project!
-
-- [Making a Merge Request](https://docs.soapbox.pub/soapbox/contributing/)
-- [Contributing Translations](https://docs.soapbox.pub/soapbox/translations/)
-
-# Project Philosophy
-
-Soapbox was born out of the need to build independent platforms with **a unique identity and brand**.
-
-This is in contrast to Mastodon's idea, where all servers are called "Mastodon" and use the Mastodon colors and logo. Users won't see the word "Soapbox" throughout the UI, they'll see the name of **your website** and your logo. To facilitate this, Soapbox has a robust customization UI and integrated moderation tools. Large servers are a priority.
-
-One disadvantage of this approach is that it does not help the software spread. Some of the biggest servers on the network and running Soapbox and people don't even know it!
-
-# License & Credits
-
-© Alex Gleason & other Soapbox contributors  
-© Eugen Rochko & other Mastodon contributors  
-© Trump Media & Technology Group  
-© Gab AI, Inc.
-
-Soapbox is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Soapbox is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with Soapbox. If not, see <https://www.gnu.org/licenses/>.
+- [goose](https://github.com/block/goose) - open-source desktop app and cli utilizing your full computer for AI tasks
+- [bolt.diy](https://github.com/stackblitz-labs/bolt.diy) - similar to Shakespeare, but built on closed-source WebContainers technology

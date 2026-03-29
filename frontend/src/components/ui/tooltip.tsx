@@ -1,94 +1,28 @@
-import {
-  arrow,
-  FloatingArrow,
-  FloatingPortal,
-  offset,
-  useFloating,
-  useHover,
-  useInteractions,
-  useTransitionStyles,
-} from '@floating-ui/react';
-import { cloneElement, useRef, useState } from 'react';
+import * as React from "react"
+import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
-interface ITooltip {
-  /** Element to display the tooltip around. */
-  children: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
-  /** Text to display in the tooltip. */
-  text: string;
-  /** If disabled, it will render the children without wrapping them. */
-  disabled?: boolean;
-}
+import { cn } from "@/lib/utils"
 
-/**
- * Tooltip
- */
-const Tooltip: React.FC<ITooltip> = (props) => {
-  const { children, text, disabled = false } = props;
+const TooltipProvider = TooltipPrimitive.Provider
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const Tooltip = TooltipPrimitive.Root
 
-  const arrowRef = useRef<SVGSVGElement>(null);
+const TooltipTrigger = TooltipPrimitive.Trigger
 
-  const { x, y, strategy, refs, context } = useFloating({
-    open: isOpen,
-    onOpenChange: setIsOpen,
-    placement: 'top',
-    middleware: [
-      offset(6),
-      arrow({
-        element: arrowRef,
-      }),
-    ],
-  });
+const TooltipContent = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
+>(({ className, sideOffset = 4, ...props }, ref) => (
+  <TooltipPrimitive.Content
+    ref={ref}
+    sideOffset={sideOffset}
+    className={cn(
+      "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    )}
+    {...props}
+  />
+))
+TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-  const hover = useHover(context);
-  const { isMounted, styles } = useTransitionStyles(context, {
-    initial: {
-      opacity: 0,
-      transform: 'scale(0.8)',
-    },
-    duration: {
-      open: 200,
-      close: 200,
-    },
-  });
-
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    hover,
-  ]);
-
-  if (disabled) {
-    return children;
-  }
-
-  return (
-    <>
-      {cloneElement(children, {
-        ref: refs.setReference,
-        ...getReferenceProps(),
-      })}
-
-      {(isMounted) && (
-        <FloatingPortal>
-          <div
-            ref={refs.setFloating}
-            style={{
-              position: strategy,
-              top: y ?? 0,
-              left: x ?? 0,
-              ...styles,
-            }}
-            className='pointer-events-none z-[100] max-w-[200px] whitespace-normal rounded bg-gray-800 px-2.5 py-1.5 text-xs font-medium text-gray-100 shadow dark:bg-gray-100 dark:text-gray-900 sm:max-w-[300px]'
-            {...getFloatingProps()}
-          >
-            {text}
-
-            <FloatingArrow ref={arrowRef} context={context} className='fill-gray-800 dark:fill-gray-100' />
-          </div>
-        </FloatingPortal>
-      )}
-    </>
-  );
-};
-
-export default Tooltip;
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }

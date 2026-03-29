@@ -1,97 +1,56 @@
-import chevronDownIcon from '@tabler/icons/outline/chevron-down.svg';
-import chevronUpIcon from '@tabler/icons/outline/chevron-up.svg';
-import dotsVerticalIcon from '@tabler/icons/outline/dots-vertical.svg';
-import clsx from 'clsx';
-import { defineMessages, useIntl } from 'react-intl';
+import * as React from "react"
+import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import { ChevronDown } from "lucide-react"
 
-import DropdownMenu from '@/components/dropdown-menu/index.ts';
+import { cn } from "@/lib/utils"
 
-import HStack from './hstack.tsx';
-import Icon from './icon.tsx';
-import Text from './text.tsx';
+const Accordion = AccordionPrimitive.Root
 
-import type { Menu } from '@/components/dropdown-menu/index.ts';
+const AccordionItem = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
+>(({ className, ...props }, ref) => (
+  <AccordionPrimitive.Item
+    ref={ref}
+    className={cn("border rounded-lg bg-card text-card-foreground shadow-sm", className)}
+    {...props}
+  />
+))
+AccordionItem.displayName = "AccordionItem"
 
-const messages = defineMessages({
-  collapse: { id: 'accordion.collapse', defaultMessage: 'Collapse' },
-  expand: { id: 'accordion.expand', defaultMessage: 'Expand' },
-});
+const AccordionTrigger = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Header className="flex">
+    <AccordionPrimitive.Trigger
+      ref={ref}
+      className={cn(
+        "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
+        className
+      )}
+      {...props}
+    >
+      {children}
+      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+    </AccordionPrimitive.Trigger>
+  </AccordionPrimitive.Header>
+))
+AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 
-interface IAccordion {
-  headline: React.ReactNode;
-  children?: React.ReactNode;
-  menu?: Menu;
-  expanded?: boolean;
-  onToggle?: (value: boolean) => void;
-  action?: () => void;
-  actionIcon?: string;
-  actionLabel?: string;
-}
+const AccordionContent = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
+>(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Content
+    ref={ref}
+    className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    {...props}
+  >
+    <div className={cn("pb-4 pt-0", className)}>{children}</div>
+  </AccordionPrimitive.Content>
+))
 
-/**
- * Accordion
- * An accordion is a vertically stacked group of collapsible sections.
- */
-const Accordion: React.FC<IAccordion> = ({ headline, children, menu, expanded = false, onToggle = () => {}, action, actionIcon, actionLabel }) => {
-  const intl = useIntl();
+AccordionContent.displayName = AccordionPrimitive.Content.displayName
 
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onToggle(!expanded);
-    e.preventDefault();
-  };
-
-  const handleAction = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!action) return;
-
-    action();
-    e.preventDefault();
-  };
-
-  return (
-    <div className='rounded-lg bg-white text-gray-900 shadow dark:bg-primary-800 dark:text-gray-100 dark:shadow-none'>
-      <button
-        type='button'
-        onClick={handleToggle}
-        title={intl.formatMessage(expanded ? messages.collapse : messages.expand)}
-        aria-expanded={expanded}
-        className='flex w-full items-center justify-between px-4 py-3 font-semibold'
-      >
-        <span>{headline}</span>
-
-        <HStack alignItems='center' space={2}>
-          {menu && (
-            <DropdownMenu
-              items={menu}
-              src={dotsVerticalIcon}
-            />
-          )}
-          {action && actionIcon && (
-            <button onClick={handleAction} title={actionLabel}>
-              <Icon
-                src={actionIcon}
-                className='size-5 text-gray-700 dark:text-gray-600'
-              />
-            </button>
-          )}
-          <Icon
-            src={expanded ? chevronUpIcon : chevronDownIcon}
-            className='size-5 text-gray-700 dark:text-gray-600'
-          />
-        </HStack>
-      </button>
-
-      <div
-        className={
-          clsx({
-            'p-4 rounded-b-lg border-t border-solid border-gray-100 dark:border-primary-900 black:border-black': true,
-            'h-0 hidden': !expanded,
-          })
-        }
-      >
-        <Text>{children}</Text>
-      </div>
-    </div>
-  );
-};
-
-export default Accordion;
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }

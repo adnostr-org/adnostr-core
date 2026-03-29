@@ -1,17 +1,31 @@
-import { useSettings } from './useSettings.ts';
-import { useSystemTheme } from './useSystemTheme.ts';
-
-type Theme = 'light' | 'dark' | 'black';
+import { type Theme } from "@/contexts/AppContext";
+import { useAppContext } from "@/hooks/useAppContext";
+import { useSystemTheme } from "./useSystemTheme";
 
 /**
- * Returns the actual theme being displayed (eg "light" or "dark")
- * regardless of whether that's by system theme or direct setting.
+ * Hook to get and set the active theme
+ * @returns Theme context with theme and setTheme
  */
-const useTheme = (): Theme => {
-  const { themeMode } = useSettings();
+export function useTheme(): {
+  theme: Theme;
+  systemTheme: "light" | "dark";
+  displayTheme: "light" | "dark";
+  setTheme: (theme: Theme) => void;
+  } {
+  const { config, updateConfig } = useAppContext();
+
   const systemTheme = useSystemTheme();
+  const displayTheme = config.theme === 'system' ? systemTheme : config.theme;
 
-  return themeMode === 'system' ? systemTheme : themeMode;
-};
-
-export { useTheme };
+  return {
+    theme: config.theme,
+    systemTheme,
+    displayTheme,
+    setTheme: (theme: Theme) => {
+      updateConfig((currentConfig) => ({
+        ...currentConfig,
+        theme,
+      }));
+    }
+  }
+}

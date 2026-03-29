@@ -1,69 +1,172 @@
-import { useState } from 'react';
+import * as React from 'react';
+import { X } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
-import HStack from './hstack.tsx';
-import Tag from './tag.tsx';
-
-interface ITagInput {
-  tags: string[];
+export interface TagInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+  value: string[];
   onChange: (tags: string[]) => void;
-  placeholder?: string;
+  /** Character(s) that trigger tag creation. Default: [' ', ','] */
+  delimiters?: string[];
+  /** Transform tag before adding (e.g., toLowerCase). Default: (tag) => tag.trim() */
+  transformTag?: (tag: string) => string;
+  /** Validate tag before adding. Return false to reject. */
+  validateTag?: (tag: string) => boolean;
+  /** Allow duplicate tags. Default: false */
+  allowDuplicates?: boolean;
 }
 
-/** Manage a list of tags. */
-// https://blog.logrocket.com/building-a-tag-input-field-component-for-react/
-const TagInput: React.FC<ITagInput> = ({ tags, onChange, placeholder }) => {
-  const [input, setInput] = useState('');
+export const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
+  (
+    {
+      className,
+      value = [],
+      onChange,
+      delimiters = [' ', ','],
+      transformTag = (tag) => tag.trim(),
+      validateTag,
+      allowDuplicates = false,
+      disabled,
+      placeholder,
+      ...props
+    },
+    ref
+  ) => {
+    const [inputValue, setInputValue] = React.useState('');
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const containerRef = React.useRef<HTMLDivElement>(null);
 
-  const handleTagDelete = (tag: string) => {
-    onChange(tags.filter(item => item !== tag));
-  };
+    // Combine external ref with internal ref
+    React.useImperativeHandle(ref, () => inputRef.current!);
 
-  const handleKeyDown: React.KeyboardEventHandler = (e) => {
-    const { key } = e;
-    const trimmedInput = input.trim();
+    const addTag = (tag: string) => {
+      const transformed = transformTag(tag);
+      
+      if (!transformed) return;
 
-    if (key === 'Tab') {
-      e.preventDefault();
-    }
+      // Check for duplicates if not allowed
+      if (!allowDuplicates && value.includes(transformed)) {
+        setInputValue('');
+        return;
+      }
 
-    if ([',', 'Tab', 'Enter'].includes(key) && trimmedInput.length && !tags.includes(trimmedInput)) {
-      e.preventDefault();
-      onChange([...tags, trimmedInput]);
-      setInput('');
-    }
+      // Validate if validator provided
+      if (validateTag && !validateTag(transformed)) {
+        setInputValue('');
+        return;
+      }
 
-    if (key === 'Backspace' && !input.length && tags.length) {
-      e.preventDefault();
-      const tagsCopy = [...tags];
-      tagsCopy.pop();
+      onChange([...value, transformed]);
+      setInputValue('');
+    };
 
-      onChange(tagsCopy);
-    }
-  };
+    const removeTag = (index: number) => {
+      onChange(value.filter((_, i) => i !== index));
+    };
 
-  return (
-    <div className='relative mt-1 grow shadow-sm'>
-      <HStack
-        className='block w-full rounded-md border-gray-400 bg-white p-2 pb-0 text-gray-900 placeholder:text-gray-600 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:ring-1 dark:ring-gray-800 dark:placeholder:text-gray-600 dark:focus:border-primary-500 dark:focus:ring-primary-500 sm:text-sm'
-        space={2}
-        wrap
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      // Handle delimiters (space, comma, etc.)
+      if (delimiters.includes(e.key)) {
+        e.preventDefault();
+        if (inputValue.trim()) {
+          addTag(inputValue);
+        }
+        return;
+      }
+
+      // Handle Enter key
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (inputValue.trim()) {
+          addTag(inputValue);
+        }
+        return;
+      }
+
+      // Handle Backspace - delete last tag if input is empty
+      if (e.key === 'Backspace' && !inputValue && value.length > 0) {
+        e.preventDefault();
+        removeTag(value.length - 1);
+        return;
+      }
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      
+      // Check if any delimiter was typed
+      const hasDelimiter = delimiters.some(delimiter => newValue.includes(delimiter));
+      
+      if (hasDelimiter) {
+        // Extract the part before the delimiter
+        const parts = newValue.split(new RegExp(`[${delimiters.map(d => d === ' ' ? '\\s' : d).join('')}]`));
+        const tagToAdd = parts[0];
+        
+        if (tagToAdd.trim()) {
+          addTag(tagToAdd);
+        }
+      } else {
+        setInputValue(newValue);
+      }
+    };
+
+    const handleContainerClick = () => {
+      inputRef.current?.focus();
+    };
+
+    return (
+      <div
+        ref={containerRef}
+        className={cn(
+          'flex min-h-10 w-full flex-wrap gap-1.5 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background',
+          'focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
+          disabled && 'cursor-not-allowed opacity-50',
+          className
+        )}
+        onClick={handleContainerClick}
       >
-        {tags.map((tag, i) => (
-          <div className='mb-2'>
-            <Tag tag={tag} onDelete={handleTagDelete} />
-          </div>
+        {/* Render tags */}
+        {value.map((tag, index) => (
+          <Badge
+            key={index}
+            variant="secondary"
+            className="gap-1 pr-1.5 pl-2.5 py-0.5 h-6"
+          >
+            <span>{tag}</span>
+            <button
+              type="button"
+              className="ml-1 rounded-sm hover:bg-secondary-foreground/20 focus:outline-none focus:ring-1 focus:ring-ring"
+              onClick={(e) => {
+                e.stopPropagation();
+                removeTag(index);
+              }}
+              disabled={disabled}
+            >
+              <X className="h-3 w-3" />
+              <span className="sr-only">Remove {tag}</span>
+            </button>
+          </Badge>
         ))}
 
+        {/* Input field */}
         <input
-          className='mb-2 h-8 w-32 grow bg-transparent p-1 outline-none'
-          value={input}
-          placeholder={placeholder}
-          onChange={e => setInput(e.target.value)}
+          ref={inputRef}
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
           onKeyDown={handleKeyDown}
+          disabled={disabled}
+          placeholder={value.length === 0 ? placeholder : undefined}
+          className={cn(
+            'flex-1 min-w-[120px] bg-transparent outline-none placeholder:text-muted-foreground',
+            'disabled:cursor-not-allowed'
+          )}
+          {...props}
         />
-      </HStack>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+);
 
-export default TagInput;
+TagInput.displayName = 'TagInput';

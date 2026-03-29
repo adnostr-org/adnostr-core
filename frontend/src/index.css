@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* GitHub-inspired light theme with Shakespeare colors */
+    --background: 0 0% 100%;
+    --foreground: 220 9% 9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 9% 9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 9% 9%;
+
+    /* Shakespeare purple as primary */
+    --primary: 271 81% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    /* GitHub-style secondary */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 9% 9%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    /* Shakespeare gold as accent */
+    --accent: 45 93% 58%;
+    --accent-foreground: 220 9% 9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* GitHub-style borders */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 271 81% 56%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar colors - Enhanced purple theme */
+    --sidebar-background: 271 81% 96%;
+    --sidebar-foreground: 271 81% 15%;
+    --sidebar-primary: 271 81% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 271 81% 92%;
+    --sidebar-accent-foreground: 271 81% 15%;
+    --sidebar-border: 271 81% 85%;
+    --sidebar-ring: 271 81% 56%;
+
+    /* GitHub-style success and warning */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 93% 58%;
+    --warning-foreground: 220 9% 9%;
+  }
+
+  .dark {
+    /* GitHub-inspired dark theme with Shakespeare colors */
+    --background: 220 13% 9%;
+    --foreground: 220 14% 93%;
+
+    --card: 220 13% 11%;
+    --card-foreground: 220 14% 93%;
+
+    --popover: 220 13% 11%;
+    --popover-foreground: 220 14% 93%;
+
+    /* Shakespeare purple (lighter for dark mode) */
+    --primary: 271 81% 65%;
+    --primary-foreground: 220 13% 9%;
+
+    /* GitHub dark secondary */
+    --secondary: 220 13% 15%;
+    --secondary-foreground: 220 14% 93%;
+
+    --muted: 220 13% 15%;
+    --muted-foreground: 220 9% 63%;
+
+    /* Shakespeare gold (adjusted for dark mode) */
+    --accent: 45 93% 65%;
+    --accent-foreground: 220 13% 9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* GitHub dark borders */
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 271 81% 65%;
+
+    /* Sidebar dark colors - Enhanced purple theme */
+    --sidebar-background: 271 81% 8%;
+    --sidebar-foreground: 271 81% 90%;
+    --sidebar-primary: 271 81% 65%;
+    --sidebar-primary-foreground: 271 81% 8%;
+    --sidebar-accent: 271 81% 15%;
+    --sidebar-accent-foreground: 271 81% 90%;
+    --sidebar-border: 271 81% 20%;
+    --sidebar-ring: 271 81% 65%;
+
+    /* Dark mode success and warning */
+    --success: 142 76% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 93% 65%;
+    --warning-foreground: 220 13% 9%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter Variable', 'Inter', 'system-ui', 'sans-serif';
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* GitHub-style scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* GitHub-style focus rings */
+  .focus-ring:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Smooth transitions for theme switching */
+  * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  /* Ensure hidden tab content doesn't take up space */
+  [role="tabpanel"][hidden] {
+    display: none !important;
+  }
+
+  /* Custom prose styling for chat messages */
+  .prose {
+    /* Override prose defaults to match chat styling */
+    --tw-prose-body: hsl(var(--foreground));
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-lead: hsl(var(--muted-foreground));
+    --tw-prose-links: hsl(var(--primary));
+    --tw-prose-bold: hsl(var(--foreground));
+    --tw-prose-counters: hsl(var(--muted-foreground));
+    --tw-prose-bullets: hsl(var(--muted-foreground));
+    --tw-prose-hr: hsl(var(--border));
+    --tw-prose-quotes: hsl(var(--foreground));
+    --tw-prose-quote-borders: hsl(var(--border));
+    --tw-prose-captions: hsl(var(--muted-foreground));
+    --tw-prose-code: hsl(var(--foreground));
+    --tw-prose-pre-code: hsl(var(--foreground));
+    --tw-prose-pre-bg: hsl(var(--muted));
+    --tw-prose-th-borders: hsl(var(--border));
+    --tw-prose-td-borders: hsl(var(--border));
+  }
+
+  .prose.dark\\:prose-invert {
+    --tw-prose-body: hsl(var(--foreground));
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-lead: hsl(var(--muted-foreground));
+    --tw-prose-links: hsl(var(--primary));
+    --tw-prose-bold: hsl(var(--foreground));
+    --tw-prose-counters: hsl(var(--muted-foreground));
+    --tw-prose-bullets: hsl(var(--muted-foreground));
+    --tw-prose-hr: hsl(var(--border));
+    --tw-prose-quotes: hsl(var(--foreground));
+    --tw-prose-quote-borders: hsl(var(--border));
+    --tw-prose-captions: hsl(var(--muted-foreground));
+    --tw-prose-code: hsl(var(--foreground));
+    --tw-prose-pre-code: hsl(var(--foreground));
+    --tw-prose-pre-bg: hsl(var(--muted));
+    --tw-prose-th-borders: hsl(var(--border));
+    --tw-prose-td-borders: hsl(var(--border));
+  }
+
+  /* Ensure proper spacing in chat messages */
+  .prose p:first-child {
+    margin-top: 0;
+  }
+
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Compact list styling for chat */
+  .prose ul, .prose ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose li {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Compact heading spacing for chat */
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose h1:first-child, .prose h2:first-child, .prose h3:first-child,
+  .prose h4:first-child, .prose h5:first-child, .prose h6:first-child {
+    margin-top: 0;
+  }
+
+  /* Mobile textarea scroll fix */
+  .touch-action-manipulation {
+    touch-action: manipulation;
+  }
+
+  .overscroll-contain {
+    overscroll-behavior: contain;
+  }
+
+  /* Dynamic viewport height support for mobile keyboards */
+  .h-dvh {
+    height: 100dvh;
+  }
+
+  .min-h-dvh {
+    min-height: 100dvh;
+  }
+
+  .max-h-dvh {
+    max-height: 100dvh;
+  }
+
+  pre.shiki {
+    background-color: transparent !important;
+  }
+
+  /* Fallback for browsers that don't support dvh */
+  @supports not (height: 100dvh) {
+    .h-dvh {
+      height: 100vh;
+    }
+
+    .min-h-dvh {
+      min-height: 100vh;
+    }
+
+    .max-h-dvh {
+      max-height: 100vh;
+    }
+  }
+
+  /* Capacitor/Mobile specific styles */
+  .keyboard-open {
+    /* Adjust layout when keyboard is open */
+    --keyboard-height: env(keyboard-height, 0px);
+  }
+}

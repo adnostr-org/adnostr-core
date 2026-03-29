@@ -1,33 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
-type SystemTheme = 'light' | 'dark';
+export function useSystemTheme() {
+  const getSystemTheme = (): "dark" | "light" =>
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
-/** Get the system color scheme of the system. */
-export const useSystemTheme = (): SystemTheme => {
-  const query = window.matchMedia('(prefers-color-scheme: dark)');
-  const [dark, setDark] = useState(query.matches);
+  const [theme, setTheme] = useState<"dark" | "light">(getSystemTheme);
 
-  const handleChange = (event: MediaQueryListEvent) => {
-    setDark(event.matches);
-  };
-
-  // Older versions of Safari on iOS don't support these events,
-  // so try-catch and do nothing.
   useEffect(() => {
-    try {
-      query.addEventListener('change', handleChange);
-    } catch (e) {
-      // do nothing
-    }
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    return () => {
-      try {
-        query.removeEventListener('change', handleChange);
-      } catch (e) {
-        // do nothing
-      }
+    const handler = (event: MediaQueryListEvent): void => {
+      setTheme(event.matches ? "dark" : "light");
     };
+
+    // Attach listener
+    mediaQuery.addEventListener("change", handler);
+
+    // Cleanup
+    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  return dark ? 'dark' : 'light';
-};
+  return theme;
+}

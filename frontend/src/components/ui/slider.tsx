@@ -1,123 +1,26 @@
-import { throttle } from 'es-toolkit';
-import { useRef } from 'react';
+import * as React from "react"
+import * as SliderPrimitive from "@radix-ui/react-slider"
 
-type Point = { x: number; y: number };
+import { cn } from "@/lib/utils"
 
-interface ISlider {
-  /** Value between 0 and 1. */
-  value: number;
-  /** Callback when the value changes. */
-  onChange(value: number): void;
-}
+const Slider = React.forwardRef<
+  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <SliderPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative flex w-full touch-none select-none items-center",
+      className
+    )}
+    {...props}
+  >
+    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary">
+      <SliderPrimitive.Range className="absolute h-full bg-primary" />
+    </SliderPrimitive.Track>
+    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
+  </SliderPrimitive.Root>
+))
+Slider.displayName = SliderPrimitive.Root.displayName
 
-/** Draggable slider component. */
-const Slider: React.FC<ISlider> = ({ value, onChange }) => {
-  const node = useRef<HTMLDivElement>(null);
-
-  const handleMouseDown: React.MouseEventHandler = e => {
-    document.addEventListener('mousemove', handleMouseSlide, true);
-    document.addEventListener('mouseup', handleMouseUp, true);
-    document.addEventListener('touchmove', handleMouseSlide, true);
-    document.addEventListener('touchend', handleMouseUp, true);
-
-    handleMouseSlide(e);
-
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleMouseUp = () => {
-    document.removeEventListener('mousemove', handleMouseSlide, true);
-    document.removeEventListener('mouseup', handleMouseUp, true);
-    document.removeEventListener('touchmove', handleMouseSlide, true);
-    document.removeEventListener('touchend', handleMouseUp, true);
-  };
-
-  const handleMouseSlide = throttle(e => {
-    if (node.current) {
-      const { x } = getPointerPosition(node.current, e);
-
-      if (!isNaN(x)) {
-        let slideamt = x;
-
-        if (x > 1) {
-          slideamt = 1;
-        } else if (x < 0) {
-          slideamt = 0;
-        }
-
-        onChange(slideamt);
-      }
-    }
-  }, 60);
-
-  return (
-    <div
-      className='relative inline-flex h-6 cursor-pointer transition'
-      onMouseDown={handleMouseDown}
-      ref={node}
-    >
-      <div className='absolute top-1/2 h-1 w-full -translate-y-1/2 rounded-full bg-primary-200 dark:bg-primary-700' />
-      <div className='absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-accent-500' style={{ width: `${value * 100}%` }} />
-      <span
-        className='absolute top-1/2 z-[9] -ml-1.5 size-3 -translate-y-1/2 rounded-full bg-accent-500 shadow'
-        tabIndex={0}
-        style={{ left: `${value * 100}%` }}
-      />
-    </div>
-  );
-};
-
-const findElementPosition = (el: HTMLElement) => {
-  let box;
-
-  if (el.getBoundingClientRect && el.parentNode) {
-    box = el.getBoundingClientRect();
-  }
-
-  if (!box) {
-    return {
-      left: 0,
-      top: 0,
-    };
-  }
-
-  const docEl = document.documentElement;
-  const body  = document.body;
-
-  const clientLeft = docEl.clientLeft || body.clientLeft || 0;
-  const scrollLeft = window.pageXOffset || body.scrollLeft;
-  const left       = (box.left + scrollLeft) - clientLeft;
-
-  const clientTop = docEl.clientTop || body.clientTop || 0;
-  const scrollTop = window.pageYOffset || body.scrollTop;
-  const top       = (box.top + scrollTop) - clientTop;
-
-  return {
-    left: Math.round(left),
-    top: Math.round(top),
-  };
-};
-
-const getPointerPosition = (el: HTMLElement, event: MouseEvent & TouchEvent): Point => {
-  const box = findElementPosition(el);
-  const boxW = el.offsetWidth;
-  const boxH = el.offsetHeight;
-  const boxY = box.top;
-  const boxX = box.left;
-
-  let pageY = event.pageY;
-  let pageX = event.pageX;
-
-  if (event.changedTouches) {
-    pageX = event.changedTouches[0].pageX;
-    pageY = event.changedTouches[0].pageY;
-  }
-
-  return {
-    y: Math.max(0, Math.min(1, (pageY - boxY) / boxH)),
-    x: Math.max(0, Math.min(1, (pageX - boxX) / boxW)),
-  };
-};
-
-export default Slider;
+export { Slider }

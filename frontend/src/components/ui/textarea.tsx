@@ -1,121 +1,71 @@
-import clsx from 'clsx';
-import { forwardRef, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import * as React from "react"
 
-import { useLocale } from '@/hooks/useLocale.ts';
-import { getTextDirection } from '@/utils/rtl.ts';
+import { cn } from "@/lib/utils"
 
-import Stack from './stack.tsx';
-import Text from './text.tsx';
-
-interface ITextarea extends Pick<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'id' | 'maxLength' | 'onChange' | 'onClick' | 'onKeyDown' | 'onPaste' | 'required' | 'disabled' | 'rows' | 'readOnly'> {
-  /** Put the cursor into the input on mount. */
-  autoFocus?: boolean;
-  /** Allows the textarea height to grow while typing */
-  autoGrow?: boolean;
-  /** Used with "autoGrow". Sets a max number of rows. */
-  maxRows?: number;
-  /** Used with "autoGrow". Sets a min number of rows. */
-  minRows?: number;
-  /** The initial text in the input. */
-  defaultValue?: string;
-  /** Internal input name. */
-  name?: string;
-  /** Renders the textarea as a code editor. */
-  isCodeEditor?: boolean;
-  /** Text to display before a value is entered. */
-  placeholder?: string;
-  /** Text in the textarea. */
-  value?: string;
-  /** Whether the device should autocomplete text in this textarea. */
-  autoComplete?: string;
-  /** Whether to display the textarea in red. */
-  hasError?: boolean;
-  /** Whether or not you can resize the teztarea */
-  isResizeable?: boolean;
-  /** Textarea theme. */
-  theme?: 'default' | 'transparent';
-  /** Whether to display a character counter below the textarea. */
-  withCounter?: boolean;
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /**
+   * Callback fired when an image is pasted into the textarea.
+   * If both onPaste and onPasteImage are provided, onPaste takes precedence.
+   */
+  onPasteImage?: (file: File) => void;
 }
 
-/** Textarea with custom styles. */
-const Textarea = forwardRef(({
-  isCodeEditor = false,
-  hasError = false,
-  isResizeable = true,
-  onChange,
-  autoGrow = false,
-  maxRows = 10,
-  minRows = 1,
-  rows: initialRows = 4,
-  theme = 'default',
-  maxLength,
-  value,
-  ...props
-}: ITextarea, ref: React.ForwardedRef<HTMLTextAreaElement>) => {
-  const length = value?.length || 0;
-  const [rows, setRows] = useState<number>(autoGrow ? minRows : initialRows);
-  const locale = useLocale();
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, onPaste, onPasteImage, ...props }, ref) => {
+    const handlePaste = React.useCallback(
+      async (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+        // If onPaste is provided, use it and skip image handling
+        if (onPaste) {
+          onPaste(e);
+          return;
+        }
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (autoGrow) {
-      const textareaLineHeight = 20;
-      const previousRows = event.target.rows;
-      event.target.rows = minRows;
+        // If onPasteImage is provided, handle image pasting
+        if (onPasteImage) {
+          const items = e.clipboardData?.items;
+          if (!items) return;
 
-      const currentRows = ~~(event.target.scrollHeight / textareaLineHeight);
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
 
-      if (currentRows === previousRows) {
-        event.target.rows = currentRows;
-      }
+            // Check if the item is an image
+            if (item.type.startsWith('image/')) {
+              e.preventDefault(); // Prevent default paste behavior for images
 
-      if (currentRows >= maxRows) {
-        event.target.rows = maxRows;
-        event.target.scrollTop = event.target.scrollHeight;
-      }
+              const file = item.getAsFile();
+              if (file) {
+                // Generate a filename with timestamp
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const extension = file.type.split('/')[1] || 'png';
+                const filename = `pasted-image-${timestamp}.${extension}`;
 
-      setRows(currentRows < maxRows ? currentRows : maxRows);
-    }
+                // Create a new File object with the generated name
+                const namedFile = new File([file], filename, { type: file.type });
 
-    if (onChange) {
-      onChange(event);
-    }
-  };
+                // Call the onPasteImage callback
+                onPasteImage(namedFile);
+              }
+              break; // Only handle the first image found
+            }
+          }
+        }
+      },
+      [onPaste, onPasteImage]
+    );
 
-  return (
-    <Stack space={1.5}>
+    return (
       <textarea
-        {...props}
-        value={value}
+        className={cn(
+          "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          className
+        )}
         ref={ref}
-        rows={rows}
-        onChange={handleChange}
-        className={clsx('block h-16 w-full rounded-md text-gray-900 placeholder:text-gray-600 dark:text-gray-100 dark:placeholder:text-gray-600 sm:h-10 sm:text-sm', {
-          'bg-white dark:bg-transparent shadow-sm border-gray-400 dark:border-gray-800 dark:ring-1 dark:ring-gray-800 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500':
-            theme === 'default',
-          'bg-transparent border-0 focus:border-0 focus:ring-0': theme === 'transparent',
-          'font-mono': isCodeEditor,
-          'text-red-600 border-red-600': hasError,
-          'resize-none': !isResizeable,
-        })}
-        dir={value?.length ? getTextDirection(value, { fallback: locale.direction }) : undefined}
+        onPaste={onPaste || onPasteImage ? handlePaste : undefined}
+        {...props}
       />
+    )
+  }
+)
+Textarea.displayName = "Textarea"
 
-      {maxLength && (
-        <div className='text-right rtl:text-left'>
-          <Text size='xs' theme={maxLength - length < 0 ? 'danger' : 'muted'}>
-            <FormattedMessage
-              id='textarea.counter.label'
-              defaultMessage='{count} characters remaining'
-              values={{ count: maxLength - length }}
-            />
-          </Text>
-        </div>
-      )}
-    </Stack>
-  );
-},
-);
-
-export default Textarea;
+export { Textarea }
