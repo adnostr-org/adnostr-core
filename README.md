@@ -1,6 +1,13 @@
-# AdNostr-Core
+# AdNostr-Core v2.9
 
 A high-performance FastAPI backend that bridges TikTok traffic with the Nostr protocol through AI-powered advertisement generation and automated social media posting.
+
+## 🚀 Version 2.9 Highlights
+- **Complete Apify Token Integration**: Transition from hardcoded auth to Apify Token-driven authorization
+- **Security Middleware Enhancements**: Whitelist routes and proper token validation
+- **Frontend Security Fixes**: Resolved white screen crashes and improved error handling
+- **Shakespeare UI Compliance**: All new components follow minimalist hacker aesthetic
+- **Token Management System**: Full lifecycle management for Apify API tokens
 
 ## Overview
 
