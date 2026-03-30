@@ -39,6 +39,7 @@ import structlog
 from mastodon import Mastodon
 
 from src.engine.ad_generator import AdGenerator, ImageType, GenerationRequest
+from src.engine.nip_ads_generator import NipAdsGenerator, create_nip_ads_from_apify
 from src.utils.mastodon_client import MastodonClient
 from src.utils.data_bridge import DataBridge
 
@@ -1121,3 +1122,168 @@ async def generate_ai_content(request: dict):
     except Exception as e:
         logger.error("AI content generation failed", error=str(e))
         raise HTTPException(status_code=500, detail="Content generation failed")
+
+
+# NIP-ADS Protocol Models
+class NipAdsRequest(BaseModel):
+    """Request model for creating NIP-ADS events."""
+    title: str = Field(..., description="Advertisement title")
+    description: str = Field(..., description="Advertisement description")
+    image_url: Optional[str] = Field(None, description="Optional image URL")
+    web2_cpc: float = Field(0.5, description="Web2 cost per click in USD")
+    category: str = Field("0", description="NIP-ADS category code")
+    language: str = Field("en", description="ISO 639-1 language code")
+    price_slot: str = Field("BTC1_000", description="NIP-ADS price slot")
+    advertiser_pubkey: Optional[str] = Field(None, description="Nostr public key of advertiser")
+
+
+class NipAdsResponse(BaseModel):
+    """Response model for NIP-ADS creation."""
+    success: bool
+    nip_ads_event: Dict[str, Any]
+    arbitrage_comparison: Dict[str, Any]
+    web2_source_data: Dict[str, Any]
+    metadata: Dict[str, Any]
+
+
+class BroadcastRequest(BaseModel):
+    """Request model for broadcasting NIP-ADS events."""
+    event: Dict[str, Any]
+    relays: List[str] = Field(default=["wss://relay.damus.io", "wss://relay.primal.net"])
+
+
+class BroadcastResponse(BaseModel):
+    """Response model for broadcast operations."""
+    success: bool
+    event_id: Optional[str]
+    relay_urls: List[str]
+    timestamp: str
+
+
+@router.post("/nip-ads/create", response_model=NipAdsResponse)
+async def create_nip_ads(request: NipAdsRequest) -> NipAdsResponse:
+    """
+    Create a NIP-ADS compliant advertisement event.
+    
+    This endpoint creates a Nostr event (kind 40000) that follows the
+    NIP-ADS protocol for decentralized advertising.
+    
+    Args:
+        request: NIP-ADS creation request
+        
+    Returns:
+        NIP-ADS event with arbitrage calculations
+    """
+    try:
+        logger.info("Creating NIP-ADS event", title=request.title[:50])
+        
+        # Initialize generator
+        generator = AdGenerator()
+        
+        # Prepare Web2 data
+        web2_data = {
+            "title": request.title,
+            "description": request.description,
+            "image_url": request.image_url,
+            "cpc_usd": request.web2_cpc,
+            "category": request.category,
+            "language": request.language,
+            "platform": "web2_arbitrage"
+        }
+        
+        # Use default pubkey if not provided
+        advertiser_pubkey = request.advertiser_pubkey or "0000000000000000000000000000000000000000000000000000000000000000"
+        
+        # Create NIP-ADS event
+        result = generator.create_from_web2_data(web2_data, advertiser_pubkey)
+        
+        logger.info("NIP-ADS event created successfully", 
+                   event_id=result["nip_ads_event"].get("id", "unknown")[:16])
+        
+        return NipAdsResponse(**result)
+        
+    except Exception as e:
+        logger.error("NIP-ADS creation failed", error=str(e))
+        raise HTTPException(status_code=500, detail=f"NIP-ADS creation failed: {str(e)}")
+
+
+@router.post("/nip-ads/broadcast", response_model=BroadcastResponse)
+async def broadcast_nip_ads(request: BroadcastRequest) -> BroadcastResponse:
+    """
+    Broadcast a NIP-ADS event to Nostr relays.
+    
+    This endpoint simulates broadcasting a NIP-ADS event to the Nostr network.
+    In a production environment, this would use a Nostr client library to
+    actually publish the event to the specified relays.
+    
+    Args:
+        request: Broadcast request with event and relay list
+        
+    Returns:
+        Broadcast operation result
+    """
+    try:
+        logger.info("Broadcasting NIP-ADS event", 
+                   relays=len(request.relays),
+                   event_kind=request.event.get("kind", "unknown"))
+        
+        # Simulate broadcast (in production, use nostr-tools or similar)
+        # For now, we'll simulate successful broadcast
+        event_id = f"simulated_event_{int(time.time())}"
+        
+        # Log the broadcast attempt
+        for relay in request.relays:
+            logger.debug(f"Simulating broadcast to {relay}", event_id=event_id[:16])
+        
+        # Simulate network delay
+        await asyncio.sleep(0.5)
+        
+        result = BroadcastResponse(
+            success=True,
+            event_id=event_id,
+            relay_urls=request.relays,
+            timestamp=datetime.utcnow().isoformat()
+        )
+        
+        logger.info("NIP-ADS broadcast simulated successfully", 
+                   event_id=event_id[:16],
+                   relay_count=len(request.relays))
+        
+        return result
+        
+    except Exception as e:
+        logger.error("NIP-ADS broadcast failed", error=str(e))
+        raise HTTPException(status_code=500, detail=f"Broadcast failed: {str(e)}")
+
+
+@router.get("/nip-ads/protocol-info")
+async def get_nip_ads_protocol_info() -> Dict[str, Any]:
+    """
+    Get NIP-ADS protocol information and supported features.
+    
+    Returns:
+        Protocol specification and supported options
+    """
+    return {
+        "protocol": "NIP-ADS",
+        "version": "draft",
+        "event_kind": 40000,
+        "supported_price_slots": ["BTC1_000", "BTC10_000", "BTC100_000", "BTC1_000_000"],
+        "supported_categories": [
+            {"id": "0", "name": "General"},
+            {"id": "1", "name": "Technology"},
+            {"id": "2", "name": "Business"},
+            {"id": "3", "name": "Entertainment"},
+            {"id": "4", "name": "Sports"},
+            {"id": "5", "name": "Health"},
+            {"id": "6", "name": "Science"},
+            {"id": "7", "name": "Politics"},
+            {"id": "8", "name": "Food"},
+            {"id": "9", "name": "Travel"},
+            {"id": "10", "name": "Shopping"},
+            {"id": "11", "name": "Personal"}
+        ],
+        "supported_languages": ["en", "zh", "es", "hi", "ar", "pt", "ru", "ja", "de", "fr"],
+        "description": "Decentralized advertising protocol for Nostr network",
+        "reference": "https://ngengine.org/docs/nip-drafts/nip-ADS/"
+    }
