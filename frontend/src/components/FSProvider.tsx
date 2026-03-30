@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { FSContext, type FSContextType } from '@/contexts/FSContext';
-import { createMemoryFS } from '@/lib/MemoryFS';
+// 使用相对路径导入以避免路径别名问题
+import { createMemoryFS } from '../lib/MemoryFS';
 
 interface FSProviderProps {
   children: ReactNode;
