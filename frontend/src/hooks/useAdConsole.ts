@@ -27,7 +27,7 @@ export interface ArbitrageLogEntry {
   timestamp: string;
   message: string;
   level: 'info' | 'warn' | 'error' | 'success';
-  data?: any;
+  data?: unknown;
 }
 
 export interface ArbitrageData {
@@ -38,6 +38,26 @@ export interface ArbitrageData {
   platform: string;
   material_id: string;
   material_url: string;
+  savings?: {
+    web2_cost_per_1k_usd?: number;
+    nostr_cost_per_1k_usd?: number;
+    savings_per_1k_usd?: number;
+    savings_percentage?: number;
+    message?: string;
+  };
+  material?: {
+    url?: string;
+  };
+}
+
+export interface DashboardData {
+  platforms: string[];
+  global_roi: number;
+  total_spend: number;
+  total_revenue: number;
+  savings_generated: number;
+  active_experts: number;
+  timestamp: string;
 }
 
 export interface RevenueParams {
@@ -45,6 +65,20 @@ export interface RevenueParams {
   image_complexity: number;
   difficulty_factor: number;
   exponent_k?: number;
+}
+
+export interface NipAdsEvent {
+  kind: number;
+  content: string;
+  tags: string[][];
+  created_at: number;
+}
+
+export interface ApiResponse<T = unknown> {
+  status: string;
+  data?: T;
+  error?: string;
+  timestamp: string;
 }
 
 // --- 2. 智能降级与健康检查类 (IntelligentFallback) ---
@@ -231,7 +265,7 @@ class AdConsoleDataBridge {
       total_revenue: 3084650,
       savings_generated: 125400,
       timestamp: new Date().toISOString()
-    } as any;
+    } as T;
   }
 }
 
@@ -257,13 +291,13 @@ export function useAdConsole() {
     queryKey: ['adnostr', 'dashboard'],
     queryFn: async () => {
       addLog('同步后端套利看板数据...', 'info');
-      return bridge.fetchWithIntelligence<any>('dashboard');
+      return bridge.fetchWithIntelligence<DashboardData>('dashboard');
     },
     staleTime: 60000
   });
 
   // 核心业务：触发套利数据抓取 (与 Apify 联动)
-  const fetchArbitrageData = async () => {
+  const fetchArbitrageData = async (): Promise<ArbitrageData> => {
     setIsExecuting(true);
     addLog('正在向 Apify 索取 Web2 竞争对手数据...', 'info');
     
@@ -278,8 +312,9 @@ export function useAdConsole() {
       addLog('套利空间验证成功！', 'success', data);
       
       return data;
-    } catch (error: any) {
-      addLog(`任务中断: ${error.message}`, 'error');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      addLog(`任务中断: ${errorMessage}`, 'error');
       throw error;
     } finally {
       setIsExecuting(false);
@@ -295,7 +330,7 @@ export function useAdConsole() {
   });
 
   // NIP-ADS 广播
-  const broadcastAd = async (adData: any) => {
+  const broadcastAd = async (adData: unknown): Promise<void> => {
     addLog('准备 NIP-ADS 协议封装...', 'info');
     await new Promise(r => setTimeout(r, 1000));
     addLog('广告已通过 Nostr 协议发布。', 'success', {

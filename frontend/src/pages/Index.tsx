@@ -25,6 +25,7 @@ import { useSeoMeta } from '@unhead/react';
 import { ShakespeareLogo } from '@/components/ShakespeareLogo';
 import { AppShowcase } from '@/components/AppShowcase';
 import { useToast } from '@/hooks/useToast';
+import { AdNostrNavLink } from '@/components/AdNostrNavLink';
 
 export default function Index() {
   const { t } = useTranslation();
@@ -290,14 +291,25 @@ export default function Index() {
         {/* Main Chat Section - Takes up most of viewport with generous whitespace */}
         <div className="min-h-[calc(100vh-12rem)] flex items-center justify-center pb-24 md:pb-32">
           <div className="max-w-2xl mx-auto w-full">
-            <div className="text-center mb-12 md:mb-16">
-              <div className="mb-6 md:mb-8">
-                <ShakespeareLogo className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
-              </div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                {t('buildApps')}
-              </h1>
-            </div>
+             <div className="text-center mb-12 md:mb-16">
+               <div className="mb-6 md:mb-8">
+                 <ShakespeareLogo className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
+               </div>
+               <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                 {t('buildApps')}
+               </h1>
+               
+               {/* AdNostr Console Access */}
+               <div className="mt-8 mb-6">
+                 <div className="inline-flex flex-col items-center gap-4 p-4 bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl border border-primary/20">
+                   <div className="text-sm text-muted-foreground">Specialized Tool</div>
+                   <AdNostrNavLink />
+                   <p className="text-xs text-muted-foreground max-w-md">
+                     Decentralized Ad Arbitrage Oracle • Bridge Web2 CPC with Nostr Protocol
+                   </p>
+                 </div>
+               </div>
+             </div>
 
             <div>
               {/* Quilly Helper - shows when there are errors */}

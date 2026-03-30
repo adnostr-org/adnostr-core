@@ -23,6 +23,7 @@ import { NIP19Page } from "./pages/NIP19Page";
 import NotFound from "./pages/NotFound";
 import { ProjectView } from "./pages/ProjectView";
 import { SettingsLayout } from "./components/SettingsLayout";
+import AdNostrConsole from "./pages/AdNostrConsole";
 
 export function AppRouter() {
   return (
@@ -50,6 +51,7 @@ export function AppRouter() {
           <Route path="about" element={<AboutSettings />} />
         </Route>
         <Route path="/project/:projectId" element={<ProjectView />} />
+        <Route path="/console" element={<AdNostrConsole />} />
         {/* NIP-19 route for npub1, note1, naddr1, nevent1, nprofile1 */}
         <Route path="/:nip19" element={<NIP19Page />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

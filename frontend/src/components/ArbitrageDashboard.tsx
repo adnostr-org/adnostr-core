@@ -4,23 +4,38 @@ import React, { useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { useAdConsole } from '@/hooks/useAdConsole';
+import { useAdConsole, type ArbitrageData } from '@/hooks/useAdConsole';
 
 interface ArbitrageDashboardProps {
   // Add any props if needed
 }
 
+interface SavingsData {
+  web2_cost_per_1k_usd?: number;
+  nostr_cost_per_1k_usd?: number;
+  savings_per_1k_usd?: number;
+  savings_percentage?: number;
+  message?: string;
+}
+
+interface DashboardData {
+  savings?: SavingsData;
+  material?: {
+    url?: string;
+  };
+}
+
 const ArbitrageDashboard: React.FC<ArbitrageDashboardProps> = () => {
   const { fetchArbitrageData, arbitrageLog } = useAdConsole();
-  const [arbitrageData, setArbitrageData] = React.useState<any>(null);
+  const [arbitrageData, setArbitrageData] = React.useState<DashboardData | null>(null);
   const [materialUrl, setMaterialUrl] = React.useState<string>('');
-  const [nipAdsEvent, setNipAdsEvent] = React.useState<any>(null);
+  const [nipAdsEvent, setNipAdsEvent] = React.useState<object | null>(null);
   
   useEffect(() => {
     const loadData = async () => {
       try {
         const data = await fetchArbitrageData();
-        setArbitrageData(data);
+        setArbitrageData(data as DashboardData);
         // Assuming data contains material URL or ID to fetch URL
         if (data && data.material) {
           setMaterialUrl(data.material.url || '');
@@ -51,86 +66,181 @@ const ArbitrageDashboard: React.FC<ArbitrageDashboardProps> = () => {
   };
   
   return (
-    <div className="grid grid-cols-3 gap-4 p-4 h-screen">
-      {/* Left Panel: Input & Logs */}
-      <Card className="col-span-1 h-full" style={{ backgroundColor: 'hsl(210 40% 98%)', borderColor: 'hsl(214.3 31.8% 91.4%)' }}>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4">
+      {/* Left Panel: Real-time Logs */}
+      <Card className="lg:col-span-1">
         <CardHeader>
-          <CardTitle>AdNostr Console</CardTitle>
-          <CardDescription>Real-time scraping and arbitrage logs</CardDescription>
+          <CardTitle className="text-lg">Activity Stream</CardTitle>
+          <CardDescription>Real-time arbitrage engine logs</CardDescription>
         </CardHeader>
-        <CardContent className="overflow-auto max-h-[80vh] font-mono text-sm">
-          <pre>
-            {arbitrageLog.map((log, index) => (
-              <div key={index} className="border-b border-gray-200 py-1">
-                <span className="text-gray-500">{log.timestamp}</span>: {log.message}
-                {log.data && <div className="text-xs text-gray-400">{JSON.stringify(log.data, null, 2)}</div>}
+        <CardContent className="overflow-auto max-h-[400px]">
+          <div className="space-y-2 font-mono text-sm">
+            {arbitrageLog.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                <div className="mb-2">📊</div>
+                <p>Waiting for activity...</p>
               </div>
-            ))}
-          </pre>
+            ) : (
+              arbitrageLog.slice(0, 15).map((log, index) => (
+                <div
+                  key={index}
+                  className={`p-3 rounded-lg border transition-all hover:shadow-sm ${
+                    log.level === 'error'
+                      ? 'bg-destructive/5 border-destructive/20'
+                      : log.level === 'success'
+                      ? 'bg-green-500/5 border-green-500/20'
+                      : log.level === 'warn'
+                      ? 'bg-amber-500/5 border-amber-500/20'
+                      : 'bg-muted/30 border-border'
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-1">
+                    <span className="text-xs font-medium text-muted-foreground">{log.timestamp}</span>
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded-full ${
+                        log.level === 'error'
+                          ? 'bg-destructive text-destructive-foreground'
+                          : log.level === 'success'
+                          ? 'bg-green-500 text-green-50'
+                          : log.level === 'warn'
+                          ? 'bg-amber-500 text-amber-50'
+                          : 'bg-muted text-muted-foreground'
+                      }`}
+                    >
+                      {log.level}
+                    </span>
+                  </div>
+                  <p className="text-sm">{log.message}</p>
+                  {log.data && (
+                    <details className="mt-2">
+                      <summary className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">
+                        View details
+                      </summary>
+                      <pre className="mt-1 text-xs bg-background p-2 rounded border overflow-x-auto">
+                        {JSON.stringify(log.data, null, 2)}
+                      </pre>
+                    </details>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
         </CardContent>
       </Card>
       
-      {/* Middle Panel: Comparison Table */}
-      <Card className="col-span-1 h-full" style={{ backgroundColor: 'hsl(210 40% 98%)', borderColor: 'hsl(214.3 31.8% 91.4%)' }}>
+      {/* Middle Panel: Cost Comparison */}
+      <Card className="lg:col-span-1">
         <CardHeader>
-          <CardTitle>Cost Arbitrage Comparison</CardTitle>
-          <CardDescription>Web2 vs Nostr Cost Savings</CardDescription>
+          <CardTitle className="text-lg">Cost Arbitrage</CardTitle>
+          <CardDescription>Web2 vs Nostr comparison</CardDescription>
         </CardHeader>
         <CardContent>
           {arbitrageData ? (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Metric</TableHead>
-                  <TableHead>Web2</TableHead>
-                  <TableHead>Nostr</TableHead>
-                  <TableHead>Savings</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Cost per 1k (USD)</TableCell>
-                  <TableCell>{arbitrageData.savings?.web2_cost_per_1k_usd?.toFixed(2) || 'N/A'}</TableCell>
-                  <TableCell>{arbitrageData.savings?.nostr_cost_per_1k_usd?.toFixed(4) || 'N/A'}</TableCell>
-                  <TableCell className="font-bold text-green-600">{arbitrageData.savings?.savings_per_1k_usd?.toFixed(2) || 'N/A'}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Savings Percentage</TableCell>
-                  <TableCell colSpan={2}></TableCell>
-                  <TableCell className="font-bold text-green-600">{arbitrageData.savings?.savings_percentage}%</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Message</TableCell>
-                  <TableCell colSpan={3}>{arbitrageData.savings?.message || 'N/A'}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Cost per 1k Impressions</span>
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      <div className="text-lg font-semibold text-muted-foreground">
+                        ${arbitrageData.savings?.web2_cost_per_1k_usd?.toFixed(2) || '0.00'}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Web2</div>
+                    </div>
+                    <div className="text-2xl">→</div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-green-600">
+                        ${arbitrageData.savings?.nostr_cost_per_1k_usd?.toFixed(4) || '0.0000'}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Nostr</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="h-2 bg-muted rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-green-500 to-emerald-600"
+                    style={{ width: `${Math.min(100, (arbitrageData.savings?.savings_percentage || 0))}%` }}
+                  ></div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <div className="text-sm text-muted-foreground">Savings</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      ${arbitrageData.savings?.savings_per_1k_usd?.toFixed(2) || '0.00'}
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-sm text-muted-foreground">Efficiency</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      {arbitrageData.savings?.savings_percentage || 0}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {arbitrageData.savings?.message && (
+                <div className="p-3 bg-muted/30 rounded-lg border">
+                  <p className="text-sm">{arbitrageData.savings.message}</p>
+                </div>
+              )}
+            </div>
           ) : (
-            <p>Loading arbitrage data...</p>
+            <div className="flex flex-col items-center justify-center py-12">
+              <div className="w-12 h-12 border-2 border-border border-t-primary rounded-full animate-spin mb-4"></div>
+              <p className="text-muted-foreground">Calculating arbitrage opportunities...</p>
+            </div>
           )}
         </CardContent>
       </Card>
       
-      {/* Right Panel: Nostr Preview */}
-      <Card className="col-span-1 h-full" style={{ backgroundColor: 'hsl(210 40% 98%)', borderColor: 'hsl(214.3 31.8% 91.4%)' }}>
+      {/* Right Panel: NIP-ADS Preview */}
+      <Card className="lg:col-span-1">
         <CardHeader>
-          <CardTitle>Nostr Ad Preview</CardTitle>
-          <CardDescription>Material and NIP-ADS Event</CardDescription>
+          <CardTitle className="text-lg">NIP-ADS Preview</CardTitle>
+          <CardDescription>Protocol event generation</CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          <div className="flex-1 max-h-64 overflow-hidden rounded-md border" style={{ borderColor: 'hsl(214.3 31.8% 91.4%)' }}>
+        <CardContent className="space-y-4">
+          <div className="aspect-square overflow-hidden rounded-lg border bg-muted/20">
             {materialUrl ? (
-              <img src={materialUrl} alt="Selected Material" className="w-full h-full object-cover" />
+              <img 
+                src={materialUrl} 
+                alt="Ad Material" 
+                className="w-full h-full object-cover transition-transform hover:scale-105"
+              />
             ) : (
-              <div className="flex items-center justify-center h-full text-gray-500">No material selected</div>
+              <div className="flex flex-col items-center justify-center h-full p-6 text-center">
+                <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+                  <span className="text-2xl">🖼️</span>
+                </div>
+                <p className="text-sm text-muted-foreground">Material preview</p>
+                <p className="text-xs text-muted-foreground mt-1">Select an ad to view</p>
+              </div>
             )}
           </div>
-          <div className="flex-1 overflow-auto max-h-48 font-mono text-sm bg-gray-50 p-2 rounded-md border" style={{ borderColor: 'hsl(214.3 31.8% 91.4%)' }}>
-            <pre>{JSON.stringify(nipAdsEvent, null, 2) || 'No NIP-ADS event data'}</pre>
+          
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">NIP-ADS Event</span>
+              <span className="text-xs px-2 py-1 bg-primary/10 text-primary rounded">kind:40000</span>
+            </div>
+            <div className="font-mono text-xs bg-background border rounded-lg p-3 max-h-32 overflow-auto">
+              <pre>{nipAdsEvent ? JSON.stringify(nipAdsEvent, null, 2) : '// Event data will appear here'}</pre>
+            </div>
           </div>
-          <Button onClick={handlePublishNipAds} className="mt-4" style={{ backgroundColor: 'hsl(222.2 84% 4.9%)', color: 'hsl(210 40% 98%)' }}>
-            [EXECUTE_NIP_ADS]
+          
+          <Button 
+            onClick={handlePublishNipAds} 
+            className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+            size="lg"
+          >
+            <span className="font-mono">[PUBLISH_NIP_ADS]</span>
           </Button>
+          
+          <div className="text-xs text-muted-foreground text-center pt-2 border-t">
+            <p>Broadcasts to Nostr network via wss://relay.adnostr.org</p>
+          </div>
         </CardContent>
       </Card>
     </div>
