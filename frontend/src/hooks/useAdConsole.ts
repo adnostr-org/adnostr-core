@@ -123,18 +123,23 @@ class IntelligentFallback {
   }
 
   private initMonitoring() {
-    this.checkEndpoints();
+    // 延迟启动健康检查，避免在应用初始化时立即检查
+    setTimeout(() => {
+      this.checkEndpoints();
+    }, 2000);
+    
+    // 设置定期检查
     setInterval(() => this.checkEndpoints(), this.checkInterval);
   }
 
   async checkEndpoints(): Promise<void> {
-    const checkTargets = [8000, 9000] as const;
+    const checkTargets = [8000] as const; // 只检查8000端口，9000端口不存在
     
     for (const port of checkTargets) {
       try {
         const start = performance.now();
         const baseUrl = port === 8000 ? '/api' : '/api-bridge';
-        const response = await fetch(`${baseUrl}/health`, {
+        const response = await fetch(`${baseUrl}/v1/health`, { // 使用正确的端点路径
           method: 'GET',
           signal: AbortSignal.timeout(5000)
         });
@@ -153,6 +158,10 @@ class IntelligentFallback {
         this.healthCheck.set(port, false);
       }
     }
+    
+    // 设置9000端口为false，因为该端点不存在
+    this.healthCheck.set(9000, false);
+    this.healthCheck.set('static', true); // 静态回退始终可用
   }
 
   getAverageLatency(port: APIPort): number {
@@ -165,19 +174,47 @@ class IntelligentFallback {
     const candidates = this.endpoints[endpointKey];
     if (!candidates) throw new Error(`Invalid endpoint key: ${endpointKey}`);
 
+    // 首先尝试不需要认证的端点
+    const noAuthCandidates = candidates.filter(ep => !ep.requiresAuth);
+    if (noAuthCandidates.length > 0) {
+      const healthyNoAuth = noAuthCandidates.filter(ep => 
+        ep.port === 'static' || this.healthCheck.get(ep.port)
+      );
+      
+      if (healthyNoAuth.length > 0) {
+        // 选择延迟最低的非静态端点
+        const nonStatic = healthyNoAuth.filter(ep => ep.port !== 'static');
+        if (nonStatic.length > 0) {
+          return nonStatic.reduce((prev, curr) => {
+            const prevLat = this.getAverageLatency(prev.port);
+            const currLat = this.getAverageLatency(curr.port);
+            return currLat < prevLat ? curr : prev;
+          });
+        }
+        // 如果没有非静态端点，返回第一个可用的
+        return healthyNoAuth[0];
+      }
+    }
+
+    // 如果没有不需要认证的健康端点，检查所有端点
     const healthy = candidates.filter(ep => 
       ep.port === 'static' || this.healthCheck.get(ep.port)
     );
 
     if (healthy.length === 0) {
       const staticEp = candidates.find(ep => ep.port === 'static');
-      if (staticEp) return staticEp;
+      if (staticEp) {
+        console.warn(`[Fallback] Using static endpoint for ${endpointKey}`);
+        return staticEp;
+      }
+      console.error(`[Critical] No healthy endpoints available for ${endpointKey}`);
       throw new Error('Critical: No healthy endpoints or fallbacks available.');
     }
 
-    // 基于延迟权重的选择逻辑 (补齐之前缺失的逻辑)
+    // 基于延迟权重的选择逻辑
     return healthy.reduce((prev, curr) => {
       if (curr.port === 'static') return prev;
+      if (prev.port === 'static') return curr;
       const prevLat = this.getAverageLatency(prev.port);
       const currLat = this.getAverageLatency(curr.port);
       return currLat < prevLat ? curr : prev;
@@ -196,18 +233,17 @@ class AdConsoleDataBridge {
   
   private endpoints: Record<string, APIEndpoint[]> = {
     dashboard: [
-      { port: 8000, path: '/global-ads/dashboard', requiresAuth: true, fallback: false },
-      { port: 9000, path: '/v1/aggregated/dashboard', requiresAuth: true, fallback: true },
+      { port: 8000, path: '/v1/global-ads/dashboard', requiresAuth: false, fallback: false }, // 白名单端点，无需认证
       { port: 'static', path: '/mock/dashboard.json', requiresAuth: false, fallback: true }
     ],
     arbitrage: [
-      { port: 8000, path: '/global-ads/dashboard', requiresAuth: true, fallback: false }
+      { port: 8000, path: '/v1/global-ads/dashboard', requiresAuth: false, fallback: false } // 使用相同的白名单端点
     ],
     revenue: [
-      { port: 8000, path: '/revenue/calculate', requiresAuth: true, fallback: false }
+      { port: 8000, path: '/v1/revenue/calculate', requiresAuth: true, fallback: false }
     ],
     platform: [
-      { port: 8000, path: '/global-ads/platforms/{platform}', requiresAuth: true, fallback: false }
+      { port: 8000, path: '/v1/global-ads/platforms/{platform}', requiresAuth: true, fallback: false }
     ]
   };
 
