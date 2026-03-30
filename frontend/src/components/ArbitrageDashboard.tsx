@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import { ApifyTokenConfig } from './ApifyTokenConfig';
 import { useAdConsole, type ArbitrageData, type NipAdsCreationRequest } from '@/hooks/useAdConsole';
 import { useToast } from '@/hooks/useToast';
-import { Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { Loader2, CheckCircle, XCircle, Key, AlertCircle } from 'lucide-react';
 
 interface ArbitrageDashboardProps {
   // Add any props if needed

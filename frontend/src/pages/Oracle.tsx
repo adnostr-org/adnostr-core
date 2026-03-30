@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ArbitrageDashboard from '@/components/ArbitrageDashboard';
+import { ApifyTokenConfig } from '@/components/ApifyTokenConfig';
 import { useAdConsole } from '@/hooks/useAdConsole';
 import { Button } from '@/components/ui/button';
-import { Terminal, Zap, Globe, TrendingUp, Database, Shield } from 'lucide-react';
+import { Terminal, Zap, Globe, TrendingUp, Database, Shield, Key } from 'lucide-react';
 
 export function Oracle() {
   const { t } = useTranslation();
-  const { dashboard, arbitrageLog, fetchArbitrageData, isExecuting } = useAdConsole();
+  const { dashboard, arbitrageLog, fetchArbitrageData, isExecuting, isApifyConfigured } = useAdConsole();
+  const [showTokenConfig, setShowTokenConfig] = useState(false);
 
   const handleRefreshData = async () => {
     await fetchArbitrageData();
@@ -39,13 +41,23 @@ export function Oracle() {
             <div className="flex flex-wrap gap-3">
               <Button 
                 onClick={handleRefreshData} 
-                disabled={isExecuting}
+                disabled={isExecuting || !isApifyConfigured}
                 variant="outline"
                 className="gap-2"
               >
                 <Database className="h-4 w-4" />
                 {isExecuting ? 'Fetching...' : 'Refresh Data'}
               </Button>
+              
+              <Button 
+                onClick={() => setShowTokenConfig(true)}
+                variant={isApifyConfigured ? "outline" : "default"}
+                className={`gap-2 ${isApifyConfigured ? '' : 'bg-gradient-to-r from-amber-600 to-amber-700'}`}
+              >
+                <Key className="h-4 w-4" />
+                {isApifyConfigured ? 'Apify Configured' : 'Configure Apify'}
+              </Button>
+              
               <Button className="gap-2 bg-gradient-to-r from-primary to-primary/80">
                 <Zap className="h-4 w-4" />
                 Connect Nostr
@@ -330,6 +342,27 @@ export function Oracle() {
           </div>
         </div>
       </div>
+
+      {/* Apify Token Configuration Modal */}
+      {showTokenConfig && (
+        <div className="fixed inset-0 bg-white z-50 flex items-center justify-center p-4">
+          <div className="max-w-md w-full">
+            <ApifyTokenConfig 
+              onConfigured={() => setShowTokenConfig(false)}
+              showAsOverlay={false}
+            />
+            <div className="mt-4 text-center">
+              <Button
+                variant="outline"
+                onClick={() => setShowTokenConfig(false)}
+                className="border border-gray-300 text-gray-700 hover:bg-gray-50"
+              >
+                关闭
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

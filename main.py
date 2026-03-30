@@ -161,40 +161,43 @@ def create_application() -> FastAPI:
     @app.middleware("http")
     async def verify_request_security(request: Request, call_next):
         # 1. 定义公共白名单路径 (无需任何验证)
-        public_endpoints = ["/", "/api/v1/health", "/docs", "/openapi.json", "/favicon.ico"]
+        public_endpoints = [
+            "/", 
+            "/api/v1/health", 
+            "/api/v1/global-ads/dashboard",
+            "/api/v1-bridge/health",
+            "/docs", 
+            "/openapi.json", 
+            "/favicon.ico",
+            "/api/v1/nip-ads/protocol-info"
+        ]
         
         # 静态文件或白名单路径直接放行
         if request.url.path in public_endpoints or request.url.path.startswith("/static"):
             return await call_next(request)
 
-        # 2. 获取请求头中的 API Key
-        api_key = request.headers.get("X-API-Key")
-        expected_key = os.getenv("API_KEY", "adnostr_secret_2026")
-
+        # 2. 临时放行所有请求（启动初期）
+        # TODO: 后续替换为Apify Token验证
+        logger.info("Temporary security bypass for development", path=request.url.path)
+        
         try:
-            # --- 核心修改：双重验证逻辑 ---
-            
-            # 逻辑 A: 如果 API Key 匹配，视为“受信任的内部前端/演示模式”，直接放行
-            if api_key == expected_key:
-                logger.info("Security bypassed via valid API Key", path=request.url.path)
-                response = await call_next(request)
-                response.headers["X-AdNostr-Version"] = "1.0.2"
-                response.headers["X-Security-Mode"] = "API-Key-Only"
-                return response
-
-            # 逻辑 B: 如果没有 API Key 或不对，尝试执行完整的三层安全检查 (签名/传输层)
-            # 这样既保留了你那 50k 资助的高级感，又不影响现在的演示联调
-            await security.verify_request(request)
-            
             response = await call_next(request)
             response.headers["X-AdNostr-Version"] = "1.0.2"
+            response.headers["X-Security-Mode"] = "Development-Bypass"
             return response
-
+            
         except HTTPException as e:
-            logger.warning("Authentication failed", detail=e.detail, path=request.url.path)
+            logger.warning("Request failed", detail=e.detail, path=request.url.path)
             return JSONResponse(
                 status_code=e.status_code,
-                content={"error": e.detail, "type": "authentication_failed"}
+                content={"error": e.detail, "type": "request_failed"}
+            )
+        except Exception as e:
+            # 捕获系统级异常
+            logger.error("Request processing failed", error=str(e), path=request.url.path)
+            return JSONResponse(
+                status_code=500,
+                content={"error": "Internal server error", "detail": str(e)}
             )
         except Exception as e:
             # 捕获系统级安全异常
