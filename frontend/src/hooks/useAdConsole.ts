@@ -72,6 +72,8 @@ export interface NipAdsEvent {
   content: string;
   tags: string[][];
   created_at: number;
+  pubkey?: string;
+  id?: string;
 }
 
 export interface ApiResponse<T = unknown> {
@@ -79,6 +81,25 @@ export interface ApiResponse<T = unknown> {
   data?: T;
   error?: string;
   timestamp: string;
+}
+
+export interface BroadcastResult {
+  success: boolean;
+  event_id?: string;
+  relay_urls: string[];
+  error?: string;
+  timestamp: string;
+}
+
+export interface NipAdsCreationRequest {
+  title: string;
+  description: string;
+  image_url?: string;
+  web2_cpc: number;
+  category?: string;
+  language?: string;
+  price_slot?: string;
+  advertiser_pubkey?: string;
 }
 
 // --- 2. 智能降级与健康检查类 (IntelligentFallback) ---
@@ -329,21 +350,108 @@ export function useAdConsole() {
     onError: (err: any) => addLog(`预测模型异常: ${err.message}`, 'error')
   });
 
-  // NIP-ADS 广播
-  const broadcastAd = async (adData: unknown): Promise<void> => {
-    addLog('准备 NIP-ADS 协议封装...', 'info');
-    await new Promise(r => setTimeout(r, 1000));
-    addLog('广告已通过 Nostr 协议发布。', 'success', {
-      event_id: 'note1...' + Math.random().toString(36).substring(7),
-      relay: 'wss://relay.adnostr.org'
-    });
+  // NIP-ADS 创建与广播
+  const createNipAdsEvent = async (request: NipAdsCreationRequest): Promise<NipAdsEvent> => {
+    addLog('Creating NIP-ADS event...', 'info');
+    
+    try {
+      // Call backend API to create NIP-ADS event
+      const response = await axios.post('/api/v1/nip-ads/create', request, {
+        headers: {
+          'X-API-Key': await bridge.getApiKey(),
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      addLog('NIP-ADS event created successfully', 'success', response.data);
+      return response.data.nip_ads_event;
+      
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      addLog(`Failed to create NIP-ADS event: ${errorMessage}`, 'error');
+      throw error;
+    }
+  };
+
+  // 广播到 Nostr Relay
+  const broadcastToNostr = async (nipAdsEvent: NipAdsEvent, relays: string[] = []): Promise<BroadcastResult> => {
+    addLog(`Broadcasting NIP-ADS event to ${relays.length || 'default'} relays...`, 'info');
+    
+    try {
+      // Default relays if none provided
+      const targetRelays = relays.length > 0 ? relays : [
+        'wss://relay.damus.io',
+        'wss://relay.primal.net',
+        'wss://nos.lol'
+      ];
+      
+      // Call backend API to broadcast
+      const response = await axios.post('/api/v1/nip-ads/broadcast', {
+        event: nipAdsEvent,
+        relays: targetRelays
+      }, {
+        headers: {
+          'X-API-Key': await bridge.getApiKey(),
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      const result: BroadcastResult = {
+        success: true,
+        event_id: response.data.event_id,
+        relay_urls: response.data.relay_urls,
+        timestamp: new Date().toISOString()
+      };
+      
+      addLog('NIP-ADS event broadcast successful!', 'success', result);
+      return result;
+      
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const result: BroadcastResult = {
+        success: false,
+        relay_urls: relays,
+        error: errorMessage,
+        timestamp: new Date().toISOString()
+      };
+      
+      addLog(`Broadcast failed: ${errorMessage}`, 'error', result);
+      throw error;
+    }
+  };
+
+  // 一键创建并广播
+  const createAndBroadcastAd = async (request: NipAdsCreationRequest): Promise<BroadcastResult> => {
+    addLog('Starting one-click NIP-ADS creation and broadcast...', 'info');
+    
+    try {
+      // Step 1: Create NIP-ADS event
+      const nipAdsEvent = await createNipAdsEvent(request);
+      
+      // Step 2: Broadcast to relays
+      const broadcastResult = await broadcastToNostr(nipAdsEvent);
+      
+      addLog('One-click NIP-ADS operation completed successfully!', 'success', {
+        event_id: broadcastResult.event_id,
+        relays: broadcastResult.relay_urls
+      });
+      
+      return broadcastResult;
+      
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      addLog(`One-click operation failed: ${errorMessage}`, 'error');
+      throw error;
+    }
   };
 
   return {
     dashboard,
     fetchArbitrageData,
     calculateRevenue,
-    broadcastAd,
+    createNipAdsEvent,
+    broadcastToNostr,
+    createAndBroadcastAd,
     arbitrageLog,
     isExecuting,
     bridge

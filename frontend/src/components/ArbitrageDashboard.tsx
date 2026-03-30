@@ -1,10 +1,12 @@
 // ArbitrageDashboard.tsx - Dashboard Component for Displaying Arbitrage Data and Material Preview
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { useAdConsole, type ArbitrageData } from '@/hooks/useAdConsole';
+import { useAdConsole, type ArbitrageData, type NipAdsCreationRequest } from '@/hooks/useAdConsole';
+import { useToast } from '@/hooks/useToast';
+import { Loader2, CheckCircle, XCircle } from 'lucide-react';
 
 interface ArbitrageDashboardProps {
   // Add any props if needed
@@ -26,10 +28,13 @@ interface DashboardData {
 }
 
 const ArbitrageDashboard: React.FC<ArbitrageDashboardProps> = () => {
-  const { fetchArbitrageData, arbitrageLog } = useAdConsole();
+  const { fetchArbitrageData, arbitrageLog, createAndBroadcastAd } = useAdConsole();
+  const { toast } = useToast();
   const [arbitrageData, setArbitrageData] = React.useState<DashboardData | null>(null);
   const [materialUrl, setMaterialUrl] = React.useState<string>('');
   const [nipAdsEvent, setNipAdsEvent] = React.useState<object | null>(null);
+  const [isBroadcasting, setIsBroadcasting] = useState(false);
+  const [broadcastResult, setBroadcastResult] = useState<{success: boolean; event_id?: string} | null>(null);
   
   useEffect(() => {
     const loadData = async () => {
@@ -59,10 +64,61 @@ const ArbitrageDashboard: React.FC<ArbitrageDashboardProps> = () => {
     loadData();
   }, [fetchArbitrageData]);
   
-  const handlePublishNipAds = () => {
-    // Placeholder for publishing NIP-ADS event to relay
-    console.log('Publishing NIP-ADS event:', nipAdsEvent);
-    alert('NIP-ADS event published (simulated). Check console for details.');
+  const handlePublishNipAds = async () => {
+    if (!arbitrageData) {
+      toast({
+        title: "No data available",
+        description: "Please wait for arbitrage data to load",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsBroadcasting(true);
+    setBroadcastResult(null);
+
+    try {
+      // Create NIP-ADS request from arbitrage data
+      const request: NipAdsCreationRequest = {
+        title: `AdNostr Arbitrage: ${arbitrageData.savings?.savings_percentage?.toFixed(1)}% Savings`,
+        description: `Save ${arbitrageData.savings?.savings_percentage?.toFixed(1)}% by using Nostr advertising instead of Web2 platforms.`,
+        image_url: materialUrl || undefined,
+        web2_cpc: arbitrageData.savings?.web2_cost_per_1k_usd ? arbitrageData.savings.web2_cost_per_1k_usd / 1000 : 0.5,
+        category: "1", // Technology category
+        language: "en",
+        price_slot: "BTC1_000"
+      };
+
+      // Create and broadcast
+      const result = await createAndBroadcastAd(request);
+      
+      setBroadcastResult({
+        success: result.success,
+        event_id: result.event_id
+      });
+
+      toast({
+        title: result.success ? "Broadcast Successful!" : "Broadcast Failed",
+        description: result.success 
+          ? `NIP-ADS event published to ${result.relay_urls.length} relays`
+          : result.error || "Unknown error occurred",
+        variant: result.success ? "default" : "destructive"
+      });
+
+    } catch (error) {
+      console.error('Failed to broadcast NIP-ADS:', error);
+      setBroadcastResult({
+        success: false
+      });
+      
+      toast({
+        title: "Broadcast Failed",
+        description: error instanceof Error ? error.message : "Unknown error occurred",
+        variant: "destructive"
+      });
+    } finally {
+      setIsBroadcasting(false);
+    }
   };
   
   return (
@@ -230,13 +286,47 @@ const ArbitrageDashboard: React.FC<ArbitrageDashboardProps> = () => {
             </div>
           </div>
           
-          <Button 
-            onClick={handlePublishNipAds} 
-            className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
-            size="lg"
-          >
-            <span className="font-mono">[PUBLISH_NIP_ADS]</span>
-          </Button>
+          <div className="space-y-3">
+            <Button 
+              onClick={handlePublishNipAds} 
+              disabled={isBroadcasting || !arbitrageData}
+              className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+              size="lg"
+            >
+              {isBroadcasting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Broadcasting...
+                </>
+              ) : (
+                <span className="font-mono">[BROADCAST_NIP_ADS]</span>
+              )}
+            </Button>
+            
+            {broadcastResult && (
+              <div className={`p-3 rounded-lg border ${
+                broadcastResult.success 
+                  ? 'bg-green-500/5 border-green-500/20' 
+                  : 'bg-destructive/5 border-destructive/20'
+              }`}>
+                <div className="flex items-center gap-2">
+                  {broadcastResult.success ? (
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <XCircle className="h-4 w-4 text-destructive" />
+                  )}
+                  <span className="text-sm font-medium">
+                    {broadcastResult.success ? 'Broadcast Successful' : 'Broadcast Failed'}
+                  </span>
+                </div>
+                {broadcastResult.event_id && (
+                  <p className="text-xs text-muted-foreground mt-1 truncate">
+                    Event ID: {broadcastResult.event_id}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
           
           <div className="text-xs text-muted-foreground text-center pt-2 border-t">
             <p>Broadcasts to Nostr network via wss://relay.adnostr.org</p>

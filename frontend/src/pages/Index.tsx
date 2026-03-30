@@ -25,7 +25,6 @@ import { useSeoMeta } from '@unhead/react';
 import { ShakespeareLogo } from '@/components/ShakespeareLogo';
 import { AppShowcase } from '@/components/AppShowcase';
 import { useToast } from '@/hooks/useToast';
-import { AdNostrNavLink } from '@/components/AdNostrNavLink';
 
 export default function Index() {
   const { t } = useTranslation();
@@ -298,17 +297,6 @@ export default function Index() {
                <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                  {t('buildApps')}
                </h1>
-               
-               {/* AdNostr Console Access */}
-               <div className="mt-8 mb-6">
-                 <div className="inline-flex flex-col items-center gap-4 p-4 bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl border border-primary/20">
-                   <div className="text-sm text-muted-foreground">Specialized Tool</div>
-                   <AdNostrNavLink />
-                   <p className="text-xs text-muted-foreground max-w-md">
-                     Decentralized Ad Arbitrage Oracle • Bridge Web2 CPC with Nostr Protocol
-                   </p>
-                 </div>
-               </div>
              </div>
 
             <div>

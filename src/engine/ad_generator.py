@@ -1,19 +1,20 @@
 """
-Ad Generator Engine
+Ad Generator Engine with NIP-ADS Protocol Support
 
-This module provides the AI-powered advertisement generation interface for AdNostr-Core.
-It handles text-to-image generation for both beauty images and product advertisements.
+This module provides AI-powered advertisement generation with NIP-ADS protocol compliance.
+It handles text-to-image generation and creates NIP-ADS events for the Nostr network.
 
 Key Features:
-- Text-to-image generation for beauty/product images
-- Configurable AI model integration
-- Image optimization and validation
+- Text-to-image generation for advertisements
+- NIP-ADS protocol compliance (kind 40000+)
+- Integration with nostrads protocol library
 - Async processing for high performance
-- Revenue calculation integration
+- Arbitrage calculation between Web2 and Nostr
 
-Supported Image Types:
-- Beauty images: Attractive visuals for social media engagement
-- Product images: Commercial advertisements with branding
+NIP-ADS Protocol:
+- Kind: 40000 (Advertisement events)
+- Tags: ["t", "ad"], ["price_slot", "..."], ["category", "..."]
+- Content: JSON with ad metadata
 
 Author: AdNostr Team
 License: MIT
@@ -22,8 +23,11 @@ License: MIT
 import asyncio
 import base64
 import io
+import json
 import math
 import os
+import uuid
+from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Union
 from dataclasses import dataclass
 from enum import Enum
@@ -373,3 +377,169 @@ class AdGenerator:
         except Exception as e:
             logger.error("Failed to post to Mastodon", error=str(e))
             raise RuntimeError(f"Mastodon posting failed: {str(e)}") from e
+
+    # NIP-ADS Protocol Methods
+    def create_nip_ads_event(
+        self,
+        title: str,
+        description: str,
+        image_url: Optional[str] = None,
+        web2_cpc: float = 0.5,
+        category: str = "0",
+        language: str = "en",
+        price_slot: str = "BTC1_000"
+    ) -> Dict:
+        """
+        Create a NIP-ADS compliant advertisement event.
+
+        Args:
+            title: Advertisement title
+            description: Advertisement description
+            image_url: Optional image URL
+            web2_cpc: Web2 cost per click in USD
+            category: NIP-ADS category code
+            language: ISO 639-1 language code
+            price_slot: NIP-ADS price slot
+
+        Returns:
+            NIP-ADS event dictionary
+        """
+        # Calculate Nostr equivalent cost (100 sats per click as conservative estimate)
+        nostr_sats_per_click = 100
+        btc_price_usd = 50000.0  # Example BTC price
+        
+        # Calculate savings
+        nostr_cpc_usd = (nostr_sats_per_click / 100_000_000) * btc_price_usd
+        savings_usd = web2_cpc - nostr_cpc_usd
+        savings_percentage = (savings_usd / web2_cpc) * 100 if web2_cpc > 0 else 0
+        
+        # Create NIP-ADS event content
+        content = {
+            "title": title[:100],
+            "description": description[:500],
+            "call_to_action": "Learn More",
+            "image_url": image_url,
+            "arbitrage_data": {
+                "web2_cpc_usd": web2_cpc,
+                "nostr_cpc_sats": nostr_sats_per_click,
+                "nostr_cpc_usd": nostr_cpc_usd,
+                "savings_usd": savings_usd,
+                "savings_percentage": savings_percentage,
+                "message": f"Save {savings_percentage:.1f}% with Nostr advertising"
+            }
+        }
+        
+        # Create NIP-ADS tags
+        tags = [
+            ["t", "ad"],
+            ["price_slot", price_slot],
+            ["category", category],
+            ["language", language],
+            ["source", "adnostr"],
+            ["arbitrage", "true"]
+        ]
+        
+        if image_url:
+            tags.append(["mime_type", "image/jpeg"])
+        
+        # Create the event
+        event = {
+            "kind": 40000,
+            "content": json.dumps(content, ensure_ascii=False),
+            "tags": tags,
+            "created_at": int(datetime.utcnow().timestamp()),
+            "id": str(uuid.uuid4())[:32]  # Placeholder ID
+        }
+        
+        logger.info("NIP-ADS event created",
+                   title=title[:30],
+                   category=category,
+                   price_slot=price_slot,
+                   savings_percentage=f"{savings_percentage:.1f}%")
+        
+        return event
+    
+    def create_from_web2_data(
+        self,
+        web2_ad_data: Dict,
+        advertiser_pubkey: str
+    ) -> Dict:
+        """
+        Create NIP-ADS event from Web2 advertisement data.
+
+        Args:
+            web2_ad_data: Web2 advertisement data from Apify or similar
+            advertiser_pubkey: Nostr public key of the advertiser
+
+        Returns:
+            Complete NIP-ADS event with arbitrage calculations
+        """
+        # Extract data from Web2 ad
+        title = web2_ad_data.get("title", "Web2 Advertisement")
+        description = web2_ad_data.get("description", "")
+        image_url = web2_ad_data.get("image_url")
+        web2_cpc = web2_ad_data.get("cpc_usd", 0.5)
+        category = web2_ad_data.get("category", "0")
+        language = web2_ad_data.get("language", "en")
+        
+        # Create NIP-ADS event
+        nip_ads_event = self.create_nip_ads_event(
+            title=title,
+            description=description,
+            image_url=image_url,
+            web2_cpc=web2_cpc,
+            category=category,
+            language=language
+        )
+        
+        # Add advertiser pubkey to tags
+        nip_ads_event["tags"].append(["p", advertiser_pubkey])
+        nip_ads_event["pubkey"] = advertiser_pubkey
+        
+        # Calculate detailed arbitrage metrics
+        content_dict = json.loads(nip_ads_event["content"])
+        arbitrage_data = content_dict.get("arbitrage_data", {})
+        
+        # Add Web2 vs Nostr comparison
+        comparison = {
+            "web2": {
+                "cpc_usd": web2_cpc,
+                "cost_per_1k_usd": web2_cpc * 1000,
+                "platform": web2_ad_data.get("platform", "unknown")
+            },
+            "nostr": {
+                "cpc_sats": arbitrage_data.get("nostr_cpc_sats", 100),
+                "cpc_usd": arbitrage_data.get("nostr_cpc_usd", 0.05),
+                "cost_per_1k_usd": arbitrage_data.get("nostr_cpc_usd", 0.05) * 1000,
+                "protocol": "NIP-ADS"
+            },
+            "savings": {
+                "per_click_usd": arbitrage_data.get("savings_usd", 0.45),
+                "per_1k_usd": arbitrage_data.get("savings_usd", 0.45) * 1000,
+                "percentage": arbitrage_data.get("savings_percentage", 90.0)
+            }
+        }
+        
+        result = {
+            "nip_ads_event": nip_ads_event,
+            "arbitrage_comparison": comparison,
+            "web2_source_data": {
+                "title": title,
+                "description": description[:200],
+                "cpc_usd": web2_cpc,
+                "platform": web2_ad_data.get("platform", "unknown"),
+                "scraped_at": web2_ad_data.get("timestamp", datetime.utcnow().isoformat())
+            },
+            "metadata": {
+                "generated_at": datetime.utcnow().isoformat(),
+                "protocol": "NIP-ADS",
+                "version": "1.0",
+                "event_kind": 40000
+            }
+        }
+        
+        logger.info("NIP-ADS event created from Web2 data",
+                   platform=web2_ad_data.get("platform", "unknown"),
+                   savings=f"{comparison['savings']['percentage']:.1f}%")
+        
+        return result

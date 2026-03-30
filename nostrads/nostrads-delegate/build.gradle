@@ -1,0 +1,137 @@
+plugins {
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id "com.diffplug.spotless" version "7.0.2"  
+    id "org.gradle.test-retry"                          version "1.5.2" 
+}
+
+ 
+def projectVersion = System.getenv("VERSION")
+if (projectVersion == null || projectVersion.trim().isEmpty()) {
+    projectVersion = rootProject.ext.baseVersion
+}
+def projectGroup = System.getenv("GROUP") ?: rootProject.ext.baseGroup 
+
+println "Using project version: ${projectVersion}"
+println "Using project group: ${projectGroup}"
+
+version = projectVersion
+group   = projectGroup
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url = uri("https://central.sonatype.com/repository/maven-snapshots")
+    }
+ 
+}
+
+dependencies {
+    implementation "jakarta.annotation:jakarta.annotation-api:2.1.1"
+    implementation project(":nostrads")
+    implementation "org.ngengine:nge-platform-jvm:${project.version.endsWith('-SNAPSHOT') ? rootProject.ext.ngePlatformVersionSnapshot : rootProject.ext.ngePlatformVersion}"
+
+    testImplementation libs.junit
+    testImplementation "org.ngengine:nge-platform-jvm:${project.version.endsWith('-SNAPSHOT') ? rootProject.ext.ngePlatformVersionSnapshot : rootProject.ext.ngePlatformVersion}"
+    testImplementation "junit:junit:4.13.2"   
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.register('addLicenseHeaders') {
+    description = 'Adds license headers to Java files if missing'
+    group = 'formatting'
+    
+    def srcFiles = fileTree(dir: 'src', include: '**/java/**/*.java')
+    
+    def licenseText = file("${project.rootDir}/LICENSE").text
+    licenseText = licenseText.readLines().collect { " * " + it }.join("\n")
+    licenseText = "/**\n" + licenseText + "\n */"
+
+    doLast {
+        def licenseHeader = licenseText
+        def headerPattern = ~/(?s)\/\*\*.*?Copyright.*?\*\//
+        
+        srcFiles.each { file ->
+            def content = file.text
+            
+            if (!(content =~ headerPattern)) {
+                logger.info("Adding license header to: ${file.path}")
+                
+                def packageMatcher = content =~ /(?m)^package\s+[\w.]+;/
+                
+                if (packageMatcher.find()) {
+                    def position = packageMatcher.start()
+                    def newContent = content.substring(0, position) + 
+                                     licenseHeader + 
+                                     "\n\n" + 
+                                     content.substring(position)
+                    file.text = newContent
+                } else {
+                    file.text = licenseHeader + "\n\n" + content
+                }
+            } else {
+                logger.debug("License header already exists in: ${file.path}")
+            }
+        }
+    }
+}
+
+tasks.named('spotlessApply').configure {
+    dependsOn tasks.named('addLicenseHeaders')
+}
+
+
+spotless {
+    java {
+        target 'src/*/**/*.java'      
+
+        
+        importOrder()
+        removeUnusedImports()
+        prettier(["prettier": "2.8.8", "prettier-plugin-java": "2.2.0"])
+        .config([
+            "parser": "java", 
+            "tabWidth": 4, 
+            "printWidth": 128,
+            "endOfLine": "lf",
+            "useTabs": false
+        ])
+        
+        
+        bumpThisNumberIfACustomStepChanges(1)
+    }
+    enforceCheck false
+
+     
+}
+application {
+    mainClass = "org.ngengine.nostrads.DelegateServer"
+}
+ 
+ 
+shadowJar {
+    archiveBaseName = "${project.name}"
+    archiveVersion = "fat"
+    destinationDirectory = file("${project.projectDir}/dist/portable")
+    manifest {
+        attributes 'Main-Class': application.mainClass.get()
+    }
+    mergeServiceFiles()
+}
+
+
+// retry tests on failure
+tasks.test {
+    retry {
+        failOnPassedAfterRetry = false
+        maxRetries = 3
+        maxFailures = 10
+    }
+}
