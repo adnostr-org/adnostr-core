@@ -222,12 +222,15 @@ class AdConsoleDataBridge {
   }
 
   private async getApifyToken(): Promise<string | null> {
-    // 从localStorage获取Apify Token
+    // 从ApifyTokenContext获取Token
+    // 注意：这个方法在AdConsoleDataBridge类内部使用，不能直接调用React hook
+    // 所以我们需要通过其他方式获取token
     try {
+      // 尝试从localStorage获取（与ApifyTokenContext同步）
       const token = localStorage.getItem('adnostr_apify_token');
       return token;
     } catch (error) {
-      console.warn('Failed to get Apify token from localStorage:', error);
+      console.warn('Failed to get Apify token:', error);
       return null;
     }
   }
@@ -246,7 +249,7 @@ class AdConsoleDataBridge {
   }
 
   /** 带指数退避的智能请求执行器 (补齐缺失的 10+ 行核心代码) */
-  async fetchWithIntelligence<T>(endpointKey: string, params: Record<string, any> = {}): Promise<T> {
+  async fetchWithIntelligence<T>(endpointKey: string, params: Record<string, any> = {}, apifyToken?: string | null): Promise<T> {
     const maxRetries = 3;
     let lastError: any;
 
@@ -260,9 +263,6 @@ class AdConsoleDataBridge {
 
         const url = `${this.getBaseUrl(endpoint.port)}${this.interpolate(endpoint.path, params)}`;
         const apiKey = await this.getApiKey();
-
-         // 获取Apify Token
-         const apifyToken = await this.getApifyToken();
          
          const headers: Record<string, string> = {
            'X-API-Key': apiKey,
@@ -273,8 +273,9 @@ class AdConsoleDataBridge {
          };
          
          // 如果存在Apify Token，添加到请求头
-         if (apifyToken) {
-           headers['X-Apify-Token'] = apifyToken;
+         const tokenToUse = apifyToken || await this.getApifyToken();
+         if (tokenToUse) {
+           headers['X-Apify-Token'] = tokenToUse;
          }
          
          const response = await axios.get(url, {
@@ -332,12 +333,13 @@ export function useAdConsole() {
 
   // 全局仪表板
   const dashboard = useQuery({
-    queryKey: ['adnostr', 'dashboard'],
+    queryKey: ['adnostr', 'dashboard', apifyToken],
     queryFn: async () => {
       addLog('同步后端套利看板数据...', 'info');
-      return bridge.fetchWithIntelligence<DashboardData>('dashboard');
+      return bridge.fetchWithIntelligence<DashboardData>('dashboard', {}, apifyToken);
     },
-    staleTime: 60000
+    staleTime: 60000,
+    enabled: !isApifyConfigured, // 如果未配置Apify Token，仍然允许查询（使用演示模式）
   });
 
   // 核心业务：触发套利数据抓取 (与 Apify 联动)

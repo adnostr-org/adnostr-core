@@ -169,16 +169,32 @@ def create_application() -> FastAPI:
             "/docs", 
             "/openapi.json", 
             "/favicon.ico",
-            "/api/v1/nip-ads/protocol-info"
+            "/api/v1/nip-ads/protocol-info",
+            "/api/v1/apify/token/validate",  # 添加Apify Token验证端点
         ]
         
         # 静态文件或白名单路径直接放行
         if request.url.path in public_endpoints or request.url.path.startswith("/static"):
             return await call_next(request)
 
-        # 2. 临时放行所有请求（启动初期）
-        # TODO: 后续替换为Apify Token验证
-        logger.info("Temporary security bypass for development", path=request.url.path)
+        # 2. Apify Token验证
+        apify_token = request.headers.get("X-Apify-Token")
+        if not apify_token:
+            logger.warning("Missing Apify Token", path=request.url.path)
+            return JSONResponse(
+                status_code=401,
+                content={"error": "Missing Apify Token", "message": "Please provide X-Apify-Token header"}
+            )
+        
+        # 简单验证Token格式（后续可以添加更复杂的验证逻辑）
+        if not apify_token.startswith("apify_api_"):
+            logger.warning("Invalid Apify Token format", path=request.url.path)
+            return JSONResponse(
+                status_code=401,
+                content={"error": "Invalid Apify Token", "message": "Token format should start with 'apify_api_'"}
+            )
+        
+        logger.info("Apify Token validated", path=request.url.path, token_prefix=apify_token[:20])
         
         try:
             response = await call_next(request)
@@ -261,6 +277,40 @@ def create_application() -> FastAPI:
             "active_experts": 1000,
             "timestamp": datetime.utcnow().isoformat()
         }
+
+    @app.post("/api/v1/apify/token/validate")
+    async def validate_apify_token(request: Request):
+        """
+        验证Apify Token的有效性
+        前端可以调用此接口验证用户输入的Token
+        """
+        try:
+            data = await request.json()
+            token = data.get("token", "")
+            
+            if not token:
+                return JSONResponse(
+                    status_code=400,
+                    content={"valid": False, "error": "Token is required"}
+                )
+            
+            # 简单格式验证
+            if not token.startswith("apify_api_"):
+                return JSONResponse(
+                    status_code=200,
+                    content={"valid": False, "error": "Invalid token format. Should start with 'apify_api_'"}
+                )
+            
+            # TODO: 后续可以添加实际的Apify API验证
+            logger.info("Apify Token validated successfully", token_prefix=token[:20])
+            return {"valid": True, "message": "Token format is valid"}
+            
+        except Exception as e:
+            logger.error("Token validation failed", error=str(e))
+            return JSONResponse(
+                status_code=500,
+                content={"valid": False, "error": "Internal server error"}
+            )
 
     # --- 业务路由挂载 ---
     app.include_router(api_router, prefix="/api/v1")

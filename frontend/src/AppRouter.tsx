@@ -24,6 +24,7 @@ import NotFound from "./pages/NotFound";
 import { ProjectView } from "./pages/ProjectView";
 import { SettingsLayout } from "./components/SettingsLayout";
 import Oracle from "./pages/Oracle";
+import { TestApifyConfig } from "./pages/TestApifyConfig";
 
 export function AppRouter() {
   return (
@@ -52,6 +53,7 @@ export function AppRouter() {
         </Route>
         <Route path="/project/:projectId" element={<ProjectView />} />
         <Route path="/oracle" element={<Oracle />} />
+        <Route path="/test-apify" element={<TestApifyConfig />} />
         {/* NIP-19 route for npub1, note1, naddr1, nevent1, nprofile1 */}
         <Route path="/:nip19" element={<NIP19Page />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
